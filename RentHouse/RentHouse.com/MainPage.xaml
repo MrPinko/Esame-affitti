@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+		xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+		mc:Ignorable="d"
+        x:Class="RentHouse.com.MainPage">
+	<AbsoluteLayout>
+		<maps:Map x:Name="map" MapType="Street" PinClicked="map_PinClicked" MapClicked="map_MapClicked"
+			  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
+
+
+		<yummy:PancakeView
+			x:Name="bottomBar"
+            Margin="0"
+            CornerRadius="32,32,0,0"
+			BackgroundColor="Purple"
+			Opacity="0.99"
+			AbsoluteLayout.LayoutBounds="0.5,10.05,0.95,0.9"
+			AbsoluteLayout.LayoutFlags="All">
+		</yummy:PancakeView>
+
+	</AbsoluteLayout>
+</ContentPage>

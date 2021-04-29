@@ -1,0 +1,14 @@
+[
+    {
+        "city": "tokyo",
+        "address": "Sumida-ku, Tokio, Japan",
+        "lat": 35.71,
+        "long": 139.81
+    },
+    {
+        "city": "verceia",
+        "address": "via nazionale, sondrio, italia",
+        "lat": 15,
+        "long": 0
+    }
+]
