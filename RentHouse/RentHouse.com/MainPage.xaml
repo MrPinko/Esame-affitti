@@ -17,10 +17,18 @@
 			x:Name="bottomBar"
             Margin="0"
             CornerRadius="32,32,0,0"
-			BackgroundColor="Purple"
-			Opacity="0.99"
-			AbsoluteLayout.LayoutBounds="0.5,10.05,0.95,0.9"
+			BackgroundColor="WhiteSmoke"
+			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}"
+			AbsoluteLayout.LayoutBounds="0.5,5.05,0.95,0.8"
 			AbsoluteLayout.LayoutFlags="All">
+			<StackLayout>
+				<Label x:Name="houseName" HorizontalOptions="Center" Margin="20" FontSize="Medium" FontAttributes="Bold"/>
+			</StackLayout>
+
+			<yummy:PancakeView.GestureRecognizers>
+				<SwipeGestureRecognizer Direction="Up" Swiped="expandBottomBar"></SwipeGestureRecognizer>
+				<SwipeGestureRecognizer Direction="Down" Swiped="retriveBottomBar"></SwipeGestureRecognizer>
+			</yummy:PancakeView.GestureRecognizers>
 		</yummy:PancakeView>
 
 	</AbsoluteLayout>

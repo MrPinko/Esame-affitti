@@ -14,7 +14,7 @@ namespace RentHouse.com
 		object data = null;
 		private List<City> cityList;
 		private List<Pin> pinList = new List<Pin>();
-		private bool bottomBarUp = false;
+		private bool bottomBarUp = false, isExpanded = false;
 		Location location;
 		String startCity = "tokyo";
 
@@ -23,7 +23,8 @@ namespace RentHouse.com
 		{
 			InitializeComponent();
 			LocalJson();
-			
+			customMap();
+
 			location = new Location();
 
 			//carico i pin
@@ -51,12 +52,25 @@ namespace RentHouse.com
 			var latitudine = location.GetLocation().Result.Latitude;
 			var longitudine = location.GetLocation().Result.Longitude;
 
-			map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(latitudine,longitudine), Distance.FromMeters(5000)));
+			//map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(latitudine,longitudine), Distance.FromMeters(5000)));   //si posiziona sulla posizione corrente
 
-			//map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(cityList[findID(startCity)].Lat, cityList[findID(startCity)].Long), Distance.FromMeters(5000)));
+			map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(cityList[findID(startCity)].Lat, cityList[findID(startCity)].Long), Distance.FromMeters(5000)));
 
 		}
 
+		private void customMap()       //caricare la mappa da map wizard
+		{
+			var assembly = typeof(MainPage).GetTypeInfo().Assembly;
+			Stream stream = assembly.GetManifestResourceStream("RentHouse.com.GoogleMap.json");
+			string Json = "";
+			using (var reader = new StreamReader(stream))
+			{
+				Json = reader.ReadToEnd();
+			}
+			map.MapStyle = MapStyle.FromJson(Json);
+		}
+
+		//evento click sulla mappa
 		private void map_MapClicked(object sender, MapClickedEventArgs e)
 		{
 			Console.WriteLine("tapped at " + e.Point.Latitude + "," + e.Point.Longitude);
@@ -67,17 +81,30 @@ namespace RentHouse.com
 			}
 			else
 			{
-				bottomBar.TranslateTo(0, -bottomBar.Height, 350);
+				bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
 				bottomBarUp = true;
 			}
 		}
 
+
+		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
-			Console.WriteLine("tapped pin: " + e.Pin.Label);
+			if (bottomBarUp)
+			{
+				bottomBar.TranslateTo(0, 0, 300);
+				bottomBarUp = false;
+			}
+			else
+			{
+				bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
+				houseName.Text = e.Pin.Label.ToUpper();
+				bottomBarUp = true;
+			}
 		}
 
 		
+		//json delle case prese dal database
 		private void LocalJson()
 		{
 			var assembly = typeof(MainPage).GetTypeInfo().Assembly;
@@ -104,6 +131,26 @@ namespace RentHouse.com
 			}
 			
 			return 0;
+		}
+
+		private void expandBottomBar(object sender, SwipedEventArgs e)
+		{
+			bottomBar.TranslateTo(0, -bottomBar.Height, 350);
+			isExpanded = true;
+		}
+
+		private void retriveBottomBar(object sender, SwipedEventArgs e)
+		{
+			if (isExpanded)
+			{
+				bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
+				isExpanded = false;
+			}
+			else
+			{
+				bottomBar.TranslateTo(0, 0, 350);
+				bottomBarUp = false;
+			}
 		}
 
 	}

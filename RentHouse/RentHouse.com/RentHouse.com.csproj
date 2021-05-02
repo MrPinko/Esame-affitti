@@ -11,10 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="customMap - Copia.json" />
+    <None Remove="customMap.json" />
+    <None Remove="GoogleMap.json" />
     <None Remove="House.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="GoogleMap.json" />
     <EmbeddedResource Include="House.json" />
   </ItemGroup>
 
@@ -25,5 +29,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="customMap.json" />
   </ItemGroup>
 </Project>
