@@ -7,9 +7,6 @@ class DatabaseConnector
 
     public function __construct()
     {
-
-        echo getenv('TEST');
-
         $dns = 'mysql:host=localhost;dbname=esame';
         $user = 'root';
         $pass = 'Rosa';
