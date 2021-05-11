@@ -1,9 +1,13 @@
 [
     {
         "city": "tokyo",
+        "image": "https://images.adsttc.com/media/images/5da7/691c/3312/fdd7/5f00/019d/large_jpg/FEATURED_IMAG.jpg?1571252489",
         "address": "Sumida-ku, Tokio, Japan",
         "lat": 35.71,
-        "long": 139.81
+        "long": 139.81,
+        "posizioneStar": 4,
+        "qpStar": 9,
+        "servizioStar": 1
     },
     {
         "city": "verceia",

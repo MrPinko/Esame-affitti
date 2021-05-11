@@ -138,3 +138,12 @@ C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\obj\iPho
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\obj\iPhone\Debug\RentHouse.com.iOS.csproj.CopyComplete
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\obj\iPhone\Debug\RentHouse.com.iOS.exe
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\obj\iPhone\Debug\RentHouse.com.iOS.pdb
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\WebP.Touch.dll
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.Platform.dll
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.Platform.pdb
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.dll
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.pdb
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.Forms.Platform.dll
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.Forms.Platform.pdb
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.Forms.dll
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.iOS\bin\iPhone\Debug\FFImageLoading.Forms.pdb

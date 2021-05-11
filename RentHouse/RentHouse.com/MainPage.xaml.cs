@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using FFImageLoading.Forms;
 using Google.Type;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -17,6 +18,7 @@ namespace RentHouse.com
 		private bool bottomBarUp = false, isExpanded = false;
 		Location location;
 		String startCity = "tokyo";
+		string selectedCity = "";
 
 
 		public MainPage()
@@ -24,7 +26,6 @@ namespace RentHouse.com
 			InitializeComponent();
 			LocalJson();
 			customMap();
-
 			location = new Location();
 
 			//carico i pin
@@ -74,22 +75,12 @@ namespace RentHouse.com
 		private void map_MapClicked(object sender, MapClickedEventArgs e)
 		{
 			Console.WriteLine("tapped at " + e.Point.Latitude + "," + e.Point.Longitude);
-			if (bottomBarUp)
-			{
-				bottomBar.TranslateTo(0, 0,300);
-				bottomBarUp = false;
-			}
-			else
-			{
-				bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
-				bottomBarUp = true;
-			}
 		}
-
 
 		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
+			int cityID = findID(e.Pin.Label.ToString());
 			if (bottomBarUp)
 			{
 				bottomBar.TranslateTo(0, 0, 300);
@@ -99,10 +90,19 @@ namespace RentHouse.com
 			{
 				bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
 				houseName.Text = e.Pin.Label.ToUpper();
+
+				houseImage.Source = new Uri(cityList[cityID].image);
+				houseImage.HeightRequest = bottomBar.Height / 3;
+				houseImage.WidthRequest = bottomBar.Width;
+
+				posizioneStar.Text = cityList[cityID].posizioneStar.ToString();
+				qpStar.Text = cityList[cityID].qpStar.ToString();
+				servizioStar.Text = cityList[cityID].servizioStar.ToString();
+
+
 				bottomBarUp = true;
 			}
 		}
-
 		
 		//json delle case prese dal database
 		private void LocalJson()
@@ -160,7 +160,13 @@ namespace RentHouse.com
 public class City
 {
 	public string city { get; set; }
+	public string image { get; set; }
 	public string address { get; set; }
 	public double Lat { get; set; }
 	public double Long { get; set; }
+	public int posizioneStar { get; set; }
+	public int qpStar { get; set; }
+	public int servizioStar { get; set; }
+
+
 }

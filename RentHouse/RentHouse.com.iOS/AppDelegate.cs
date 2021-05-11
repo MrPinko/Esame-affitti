@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using UIKit;
 
@@ -24,6 +24,7 @@ namespace RentHouse.com.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+            CachedImageRenderer.Init();
             Xamarin.FormsGoogleMaps.Init("AIzaSyAnXdxwBRXLMregctVbDqIp3pyljS6aybA");
             return base.FinishedLaunching(app, options);
         }
