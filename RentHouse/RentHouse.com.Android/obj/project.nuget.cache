@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "f6LSTjlxvZcL3px5ZfmamoMBS39U+5vVO+DxUdJolysIkM7fXWwkdGxisBpgIycwbX5pYv3KT9027UgPOVa/eA==",
+  "dgSpecHash": "QBgyskPob6YNi/JtBRLHqC/1HqhCxzmgymyUqo9D+9H6KgBLQokG/445UCtdVllaaEu5Ja73vzlTeNNVt+MdKQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
   "expectedPackageFiles": [
@@ -61,5 +61,16 @@
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.googleplayservices.maps\\60.1142.1\\xamarin.googleplayservices.maps.60.1142.1.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.googleplayservices.tasks\\60.1142.1\\xamarin.googleplayservices.tasks.60.1142.1.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "È stato rilevato il downgrade del pacchetto Xamarin.Essentials da 1.6.1 a 1.5.3.2. Fare riferimento al pacchetto direttamente dal progetto per selezionare una versione diversa. \r\n RentHouse.com.Android -> RentHouse.com -> Xamarin.Essentials (>= 1.6.1) \r\n RentHouse.com.Android -> Xamarin.Essentials (>= 1.5.3.2)",
+      "libraryId": "Xamarin.Essentials",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    }
+  ]
 }

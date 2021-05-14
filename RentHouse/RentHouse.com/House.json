@@ -1,18 +1,16 @@
 [
     {
-        "city": "tokyo",
-        "image": "https://images.adsttc.com/media/images/5da7/691c/3312/fdd7/5f00/019d/large_jpg/FEATURED_IMAG.jpg?1571252489",
-        "address": "Sumida-ku, Tokio, Japan",
-        "lat": 35.71,
-        "long": 139.81,
+        "name" :  "bel hotel",
+        "city": "Milano",
+        "image": [
+            "https://i.postimg.cc/0QLjLVBy/Immagine-2021-05-14-175559.png",
+            "https://images.adsttc.com/media/images/5da7/691c/3312/fdd7/5f00/019d/large_jpg/FEATURED_IMAG.jpg?1571252489"
+        ],
+        "address": "Via Ugo Foscolo, 8, 20121 Milano MI",
+        "lat": 45.46578580301672,
+        "long": 9.190898354186253,
         "posizioneStar": 4,
         "qpStar": 9,
         "servizioStar": 1
     },
-    {
-        "city": "verceia",
-        "address": "via nazionale, sondrio, italia",
-        "lat": 15,
-        "long": 0
-    }
 ]

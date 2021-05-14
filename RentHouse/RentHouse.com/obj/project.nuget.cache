@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "O6cvNqhF5VUpFmnESNYZJHq84sATBur6c+ivoTbjKTXoY7iqe3lenTT7xrcZeqWyP6hopkdqa4epNKvQGsu7Bw==",
+  "dgSpecHash": "W/xoylVb+D7UcNQhTtCuS8Kz8V+vLHE6UMGWBXJFG1lKKyw0zZWn2WZbOVEE/yMEKhDEAYECYdsdljTGsKmAOg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
   "expectedPackageFiles": [
@@ -16,7 +16,7 @@
     "C:\\Users\\Federico\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
-    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
+    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.ffimageloading\\2.4.11.982\\xamarin.ffimageloading.2.4.11.982.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.ffimageloading.forms\\2.4.11.982\\xamarin.ffimageloading.forms.2.4.11.982.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512",

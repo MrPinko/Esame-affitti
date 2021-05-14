@@ -1144,10 +1144,6 @@ C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\XbdMerge\ea5c07c4.proguard.stamp
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\stamp\_BuildLibraryImportsCache.stamp
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\res.flag
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\20\jl\files.cache
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\33\jl\files.cache
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\35\jl\files.cache
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\44\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\R.txt
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\R.cs.flag
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\RentHouse.com.Android.csproj.CoreCompileInputs.cache
@@ -1670,7 +1666,6 @@ C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\stamp\_GenerateJavaStubs.stamp
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\46\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\assets\Google.Api.CommonProtos.dll
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\assets\Google.Api.CommonProtos.pdb
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\assets\Google.Protobuf.dll
@@ -1682,13 +1677,9 @@ C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\src\crc64f8908e42fa42e603\PancakeDrawable.java
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\src\crc64f8908e42fa42e603\PancakeViewRenderer.java
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\src\crc64f8908e42fa42e603\RoundedCornerOutlineProvider.java
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\15\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\16\jl\files.cache
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\22\jl\files.cache
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\29\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\36\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\37\jl\files.cache
-C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\41\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\47\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\48\jl\files.cache
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\assets\FFImageLoading.dll
@@ -1723,3 +1714,12 @@ C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\src\crc64b75d9ddab39d6c30\LRUCache.java
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\src\ffimageloading\cross\MvxCachedImageView.java
 C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\android\src\ffimageloading\views\ImageViewAsync.java
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\15\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\20\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\22\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\29\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\33\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\35\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\41\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\44\jl\files.cache
+C:\Users\Federico\Desktop\Fede\scuola\Esame\RentHouse\RentHouse.com.Android\obj\Debug\90\lp\46\jl\files.cache

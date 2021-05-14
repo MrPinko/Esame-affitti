@@ -5,13 +5,14 @@
         xmlns:d="http://xamarin.com/schemas/2014/forms/design"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
-		xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+		xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
+	xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
 	mc:Ignorable="d"
         x:Class="RentHouse.com.MainPage">
+
 	<AbsoluteLayout>
 		<maps:Map x:Name="map" MapType="Street" PinClicked="map_PinClicked" MapClicked="map_MapClicked"
 			  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
-
 
 		<yummy:PancakeView
 			x:Name="bottomBar"
@@ -22,9 +23,28 @@
 			AbsoluteLayout.LayoutBounds="0.5,5.05,0.95,0.8"
 			AbsoluteLayout.LayoutFlags="All">
 			<StackLayout>
-				<ff:CachedImage x:Name="houseImage" Aspect="AspectFill"/>
+
+				<CarouselView x:Name="houseImage">
+
+					<CarouselView.ItemTemplate>
+						<DataTemplate>
+							<ff:CachedImage  Source="{Binding .}" Aspect="AspectFill">
+								<ff:CachedImage.GestureRecognizers>
+									<SwipeGestureRecognizer Direction="Up" Swiped="expandBottomBar"></SwipeGestureRecognizer>
+									<SwipeGestureRecognizer Direction="Down" Swiped="retriveBottomBar"></SwipeGestureRecognizer>
+								</ff:CachedImage.GestureRecognizers>
+							</ff:CachedImage>
+							
+						</DataTemplate>
+					</CarouselView.ItemTemplate>
+				</CarouselView>
+
+				
+				<!--  -->
 				<Label x:Name="houseName" HorizontalOptions="Center" Margin="20" FontSize="Medium" FontAttributes="Bold"/>
 
+				
+				<!-- RECENSIONI  -->
 				<Grid Padding="10" VerticalOptions="EndAndExpand">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />

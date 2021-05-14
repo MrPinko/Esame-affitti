@@ -1008,7 +1008,7 @@
         "dependencies": {
           "Google.Api.CommonProtos": "2.3.0",
           "Newtonsoft.Json": "13.0.1",
-          "Xamarin.Essentials": "1.5.3.2",
+          "Xamarin.Essentials": "1.6.1",
           "Xamarin.FFImageLoading.Forms": "2.4.11.982",
           "Xamarin.Forms": "4.8.0.1451",
           "Xamarin.Forms.GoogleMaps": "3.3.0",
@@ -2665,5 +2665,17 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "È stato rilevato il downgrade del pacchetto Xamarin.Essentials da 1.6.1 a 1.5.3.2. Fare riferimento al pacchetto direttamente dal progetto per selezionare una versione diversa. \r\n RentHouse.com.Android -> RentHouse.com -> Xamarin.Essentials (>= 1.6.1) \r\n RentHouse.com.Android -> Xamarin.Essentials (>= 1.5.3.2)",
+      "libraryId": "Xamarin.Essentials",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    }
+  ]
 }

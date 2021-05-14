@@ -14,11 +14,13 @@ namespace RentHouse.com
 	{
 		object data = null;
 		private List<City> cityList;
+		private List<string> houseImageList = new List<string>();
 		private List<Pin> pinList = new List<Pin>();
 		private bool bottomBarUp = false, isExpanded = false;
 		Location location;
-		String startCity = "tokyo";
+		String startCity = "Milano";
 		string selectedCity = "";
+		int cityID;
 
 
 		public MainPage()
@@ -27,7 +29,7 @@ namespace RentHouse.com
 			LocalJson();
 			customMap();
 			location = new Location();
-
+			cityID = findID(startCity);
 			//carico i pin
 			foreach (City item in cityList)
 			{
@@ -42,6 +44,10 @@ namespace RentHouse.com
 
 			}
 
+			foreach(string s in cityList[cityID].image)
+			{
+				houseImageList.Add(s);
+			}
 
 			//aggiugno i pin alla mappa 
 			foreach (Pin pin in pinList)
@@ -55,7 +61,7 @@ namespace RentHouse.com
 
 			//map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(latitudine,longitudine), Distance.FromMeters(5000)));   //si posiziona sulla posizione corrente
 
-			map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(cityList[findID(startCity)].Lat, cityList[findID(startCity)].Long), Distance.FromMeters(5000)));
+			map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(cityList[cityID].Lat, cityList[cityID].Long), Distance.FromMeters(5000)));
 
 		}
 
@@ -74,6 +80,11 @@ namespace RentHouse.com
 		//evento click sulla mappa
 		private void map_MapClicked(object sender, MapClickedEventArgs e)
 		{
+			if (bottomBarUp)
+			{
+				bottomBar.TranslateTo(0, 0, 300);
+				bottomBarUp = false;
+			}
 			Console.WriteLine("tapped at " + e.Point.Latitude + "," + e.Point.Longitude);
 		}
 
@@ -89,9 +100,9 @@ namespace RentHouse.com
 			else
 			{
 				bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
-				houseName.Text = e.Pin.Label.ToUpper();
+				houseName.Text = cityList[cityID].name.ToUpper();
 
-				houseImage.Source = new Uri(cityList[cityID].image);
+				houseImage.ItemsSource = houseImageList;
 				houseImage.HeightRequest = bottomBar.Height / 3;
 				houseImage.WidthRequest = bottomBar.Width;
 
@@ -139,6 +150,12 @@ namespace RentHouse.com
 			isExpanded = true;
 		}
 
+		private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+		{
+			Console.WriteLine("dhasjuifoafja");
+
+		}
+
 		private void retriveBottomBar(object sender, SwipedEventArgs e)
 		{
 			if (isExpanded)
@@ -159,8 +176,9 @@ namespace RentHouse.com
 
 public class City
 {
+	public string name { get; set; }
 	public string city { get; set; }
-	public string image { get; set; }
+	public List<string> image { get; set; }
 	public string address { get; set; }
 	public double Lat { get; set; }
 	public double Long { get; set; }

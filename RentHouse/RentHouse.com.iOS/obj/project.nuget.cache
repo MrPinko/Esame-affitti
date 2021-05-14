@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Qxj2nOabhflT9ZAM7VqMGwWx51dZnfVqCdZBsLmYXQYHxa9PuwIW6YYgi1oMIBnKDycb+jc2Ct+7ly9nL/aIFw==",
+  "dgSpecHash": "Q+3PZhqDvTMH3zlNpvTWpRq0PACqKda5fQ0bjGv8DZhsplVfB5Ai9hH3Wp0AMdvkiUWGXRUZnba+c+FKw8X89A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.iOS\\RentHouse.com.iOS.csproj",
   "expectedPackageFiles": [
@@ -21,5 +21,19 @@
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.google.ios.maps\\3.5.0\\xamarin.google.ios.maps.3.5.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "È stato rilevato il downgrade del pacchetto Xamarin.Essentials da 1.6.1 a 1.5.3.2. Fare riferimento al pacchetto direttamente dal progetto per selezionare una versione diversa. \r\n RentHouse.com.iOS -> RentHouse.com -> Xamarin.Essentials (>= 1.6.1) \r\n RentHouse.com.iOS -> Xamarin.Essentials (>= 1.5.3.2)",
+      "libraryId": "Xamarin.Essentials",
+      "targetGraphs": [
+        "Xamarin.iOS,Version=v1.0",
+        "Xamarin.iOS,Version=v1.0/win",
+        "Xamarin.iOS,Version=v1.0/win-x64",
+        "Xamarin.iOS,Version=v1.0/win-x86"
+      ]
+    }
+  ]
 }
