@@ -28,8 +28,11 @@ CREATE TABLE `appartamenti` (
   `superficie` varchar(45) DEFAULT NULL,
   `costo` float DEFAULT NULL,
   `fk_immobilePrivato` int(11) DEFAULT NULL,
+  `fk_immagini` int(11) DEFAULT NULL,
   PRIMARY KEY (`idappartamenti`),
   KEY `fk_immobilePrivato_idx` (`fk_immobilePrivato`),
+  KEY `fk_immagini_idx` (`fk_immagini`),
+  CONSTRAINT `fk_immagini2` FOREIGN KEY (`fk_immagini`) REFERENCES `immagini` (`id_immagini`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_immobilePrivato` FOREIGN KEY (`fk_immobilePrivato`) REFERENCES `immobile_privato` (`idimmobile`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -110,7 +113,10 @@ CREATE TABLE `att_turistiche` (
   `idatt_turistiche` int(11) NOT NULL AUTO_INCREMENT,
   `image` longtext,
   `via` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idatt_turistiche`)
+  `fk_immagini` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idatt_turistiche`),
+  KEY `fk_immagini_idx` (`fk_immagini`),
+  CONSTRAINT `fk_immagini` FOREIGN KEY (`fk_immagini`) REFERENCES `immagini` (`id_immagini`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -120,8 +126,31 @@ CREATE TABLE `att_turistiche` (
 
 LOCK TABLES `att_turistiche` WRITE;
 /*!40000 ALTER TABLE `att_turistiche` DISABLE KEYS */;
-INSERT INTO `att_turistiche` VALUES (1,'https://data.pixiz.com/output/user/frame/preview/400x400/4/6/6/8/3278664_d777c.jpg',NULL);
+INSERT INTO `att_turistiche` VALUES (1,'https://data.pixiz.com/output/user/frame/preview/400x400/4/6/6/8/3278664_d777c.jpg',NULL,NULL);
 /*!40000 ALTER TABLE `att_turistiche` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `immagini`
+--
+
+DROP TABLE IF EXISTS `immagini`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `immagini` (
+  `url` varchar(45) DEFAULT NULL,
+  `id_immagini` int(11) NOT NULL,
+  PRIMARY KEY (`id_immagini`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `immagini`
+--
+
+LOCK TABLES `immagini` WRITE;
+/*!40000 ALTER TABLE `immagini` DISABLE KEYS */;
+/*!40000 ALTER TABLE `immagini` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -332,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-15  9:32:57
+-- Dump completed on 2021-05-15 11:33:25
