@@ -27,8 +27,11 @@ CREATE TABLE `appartamenti` (
   `piano` varchar(45) DEFAULT NULL,
   `superficie` varchar(45) DEFAULT NULL,
   `costo` float DEFAULT NULL,
-  PRIMARY KEY (`idappartamenti`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fk_immobilePrivato` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idappartamenti`),
+  KEY `fk_immobilePrivato_idx` (`fk_immobilePrivato`),
+  CONSTRAINT `fk_immobilePrivato` FOREIGN KEY (`fk_immobilePrivato`) REFERENCES `immobile_privato` (`idimmobile`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +41,62 @@ CREATE TABLE `appartamenti` (
 LOCK TABLES `appartamenti` WRITE;
 /*!40000 ALTER TABLE `appartamenti` DISABLE KEYS */;
 /*!40000 ALTER TABLE `appartamenti` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `appartamenti_attturistiche`
+--
+
+DROP TABLE IF EXISTS `appartamenti_attturistiche`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `appartamenti_attturistiche` (
+  `idappartamenti_attTuristiche` int(11) NOT NULL,
+  `fk_appartamenti` int(11) DEFAULT NULL,
+  `fk_attTuristiche` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idappartamenti_attTuristiche`),
+  KEY `fk_appartamenti_idx` (`fk_appartamenti`),
+  KEY `fk_attTuristiche_idx` (`fk_attTuristiche`),
+  CONSTRAINT `fk_appartamenti2` FOREIGN KEY (`fk_appartamenti`) REFERENCES `appartamenti` (`idappartamenti`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_attTuristiche` FOREIGN KEY (`fk_attTuristiche`) REFERENCES `att_turistiche` (`idatt_turistiche`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `appartamenti_attturistiche`
+--
+
+LOCK TABLES `appartamenti_attturistiche` WRITE;
+/*!40000 ALTER TABLE `appartamenti_attturistiche` DISABLE KEYS */;
+/*!40000 ALTER TABLE `appartamenti_attturistiche` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `appartamenti_recensioni`
+--
+
+DROP TABLE IF EXISTS `appartamenti_recensioni`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `appartamenti_recensioni` (
+  `idappartamenti_recensioni` int(11) NOT NULL,
+  `fk_recensioni` int(11) DEFAULT NULL,
+  `fk_appartamenti` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idappartamenti_recensioni`),
+  KEY `fk_recensioni_idx` (`fk_recensioni`),
+  KEY `fk_appartamenti_idx` (`fk_appartamenti`),
+  CONSTRAINT `fk_appartamenti3` FOREIGN KEY (`fk_appartamenti`) REFERENCES `appartamenti` (`idappartamenti`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recensioni` FOREIGN KEY (`fk_recensioni`) REFERENCES `recensioni` (`idrecensioni`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `appartamenti_recensioni`
+--
+
+LOCK TABLES `appartamenti_recensioni` WRITE;
+/*!40000 ALTER TABLE `appartamenti_recensioni` DISABLE KEYS */;
+/*!40000 ALTER TABLE `appartamenti_recensioni` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -73,12 +132,12 @@ DROP TABLE IF EXISTS `immobile_privato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `immobile_privato` (
-  `idimmobile_privato` int(11) NOT NULL AUTO_INCREMENT,
+  `idimmobile` int(11) NOT NULL,
   `via` varchar(45) DEFAULT NULL,
   `citta` varchar(45) DEFAULT NULL,
   `provincia` varchar(45) DEFAULT NULL,
-  `anno` date DEFAULT NULL,
-  PRIMARY KEY (`idimmobile_privato`)
+  `anno` year(4) DEFAULT NULL,
+  PRIMARY KEY (`idimmobile`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -99,16 +158,17 @@ DROP TABLE IF EXISTS `proprietario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `proprietario` (
-  `idproprietario` int(11) NOT NULL AUTO_INCREMENT,
+  `cf_proprietario` varchar(45) NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   `cognome` varchar(45) DEFAULT NULL,
-  `cf` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `telefono` int(11) DEFAULT NULL,
-  `social` json DEFAULT NULL,
   `iban` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idproprietario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `fk_immobilePrivato` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cf_proprietario`),
+  KEY `fk_immobilePrivato_idx` (`fk_immobilePrivato`),
+  CONSTRAINT `fk_immobile_privato` FOREIGN KEY (`fk_immobilePrivato`) REFERENCES `immobile_privato` (`idimmobile`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,8 +177,36 @@ CREATE TABLE `proprietario` (
 
 LOCK TABLES `proprietario` WRITE;
 /*!40000 ALTER TABLE `proprietario` DISABLE KEYS */;
-INSERT INTO `proprietario` VALUES (1,NULL,NULL,NULL,NULL,NULL,'{\"age\": 24, \"name\": \"Cameron\"}',NULL);
+INSERT INTO `proprietario` VALUES ('',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `proprietario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `proprietario_social`
+--
+
+DROP TABLE IF EXISTS `proprietario_social`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `proprietario_social` (
+  `idproprietario_social` int(11) NOT NULL,
+  `fk_proprietario` varchar(45) DEFAULT NULL,
+  `fk_social` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idproprietario_social`),
+  KEY `fk_proprietario_idx` (`fk_proprietario`),
+  KEY `fk_social_idx` (`fk_social`),
+  CONSTRAINT `fk_proprietario` FOREIGN KEY (`fk_proprietario`) REFERENCES `proprietario` (`cf_proprietario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_social` FOREIGN KEY (`fk_social`) REFERENCES `social` (`idsocial`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `proprietario_social`
+--
+
+LOCK TABLES `proprietario_social` WRITE;
+/*!40000 ALTER TABLE `proprietario_social` DISABLE KEYS */;
+/*!40000 ALTER TABLE `proprietario_social` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -130,8 +218,8 @@ DROP TABLE IF EXISTS `recensioni`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `recensioni` (
   `idrecensioni` int(11) NOT NULL AUTO_INCREMENT,
-  `panorama` int(11) DEFAULT NULL,
-  `cibo` int(11) DEFAULT NULL,
+  `posizione` int(11) DEFAULT NULL,
+  `qualita_prezzo` int(11) DEFAULT NULL,
   `servizio` int(11) DEFAULT NULL,
   PRIMARY KEY (`idrecensioni`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -147,6 +235,32 @@ LOCK TABLES `recensioni` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `social`
+--
+
+DROP TABLE IF EXISTS `social`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `social` (
+  `idsocial` int(11) NOT NULL,
+  `linkedin` varchar(45) DEFAULT NULL,
+  `facebook` varchar(45) DEFAULT NULL,
+  `instagram` varchar(45) DEFAULT NULL,
+  `twitter` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idsocial`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `social`
+--
+
+LOCK TABLES `social` WRITE;
+/*!40000 ALTER TABLE `social` DISABLE KEYS */;
+/*!40000 ALTER TABLE `social` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `utente`
 --
 
@@ -154,7 +268,6 @@ DROP TABLE IF EXISTS `utente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `utente` (
-  `idutente` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
   `pw` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
@@ -163,11 +276,11 @@ CREATE TABLE `utente` (
   `via` varchar(45) DEFAULT NULL,
   `dataN` date DEFAULT NULL,
   `sesso` varchar(1) DEFAULT NULL,
-  `cf` varchar(45) DEFAULT NULL,
+  `cf_utente` varchar(45) NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   `cognome` varchar(45) DEFAULT NULL,
   `m_pagamento` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idutente`)
+  PRIMARY KEY (`cf_utente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -179,6 +292,36 @@ LOCK TABLES `utente` WRITE;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `utente_appartamenti`
+--
+
+DROP TABLE IF EXISTS `utente_appartamenti`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `utente_appartamenti` (
+  `idUtente_Apaprtamenti` int(11) NOT NULL AUTO_INCREMENT,
+  `dataInizio` date DEFAULT NULL,
+  `dataFine` date DEFAULT NULL,
+  `fk_appartamenti` int(11) DEFAULT NULL,
+  `fk_utente` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idUtente_Apaprtamenti`),
+  KEY `fk_utente_idx` (`fk_utente`),
+  KEY `fk_appartamenti_idx` (`fk_appartamenti`),
+  CONSTRAINT `fk_appartamenti` FOREIGN KEY (`fk_appartamenti`) REFERENCES `appartamenti` (`idappartamenti`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_utente` FOREIGN KEY (`fk_utente`) REFERENCES `utente` (`cf_utente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utente_appartamenti`
+--
+
+LOCK TABLES `utente_appartamenti` WRITE;
+/*!40000 ALTER TABLE `utente_appartamenti` DISABLE KEYS */;
+/*!40000 ALTER TABLE `utente_appartamenti` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -189,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-10 11:47:16
+-- Dump completed on 2021-05-15  9:32:57
