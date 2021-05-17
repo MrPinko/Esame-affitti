@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: dbtest
+-- Host: localhost    Database: esame
 -- ------------------------------------------------------
 -- Server version	5.7.10-log
 
@@ -273,6 +273,33 @@ LOCK TABLES `recensioni` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `servizi`
+--
+
+DROP TABLE IF EXISTS `servizi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `servizi` (
+  `idservizi` int(11) NOT NULL,
+  `servizio` varchar(45) DEFAULT NULL,
+  `fk_appartamenti` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idservizi`),
+  KEY `fk_appartamento_idx` (`fk_appartamenti`),
+  CONSTRAINT `fk_appartamenti_servizi` FOREIGN KEY (`fk_appartamenti`) REFERENCES `appartamenti` (`idappartamenti`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `servizi`
+--
+
+LOCK TABLES `servizi` WRITE;
+/*!40000 ALTER TABLE `servizi` DISABLE KEYS */;
+INSERT INTO `servizi` VALUES (0,'wifi',0),(1,'aria condizionata',0),(2,'parcheggio privato',1),(3,'wifi',1),(4,'balcone',2),(5,'wifi',3),(6,'balcone',3),(7,'divano letto',4),(8,'wifi',4);
+/*!40000 ALTER TABLE `servizi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `social`
 --
 
@@ -369,4 +396,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-17 11:40:36
+-- Dump completed on 2021-05-17 12:40:14
