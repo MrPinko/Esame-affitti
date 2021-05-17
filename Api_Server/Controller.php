@@ -7,7 +7,6 @@ class Controller
     private $db;
     private $requestMethod;
     private $queryMenu;              //può essere RegisterUser, loginUser
-
     private $DBquery;
 
     public function __construct($db, $requestMethod, $queryMenu)               
@@ -23,11 +22,11 @@ class Controller
     {
         switch ($this->requestMethod) {
             case 'GET':
-                if ($this->userId) { //se esiste un id
+                /*if ($this->userId) { //se esiste un id
                     $response = $this->getUser($this->userId);
                 } else {
                     $response = $this->getAllUsers();
-                };
+                };*/
                 break;
             case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
@@ -71,7 +70,7 @@ class Controller
 
     private function createUserFromRequest()
     {
-        $input = (array) json_decode(file_get_contents('php://input'), true);
+        $input = json_decode(file_get_contents('php://input'), true);
         print_r($input);
 
         /*if (!$this->validatePerson($input)) {

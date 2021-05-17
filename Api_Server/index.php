@@ -12,13 +12,10 @@ $userId = null;
 if (isset($uri[3])) {
     if($uri[3] == "user" ){
         $firstPar = $uri[4];          //può essere registerUser, loginUser
-        $token = $uri[5]; 
     }
     
 }
 
-if($token == "aka"){
     $requestMethod = $_SERVER['REQUEST_METHOD'];
     $controller = new Controller($dbConnection, $requestMethod, $firstPar);
     $controller->processRequest();
-}

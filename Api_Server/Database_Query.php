@@ -52,22 +52,8 @@ class Database_Query
     {
 
         /*
-        {
-            "username" : "federico",
-            "pw" : "passwordcriptata",
-            "email": "federico@gmail.com",
-            "cell" : "3347235549",
-            "citta" : "verceia",
-            "via" : "nazionale",
-            "numero": 14,
-            "cap", 23020,
-            "dataN": 2002-01-18,
-            "sesso": "M",
-            "cf_utente" : "frosa1802cfy",
-            "nome" : "federico",
-            "cognome": "rosa",
-            "m_pagamento": "visa",
-        }
+        {"username" : "federico", "pw" : "passwordcriptata", "email": "federico@gmail.com", "cell" : "3347235549", "citta" : "verceia", "via" : "nazionale", "numero": "14", "cap" : "23020", "dataN": "2002-01-18", "sesso": "M", "cf_utente" : "frosa1802cfy", "nome" : "federico", "cognome": "rosa", "m_pagamento": "visa"}
+        TUTTO SU UNA RIGA MANNAGGIA AI JSON
         */
 
         $statement = "
