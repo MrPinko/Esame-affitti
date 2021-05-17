@@ -338,6 +338,8 @@ CREATE TABLE `utente` (
   `cell` varchar(45) DEFAULT NULL,
   `citta` varchar(45) DEFAULT NULL,
   `via` varchar(45) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `cap` int(11) DEFAULT NULL,
   `dataN` date DEFAULT NULL,
   `sesso` varchar(1) DEFAULT NULL,
   `cf_utente` varchar(45) NOT NULL,
@@ -396,4 +398,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-17 12:40:14
+-- Dump completed on 2021-05-17 13:25:39
