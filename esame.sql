@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: esame
+-- Host: localhost    Database: dbtest
 -- ------------------------------------------------------
 -- Server version	5.7.10-log
 
@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `appartamenti`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `appartamenti` (
   `idappartamenti` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
   `piano` varchar(45) DEFAULT NULL,
   `superficie` varchar(45) DEFAULT NULL,
   `costo` float DEFAULT NULL,
@@ -34,7 +35,7 @@ CREATE TABLE `appartamenti` (
   KEY `fk_immagini_idx` (`fk_immagini`),
   CONSTRAINT `fk_immagini2` FOREIGN KEY (`fk_immagini`) REFERENCES `immagini` (`id_immagini`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_immobilePrivato` FOREIGN KEY (`fk_immobilePrivato`) REFERENCES `immobile_privato` (`idimmobile`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +44,7 @@ CREATE TABLE `appartamenti` (
 
 LOCK TABLES `appartamenti` WRITE;
 /*!40000 ALTER TABLE `appartamenti` DISABLE KEYS */;
+INSERT INTO `appartamenti` VALUES (0,'heart milan','1','71',251,0,0),(1,'vittoria corner','3','60',200,1,1),(2,'Brera Apartments ','2','25',100,0,2),(3,'La Perla by Sedar','1','100',500,2,3),(4,'Vanvitelli\'s Home','1','50',200,3,4);
 /*!40000 ALTER TABLE `appartamenti` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +113,6 @@ DROP TABLE IF EXISTS `att_turistiche`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `att_turistiche` (
   `idatt_turistiche` int(11) NOT NULL AUTO_INCREMENT,
-  `image` longtext,
   `via` varchar(45) DEFAULT NULL,
   `fk_immagini` int(11) DEFAULT NULL,
   PRIMARY KEY (`idatt_turistiche`),
@@ -126,7 +127,7 @@ CREATE TABLE `att_turistiche` (
 
 LOCK TABLES `att_turistiche` WRITE;
 /*!40000 ALTER TABLE `att_turistiche` DISABLE KEYS */;
-INSERT INTO `att_turistiche` VALUES (1,'https://data.pixiz.com/output/user/frame/preview/400x400/4/6/6/8/3278664_d777c.jpg',NULL,NULL);
+INSERT INTO `att_turistiche` VALUES (1,NULL,NULL);
 /*!40000 ALTER TABLE `att_turistiche` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,6 +151,7 @@ CREATE TABLE `immagini` (
 
 LOCK TABLES `immagini` WRITE;
 /*!40000 ALTER TABLE `immagini` DISABLE KEYS */;
+INSERT INTO `immagini` VALUES (NULL,0),(NULL,1),(NULL,2),(NULL,3),(NULL,4);
 /*!40000 ALTER TABLE `immagini` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,8 +165,12 @@ DROP TABLE IF EXISTS `immobile_privato`;
 CREATE TABLE `immobile_privato` (
   `idimmobile` int(11) NOT NULL,
   `via` varchar(45) DEFAULT NULL,
+  `numeroC` int(11) DEFAULT NULL,
+  `cap` int(11) DEFAULT NULL,
   `citta` varchar(45) DEFAULT NULL,
   `provincia` varchar(45) DEFAULT NULL,
+  `lat` double DEFAULT NULL,
+  `long` double DEFAULT NULL,
   `anno` year(4) DEFAULT NULL,
   PRIMARY KEY (`idimmobile`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -176,6 +182,7 @@ CREATE TABLE `immobile_privato` (
 
 LOCK TABLES `immobile_privato` WRITE;
 /*!40000 ALTER TABLE `immobile_privato` DISABLE KEYS */;
+INSERT INTO `immobile_privato` VALUES (0,'del parco',29,20064,'milano','MI',45.526318538655474,9.406340990479956,1980),(1,'luigi sacco',3,22100,'como','CO',45.81019362511003,9.08741389619552,2000),(2,'fratelli rosselli',2,24068,'Seriate','BG',45.67703729517465,9.714916419303293,2010),(3,'giuseppe maria bosco',111,81100,'Caserta','CE',41.08052309544633,14.336794799420527,1946);
 /*!40000 ALTER TABLE `immobile_privato` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,8 +197,9 @@ CREATE TABLE `proprietario` (
   `cf_proprietario` varchar(45) NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   `cognome` varchar(45) DEFAULT NULL,
+  `dataN` date DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `telefono` int(11) DEFAULT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
   `iban` varchar(45) DEFAULT NULL,
   `fk_immobilePrivato` int(11) DEFAULT NULL,
   PRIMARY KEY (`cf_proprietario`),
@@ -206,7 +214,7 @@ CREATE TABLE `proprietario` (
 
 LOCK TABLES `proprietario` WRITE;
 /*!40000 ALTER TABLE `proprietario` DISABLE KEYS */;
-INSERT INTO `proprietario` VALUES ('',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `proprietario` VALUES ('DNZMLA95T49C088Y','amalia','iadanza','1995-12-09','amalia95@hootmail.com','03124985372','IT25B0300203280225412791151',2),('GNVCHR97P46E595H','chiara','genovesi','1997-09-06','chiaraGenovesi@yahoo.com','03453906573','IT19F0300203280148362476191',3),('GNVCMR64R10F492C','calimero','genovese','1964-11-10','calimerogenovese@gmail.com','00367905660','IT27E0300203280177977433552',1),('TRNDVD58A01B534L','davide','trentini','1958-01-01','DavideTrentini@gmail.com','03814962856','IT23X0300203280188444111643',0);
 /*!40000 ALTER TABLE `proprietario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,6 +243,7 @@ CREATE TABLE `proprietario_social` (
 
 LOCK TABLES `proprietario_social` WRITE;
 /*!40000 ALTER TABLE `proprietario_social` DISABLE KEYS */;
+INSERT INTO `proprietario_social` VALUES (0,'GNVCMR64R10F492C',0),(1,'GNVCMR64R10F492C',1),(2,'TRNDVD58A01B534L',2),(3,'TRNDVD58A01B534L',3),(4,'DNZMLA95T49C088Y',6),(5,'GNVCHR97P46E595H',4),(6,'GNVCHR97P46E595H',5);
 /*!40000 ALTER TABLE `proprietario_social` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,10 +281,8 @@ DROP TABLE IF EXISTS `social`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `social` (
   `idsocial` int(11) NOT NULL,
-  `linkedin` varchar(45) DEFAULT NULL,
-  `facebook` varchar(45) DEFAULT NULL,
-  `instagram` varchar(45) DEFAULT NULL,
-  `twitter` varchar(45) DEFAULT NULL,
+  `provider` varchar(45) DEFAULT NULL,
+  `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idsocial`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -286,6 +293,7 @@ CREATE TABLE `social` (
 
 LOCK TABLES `social` WRITE;
 /*!40000 ALTER TABLE `social` DISABLE KEYS */;
+INSERT INTO `social` VALUES (0,'facebook','calimero genovese'),(1,'instagram','calimero64_official'),(2,'facebook','davide trentini'),(3,'twitter','davide trentini'),(4,'facebook','chiara genovesi'),(5,'instagram','chiara_case97'),(6,'twitter','amalia iadanza');
 /*!40000 ALTER TABLE `social` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,4 +369,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-15 11:33:25
+-- Dump completed on 2021-05-17 11:40:36
