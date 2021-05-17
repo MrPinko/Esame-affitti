@@ -6,20 +6,18 @@ class Controller
 {
     private $db;
     private $requestMethod;
-    private $userId;
+    private $queryMenu;              //può essere RegisterUser, loginUser
 
     private $DBquery;
 
-    public function __construct($db, $requestMethod, $userId)
+    public function __construct($db, $requestMethod, $queryMenu)               
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
-        $this->userId = $userId;
+        $this->queryMenu = $queryMenu;
 
         $this->DBquery = new Database_Query($db);
     }
-
-    //
 
     public function processRequest()
     {
@@ -31,7 +29,7 @@ class Controller
                     $response = $this->getAllUsers();
                 };
                 break;
-            case 'POST':
+            case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
                 break;
             case 'PUT':
