@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using FFImageLoading.Forms;
-using Google.Type;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
+using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace RentHouse.com
 {
@@ -14,8 +13,10 @@ namespace RentHouse.com
 	{
 		object data = null;
 		private List<City> cityList;
+		private List<Attrazioni> attrazioniList;
 		private List<string> houseImageList = new List<string>();
 		private List<Pin> pinList = new List<Pin>();
+		private List<Pin> attrazionipinList = new List<Pin>();
 		private bool bottomBarUp = false, isExpanded = false;
 		Location location;
 		String startCity = "Milano";
@@ -27,7 +28,11 @@ namespace RentHouse.com
 		{
 			InitializeComponent();
 			LocalJson();
+			loadAttrazioniJson();
 			customMap();
+
+			
+
 			location = new Location();
 			cityID = findID(startCity);
 			//carico i pin
@@ -44,7 +49,7 @@ namespace RentHouse.com
 
 			}
 
-			foreach(string s in cityList[cityID].image)
+			foreach (string s in cityList[cityID].image)
 			{
 				houseImageList.Add(s);
 			}
@@ -91,30 +96,34 @@ namespace RentHouse.com
 		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
-			int cityID = findID(e.Pin.Label.ToString());
-			if (bottomBarUp)
+
+			if (e.Pin.Type == PinType.Place)
 			{
-				bottomBar.TranslateTo(0, 0, 300);
-				bottomBarUp = false;
-			}
-			else
-			{
-				bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
-				houseName.Text = cityList[cityID].name.ToUpper();
+				int cityID = findID(e.Pin.Label.ToString());
+				if (bottomBarUp)
+				{
+					bottomBar.TranslateTo(0, 0, 300);
+					bottomBarUp = false;
+				}
+				else
+				{
+					bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
+					houseName.Text = cityList[cityID].name.ToUpper();
 
-				houseImage.ItemsSource = houseImageList;
-				houseImage.HeightRequest = bottomBar.Height / 3;
-				houseImage.WidthRequest = bottomBar.Width;
+					houseImage.ItemsSource = houseImageList;
+					houseImage.HeightRequest = bottomBar.Height / 3;
+					houseImage.WidthRequest = bottomBar.Width;
 
-				posizioneStar.Text = cityList[cityID].posizioneStar.ToString();
-				qpStar.Text = cityList[cityID].qpStar.ToString();
-				servizioStar.Text = cityList[cityID].servizioStar.ToString();
+					posizioneStar.Text = cityList[cityID].posizioneStar.ToString();
+					qpStar.Text = cityList[cityID].qpStar.ToString();
+					servizioStar.Text = cityList[cityID].servizioStar.ToString();
 
 
-				bottomBarUp = true;
+					bottomBarUp = true;
+				}
 			}
 		}
-		
+
 		//json delle case prese dal database
 		private void LocalJson()
 		{
@@ -133,14 +142,48 @@ namespace RentHouse.com
 			}
 		}
 
+		private void loadAttrazioniJson()
+		{
+			var assembly = typeof(MainPage).GetTypeInfo().Assembly;
+			Stream stream = assembly.GetManifestResourceStream("RentHouse.com.attrazioniTuristiche.json");
+
+			using (var reader = new System.IO.StreamReader(stream))
+			{
+
+				var json = reader.ReadToEnd();
+				attrazioniList = JsonConvert.DeserializeObject<List<Attrazioni>>(json);
+				foreach (Attrazioni att in attrazioniList)
+				{
+
+					attrazionipinList.Add(
+					new Pin
+					{
+						Type = PinType.SearchResult,
+						Icon = BitmapDescriptorFactory.DefaultMarker(Color.BlueViolet),
+						Label = att.cnome,
+						Address = att.cprovincia,
+						Position = new Position(Convert.ToDouble(att.clatitudine), Convert.ToDouble(att.clongitudine))
+					});
+
+					Console.WriteLine(att.cnome);
+				}
+
+				foreach (Pin pin in attrazionipinList)
+				{
+					map.Pins.Add(pin);
+				}
+			}
+		}
+
+
 		private int findID(String s)
 		{
-			for(int i = 0; i < cityList.Count; i++)
+			for (int i = 0; i < cityList.Count; i++)
 			{
 				if (cityList[i].city.Equals(s))
 					return i;
 			}
-			
+
 			return 0;
 		}
 
@@ -188,3 +231,17 @@ public class City
 
 
 }
+
+public class Attrazioni
+{
+	public string ccomune { get; set; }
+	public string cprovincia { get; set; }
+	public string cregione { get; set; }
+	public string cnome { get; set; }
+	public string canno_inserimento { get; set; }
+	public DateTime cdata_e_ora_inserimento { get; set; }
+	public string cidentificatore_in_openstreetmap { get; set; }
+	public string clongitudine { get; set; }
+	public string clatitudine { get; set; }
+}
+

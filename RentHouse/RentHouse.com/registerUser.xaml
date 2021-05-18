@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
+			 xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
+			 xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+			 x:Class="RentHouse.com.registerUser">
+		<AbsoluteLayout>
+		
+				<yummy:PancakeView x:Name="firstContainer"
+					AbsoluteLayout.LayoutBounds="0.5,0.5,0.9,0.7" AbsoluteLayout.LayoutFlags="All"
+            CornerRadius="16,16,16,16"
+			BackgroundColor="WhiteSmoke"
+			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}">
+					<StackLayout Padding="5">
+						<Label Text="DATI UTENTE" HorizontalOptions="CenterAndExpand" FontSize="Large" ></Label>
+						<Entry x:Name="nomeEntry" Placeholder="nome"></Entry>
+						<Entry x:Name="cognomeEntry" Placeholder="cognome"></Entry>
+						<Picker x:Name="sessoEntry" Title="scegliere il sesso" HorizontalOptions="FillAndExpand">
+							<Picker.Items>
+								<x:String>M</x:String>
+								<x:String>F</x:String>
+							</Picker.Items>
+						</Picker>
+						<DatePicker x:Name="data" MinimumDate="01/01/1900" Format="dd-MM-yyyy"/>
+						<Entry x:Name="cellEntry" Placeholder="numero di telefono"></Entry>
+						<Entry x:Name="emailEntry" Placeholder="email"></Entry>
+						<Entry x:Name="pwEntry" Placeholder="password" IsPassword="True"></Entry>
+						<Picker x:Name="MPagamentoEntry" Title="scegliere il metodo di pagamento " HorizontalOptions="FillAndExpand">
+							<Picker.Items>
+								<x:String>carta prepagata</x:String>
+								<x:String>bonifico</x:String>
+								<x:String>contanti</x:String>
+							</Picker.Items>
+						</Picker>
+					</StackLayout>
+				</yummy:PancakeView>
+
+
+				<yummy:PancakeView x:Name="secondContainer"
+					AbsoluteLayout.LayoutBounds="0.5,0.5,0.9,0.7" AbsoluteLayout.LayoutFlags="All"
+            CornerRadius="16,16,16,16"
+			BackgroundColor="WhiteSmoke"
+			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}">
+					<StackLayout Padding="5">
+						<Label Text="RESIDENZA" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,5"></Label>
+						<Entry x:Name="comuneDiNascita" Placeholder="comune di nascita" Unfocused="comuneDiNascita_Unfocused"/>
+						<Entry x:Name="cittaEntry" Placeholder="città"/>
+						<Entry x:Name="viaEntry" Placeholder="via"></Entry>
+						<Entry x:Name="numeroEntry" Placeholder="numero"></Entry>
+						<Entry x:Name="capEntry" Placeholder="cap"></Entry>
+					</StackLayout>
+				</yummy:PancakeView>
+
+				<yummy:PancakeView x:Name="reviewContainer"
+					AbsoluteLayout.LayoutBounds="0.5,0.5,0.9,0.9" AbsoluteLayout.LayoutFlags="All"
+					Margin="10"
+            CornerRadius="16,16,16,16"
+			BackgroundColor="WhiteSmoke"
+			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}">
+					<StackLayout Padding="5">
+						<Entry x:Name="review_nome" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_cognome" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_sesso" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_data" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_cell" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_email" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_comuneDiNascita" IsReadOnly="True"/>
+						<Entry x:Name="review_citta" IsReadOnly="True"/>
+						<Entry x:Name="review_via" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_numero" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_cap" IsReadOnly="True"></Entry>
+						<Entry x:Name="review_MPagamento" IsReadOnly="True"></Entry>
+						<Entry x:Name="codiceFiscale" IsReadOnly="True"></Entry>
+
+					</StackLayout>
+				</yummy:PancakeView>
+
+			<Image x:Name="confirmButton" 
+				   Source="forward.png" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,0.15,0.1" Margin="0,0,10,0" >
+				<Image.GestureRecognizers>
+					<TapGestureRecognizer Tapped="confirmimagePressed"></TapGestureRecognizer>
+				</Image.GestureRecognizers>
+			</Image>
+
+		<Image x:Name="backButton" IsVisible="False" IsEnabled="False"
+			   Source="backward.png" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,1,0.15,0.1" Margin="0,0,10,0" >
+			<Image.GestureRecognizers>
+				<TapGestureRecognizer Tapped="backImagePressed"></TapGestureRecognizer>
+			</Image.GestureRecognizers>
+		</Image>
+
+	</AbsoluteLayout>
+</ContentPage>

@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "MonoAndroid,Version=v9.0": {
+      "ExpandableView/1.0.10": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.4.0"
+        },
+        "compile": {
+          "lib/MonoAndroid10/ExpandableView.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid10/ExpandableView.dll": {}
+        }
+      },
       "Google.Api.CommonProtos/2.3.0": {
         "type": "package",
         "dependencies": {
@@ -46,6 +58,15 @@
         },
         "runtime": {
           "lib/monoandroid44/Plugin.CurrentActivity.dll": {}
+        }
+      },
+      "RestSharp/106.11.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
         }
       },
       "System.Buffers/4.4.0": {
@@ -1002,17 +1023,34 @@
           "build/MonoAndroid80/Xamarin.GooglePlayServices.Tasks.targets": {}
         }
       },
+      "Xfx.Controls/1.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.0.0"
+        },
+        "compile": {
+          "lib/MonoAndroid/Xfx.Controls.Droid.dll": {},
+          "lib/MonoAndroid/Xfx.Controls.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid/Xfx.Controls.Droid.dll": {},
+          "lib/MonoAndroid/Xfx.Controls.dll": {}
+        }
+      },
       "RentHouse.com/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "ExpandableView": "1.0.10",
           "Google.Api.CommonProtos": "2.3.0",
           "Newtonsoft.Json": "13.0.1",
+          "RestSharp": "106.11.7",
           "Xamarin.Essentials": "1.6.1",
           "Xamarin.FFImageLoading.Forms": "2.4.11.982",
           "Xamarin.Forms": "4.8.0.1451",
           "Xamarin.Forms.GoogleMaps": "3.3.0",
-          "Xamarin.Forms.PancakeView": "2.3.0.759"
+          "Xamarin.Forms.PancakeView": "2.3.0.759",
+          "Xfx.Controls": "1.2.1"
         },
         "compile": {
           "bin/placeholder/RentHouse.com.dll": {}
@@ -1024,6 +1062,21 @@
     }
   },
   "libraries": {
+    "ExpandableView/1.0.10": {
+      "sha512": "uzLIepGkNGBKRlsktnHeJowqUznhThVKku/QYjhacX4jytV+8JjpLAWNu/n0FoLa0EOf5Yd8HlUjWTdVMV3wHA==",
+      "type": "package",
+      "path": "expandableview/1.0.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "expandableview.1.0.10.nupkg.sha512",
+        "expandableview.nuspec",
+        "lib/MonoAndroid10/ExpandableView.dll",
+        "lib/Xamarin.iOS10/ExpandableView.dll",
+        "lib/netstandard2.0/ExpandableView.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81/ExpandableView.dll"
+      ]
+    },
     "Google.Api.CommonProtos/2.3.0": {
       "sha512": "+CKoDb9ZeZGb56MUb6I8hdkUmp2kLCycljv9FWOX5OfJeJ5WW3IaO26hCX1zKsXdxeXU14viC+WEuXhFgk807w==",
       "type": "package",
@@ -1102,6 +1155,22 @@
         "plugin.currentactivity.2.1.0.4.nupkg.sha512",
         "plugin.currentactivity.nuspec",
         "readme.txt"
+      ]
+    },
+    "RestSharp/106.11.7": {
+      "sha512": "NzndH096CTulvq+ihr7u1mBJ29oukdi9A8bypQJk+kaHxbRzTTrtgsEEQAb04ptTUZmQa7cgo7uF5z7NuEPX1Q==",
+      "type": "package",
+      "path": "restsharp/106.11.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/RestSharp.dll",
+        "lib/net452/RestSharp.xml",
+        "lib/netstandard2.0/RestSharp.dll",
+        "lib/netstandard2.0/RestSharp.xml",
+        "restsharp.106.11.7.nupkg.sha512",
+        "restsharp.nuspec",
+        "restsharp.png"
       ]
     },
     "System.Buffers/4.4.0": {
@@ -2587,6 +2656,24 @@
         "lib/MonoAndroid80/Xamarin.GooglePlayServices.Tasks.dll",
         "xamarin.googleplayservices.tasks.60.1142.1.nupkg.sha512",
         "xamarin.googleplayservices.tasks.nuspec"
+      ]
+    },
+    "Xfx.Controls/1.2.1": {
+      "sha512": "jVBI7U0Vmu87yLeWxkFptR2e/9583QHnvbDK3vjt9xmjo3BgZHYz3Ob+9gaHEmEb1JFc14dE5Gfdm+PRAkh2OQ==",
+      "type": "package",
+      "path": "xfx.controls/1.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid/Xfx.Controls.Droid.dll",
+        "lib/MonoAndroid/Xfx.Controls.dll",
+        "lib/Xamarin.iOS10/Xfx.Controls.dll",
+        "lib/Xamarin.iOS10/Xfx.Controls.iOS.dll",
+        "lib/netcore45/Xfx.Controls.dll",
+        "lib/netstandard1.3/Xfx.Controls.dll",
+        "lib/portable-net45+win8+wpa81+wp8/Xfx.Controls.dll",
+        "xfx.controls.1.2.1.nupkg.sha512",
+        "xfx.controls.nuspec"
       ]
     },
     "RentHouse.com/1.0.0": {

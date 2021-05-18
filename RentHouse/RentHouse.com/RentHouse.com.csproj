@@ -12,6 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\touristPin.png" />
+    <None Remove="attrazioniTuristiche.json" />
+    <None Remove="comuni.json" />
     <None Remove="customMap - Copia.json" />
     <None Remove="customMap.json" />
     <None Remove="GoogleMap.json" />
@@ -19,22 +22,34 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\touristPin.png" />
+    <EmbeddedResource Include="attrazioniTuristiche.json" />
+    <EmbeddedResource Include="comuni.json" />
     <EmbeddedResource Include="GoogleMap.json" />
     <EmbeddedResource Include="House.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExpandableView" Version="1.0.10" />
     <PackageReference Include="Google.Api.CommonProtos" Version="2.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="Xfx.Controls" Version="1.2.1" />
 
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="customMap.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="registerUser.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

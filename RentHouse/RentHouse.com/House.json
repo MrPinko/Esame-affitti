@@ -1,6 +1,6 @@
 [
     {
-        "name" :  "bel hotel",
+        "name": "bel hotel",
         "city": "Milano",
         "image": [
             "https://i.postimg.cc/0QLjLVBy/Immagine-2021-05-14-175559.png",
@@ -12,5 +12,5 @@
         "posizioneStar": 4,
         "qpStar": 9,
         "servizioStar": 1
-    },
+    }
 ]

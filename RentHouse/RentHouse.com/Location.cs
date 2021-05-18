@@ -19,7 +19,7 @@ namespace RentHouse.com
 				}
 
 				return location;
-				
+
 			}
 			catch (FeatureNotSupportedException fnsEx)
 			{

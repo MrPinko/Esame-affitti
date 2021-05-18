@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace RentHouse.com
 {
@@ -11,6 +9,7 @@ namespace RentHouse.com
 			InitializeComponent();
 
 			MainPage = new MainPage();
+			//MainPage = new registerUser();      vera main page
 		}
 
 		protected override void OnStart()
