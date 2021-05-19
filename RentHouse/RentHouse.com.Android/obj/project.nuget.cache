@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Flv0O5esg9nCqCY4fIicgZ98rWC4TUbxmLth0xpeLIEETdE0r+91sC10FE7uhbfFnQCMVgChuqHB8eDZ8HD3WA==",
+  "dgSpecHash": "5bcZfHWgm8fOCFikDerUf8ztwXt77fxGnpe0KDZKOt6n9Mo8UMLDCha4dJvzkU67q6TkOuRRFlbMmMOmgMqU4Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
+  "projectFilePath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Federico\\.nuget\\packages\\expandableview\\1.0.10\\expandableview.1.0.10.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\google.api.commonprotos\\2.3.0\\google.api.commonprotos.2.3.0.nupkg.sha512",

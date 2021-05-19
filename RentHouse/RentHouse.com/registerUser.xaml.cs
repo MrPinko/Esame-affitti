@@ -58,6 +58,7 @@ namespace RentHouse.com
 		string sigla;
 		private void comuneDiNascita_Unfocused(object sender, FocusEventArgs e)
 		{
+			if(comuneDiNascita.Text != null)
 			foreach (Comuni obj in comuniList)
 			{
 				if (comuneDiNascita.Text.ToUpper().Equals(obj.nome.ToUpper()))

@@ -15,7 +15,7 @@ namespace RentHouse.com.Droid
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
-
+			SetStatusBarColor((Android.Graphics.Color.ParseColor("#ee3861")));
 			base.OnCreate(savedInstanceState);
 			CrossCurrentActivity.Current.Init(this, savedInstanceState);
 			Xamarin.Essentials.Platform.Init(this, savedInstanceState);

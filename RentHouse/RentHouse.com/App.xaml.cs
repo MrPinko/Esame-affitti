@@ -8,8 +8,8 @@ namespace RentHouse.com
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
-			//MainPage = new registerUser();      vera main page
+			//MainPage = new MainPage();
+			MainPage = new registerUser();      //vera main page
 		}
 
 		protected override void OnStart()
