@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z7/TE5Eftu4wMUoFXc5tpTSqdnBiiak+5nCPHN719mAqk1Qtrj53wz+C+rHtul7pbdq9gt6JZmy29U/KCdWzow==",
+  "dgSpecHash": "K95CKCxQ/AXEJ1Ip2F2U1ezxSOZLJ4aBMf+1+/1P26Rj6tg9uYp2QANVzFtEcc9cn5LUNIBJ7gpK6jfiZbN0Rg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.iOS\\RentHouse.com.iOS.csproj",
+  "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.iOS\\RentHouse.com.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Federico\\.nuget\\packages\\expandableview\\1.0.10\\expandableview.1.0.10.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\google.api.commonprotos\\2.3.0\\google.api.commonprotos.2.3.0.nupkg.sha512",
@@ -12,10 +12,11 @@
     "C:\\Users\\Federico\\.nuget\\packages\\system.buffers\\4.4.0\\system.buffers.4.4.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\Federico\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\webp.touch\\1.0.8\\webp.touch.1.0.8.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.build.download\\0.4.11\\xamarin.build.download.0.4.11.nupkg.sha512",
-    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
+    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.ffimageloading\\2.4.11.982\\xamarin.ffimageloading.2.4.11.982.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.ffimageloading.forms\\2.4.11.982\\xamarin.ffimageloading.forms.2.4.11.982.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512",
@@ -24,19 +25,5 @@
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.google.ios.maps\\3.5.0\\xamarin.google.ios.maps.3.5.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xfx.controls\\1.2.1\\xfx.controls.1.2.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "È stato rilevato il downgrade del pacchetto Xamarin.Essentials da 1.6.1 a 1.5.3.2. Fare riferimento al pacchetto direttamente dal progetto per selezionare una versione diversa. \r\n RentHouse.com.iOS -> RentHouse.com -> Xamarin.Essentials (>= 1.6.1) \r\n RentHouse.com.iOS -> Xamarin.Essentials (>= 1.5.3.2)",
-      "libraryId": "Xamarin.Essentials",
-      "targetGraphs": [
-        "Xamarin.iOS,Version=v1.0",
-        "Xamarin.iOS,Version=v1.0/win",
-        "Xamarin.iOS,Version=v1.0/win-x64",
-        "Xamarin.iOS,Version=v1.0/win-x86"
-      ]
-    }
-  ]
+  "logs": []
 }

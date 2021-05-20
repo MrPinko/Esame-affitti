@@ -4,12 +4,15 @@ namespace RentHouse.com
 {
 	public partial class App : Application
 	{
+
+
 		public App()
 		{
 			InitializeComponent();
 
-			//MainPage = new MainPage();
-			MainPage = new registerUser();      //vera main page
+			MainPage = new NavigationPage(new loginUser());
+			//MainPage = new NavigationPage(new MainPage());
+			//MainPage = new registerUser();      //vera main page
 		}
 
 		protected override void OnStart()
@@ -23,5 +26,6 @@ namespace RentHouse.com
 		protected override void OnResume()
 		{
 		}
+
 	}
 }

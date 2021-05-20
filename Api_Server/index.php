@@ -16,6 +16,8 @@ if (isset($uri[3])) {
     
 }
 
-    $requestMethod = $_SERVER['REQUEST_METHOD'];
-    $controller = new Controller($dbConnection, $requestMethod, $firstPar);
-    $controller->processRequest();
+print_r($uri);
+
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+$controller = new Controller($dbConnection, $requestMethod, $firstPar);
+$controller->processRequest();

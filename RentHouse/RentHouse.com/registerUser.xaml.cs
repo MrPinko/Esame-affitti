@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,6 +22,8 @@ namespace RentHouse.com
 		public registerUser()
 		{
 			InitializeComponent();
+			NavigationPage.SetHasNavigationBar(this, false);
+
 			LocalJson();
 
 			secondContainer.TranslateTo(1000, 0, 0);
@@ -95,7 +100,9 @@ namespace RentHouse.com
 						}
 						break;
 					case 2:
-						insertNewUser();
+						//insertNewUser();
+						postRequest();
+							
 						Navigation.PushAsync(new MainPage());
 						break;
 				}
@@ -134,12 +141,62 @@ namespace RentHouse.com
 
 		private void insertNewUser()
 		{
-			using (WebClient client = new WebClient())
+			/*using (WebClient client = new WebClient())
 			{
-				string json = "{'pw' : '" + pwEntry.Text + "', 'email': '" + review_email.Text + "', 'cell' : '" + review_cell.Text + "', 'citta' : '" + review_citta.Text + "', 'via' : '" + review_via.Text + "', 'numero': '" + review_numero.Text + "', 'cap' : '" + review_cap.Text + "', 'dataN': '" + data.Date.ToString("yyyy-MM-dd") + "', 'sesso': '" + review_sesso.Text + "', 'cf_utente' : '" + codiceFiscale.Text + "', 'nome' : '" + review_nome.Text + "', 'cognome': '" + review_cognome.Text + "', 'm_pagamento': ' " + review_MPagamento.Text +"'}";
+				string json = "{" +
+					"'pw' : '" + MD5Hash(pwEntry.Text) + 
+					"', 'email': '" + review_email.Text + 
+					"', 'cell' : '" + review_cell.Text + 
+					"', 'citta' : '" + review_citta.Text + 
+					"', 'via' : '" + review_via.Text + 
+					"', 'numero': '" + review_numero.Text + 
+					"', 'cap' : '" + review_cap.Text + 
+					"', 'dataN': '" + data.Date.ToString("yyyy-MM-dd") + 
+					"', 'sesso': '" + review_sesso.Text + 
+					"', 'cf_utente' : '" + codiceFiscale.Text + 
+					"', 'nome' : '" + review_nome.Text + 
+					"', 'cognome': '" + review_cognome.Text + 
+					"', 'm_pagamento': ' " + review_MPagamento.Text +
+					"'}";
+
 				client.UploadString("http://localhost/Api_Server/index.php/user/registerUser", json);
-			}
+
+			}*/
+
 		}
+
+		private async System.Threading.Tasks.Task<string> postRequest()
+		{
+			var client = new HttpClient();
+			Uri uri = new Uri("http://localhost/Api_Server/index.php/user/registerUser");
+
+			string jsonData = @"{" +
+					"'pw' : '" + MD5Hash(pwEntry.Text) +
+					"', 'email': '" + review_email.Text +
+					"', 'cell' : '" + review_cell.Text +
+					"', 'citta' : '" + review_citta.Text +
+					"', 'via' : '" + review_via.Text +
+					"', 'numero': '" + review_numero.Text +
+					"', 'cap' : '" + review_cap.Text +
+					"', 'dataN': '" + data.Date.ToString("yyyy-MM-dd") +
+					"', 'sesso': '" + review_sesso.Text +
+					"', 'cf_utente' : '" + codiceFiscale.Text +
+					"', 'nome' : '" + review_nome.Text +
+					"', 'cognome': '" + review_cognome.Text +
+					"', 'm_pagamento': ' " + review_MPagamento.Text +
+					"'}";
+
+			var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+			HttpResponseMessage response = await client.PostAsync(uri, content);
+
+			// this result string should be something like: "{"token":"rgh2ghgdsfds"}"
+			var result = await response.Content.ReadAsStringAsync();
+
+			Console.WriteLine(result);
+			return result;
+		}
+
+
 
 		public bool checkAllEntry()
 		{
@@ -181,6 +238,24 @@ namespace RentHouse.com
 			review_cap.Text = capEntry.Text.ToLower();
 			codiceFiscale.Text = new WebInterface(nomeEntry.Text.ToString(), cognomeEntry.Text.ToString(), data.Date.ToString("dd/MM/yyyy"), sessoEntry.SelectedItem.ToString(), comuneDiNascita.Text.ToString()).getCF();
 
+		}
+
+		public static string MD5Hash(string _password)
+		{
+			SHA512 sha512 = new System.Security.Cryptography.SHA512Managed();
+
+			byte[] sha512Bytes = System.Text.Encoding.Default.GetBytes(_password);
+
+			byte[] cryString = sha512.ComputeHash(sha512Bytes);
+
+			string hashedPwd = string.Empty;
+
+			for (int i = 0; i < cryString.Length; i++)
+			{
+				hashedPwd += cryString[i].ToString("X2");
+			}
+
+			return hashedPwd;
 		}
 
 		public class Zona

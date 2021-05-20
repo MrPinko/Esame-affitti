@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj": {}
+    "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj": {
+    "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
+        "projectUniqueName": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
         "projectName": "RentHouse.com.Android",
-        "projectPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
+        "projectPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
         "packagesPath": "C:\\Users\\Federico\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\obj\\",
+        "outputPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -32,8 +32,8 @@
         "frameworks": {
           "monoandroid90": {
             "projectReferences": {
-              "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj": {
-                "projectPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj"
+              "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj": {
+                "projectPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj"
               }
             }
           }
@@ -48,7 +48,7 @@
             },
             "Xamarin.Essentials": {
               "target": "Package",
-              "version": "[1.5.3.2, )"
+              "version": "[1.6.1, )"
             },
             "Xamarin.Forms": {
               "target": "Package",
@@ -62,14 +62,14 @@
         }
       }
     },
-    "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj": {
+    "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
+        "projectUniqueName": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
         "projectName": "RentHouse.com",
-        "projectPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
+        "projectPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
         "packagesPath": "C:\\Users\\Federico\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\obj\\",
+        "outputPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
@@ -159,7 +159,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

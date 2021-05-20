@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5bcZfHWgm8fOCFikDerUf8ztwXt77fxGnpe0KDZKOt6n9Mo8UMLDCha4dJvzkU67q6TkOuRRFlbMmMOmgMqU4Q==",
+  "dgSpecHash": "xUzFpcmF2kLaNsVZBw/dD0GTzblZdqbveZVKnoLfuX0WiFe746sKlxPYZAVonH+80K0x73nh8w7baM3dLoCLIA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
+  "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Federico\\.nuget\\packages\\expandableview\\1.0.10\\expandableview.1.0.10.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\google.api.commonprotos\\2.3.0\\google.api.commonprotos.2.3.0.nupkg.sha512",
@@ -13,6 +13,7 @@
     "C:\\Users\\Federico\\.nuget\\packages\\system.buffers\\4.4.0\\system.buffers.4.4.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\Federico\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.android.arch.core.common\\1.1.1.3\\xamarin.android.arch.core.common.1.1.1.3.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.android.arch.core.runtime\\1.1.1.3\\xamarin.android.arch.core.runtime.1.1.1.3.nupkg.sha512",
@@ -52,7 +53,7 @@
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.android.support.versionedparcelable\\28.0.0.3\\xamarin.android.support.versionedparcelable.28.0.0.3.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.android.support.viewpager\\28.0.0.3\\xamarin.android.support.viewpager.28.0.0.3.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.build.download\\0.4.9\\xamarin.build.download.0.4.9.nupkg.sha512",
-    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
+    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.ffimageloading\\2.4.11.982\\xamarin.ffimageloading.2.4.11.982.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.ffimageloading.forms\\2.4.11.982\\xamarin.ffimageloading.forms.2.4.11.982.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512",
@@ -64,16 +65,5 @@
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.googleplayservices.tasks\\60.1142.1\\xamarin.googleplayservices.tasks.60.1142.1.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xfx.controls\\1.2.1\\xfx.controls.1.2.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "È stato rilevato il downgrade del pacchetto Xamarin.Essentials da 1.6.1 a 1.5.3.2. Fare riferimento al pacchetto direttamente dal progetto per selezionare una versione diversa. \r\n RentHouse.com.Android -> RentHouse.com -> Xamarin.Essentials (>= 1.6.1) \r\n RentHouse.com.Android -> Xamarin.Essentials (>= 1.5.3.2)",
-      "libraryId": "Xamarin.Essentials",
-      "targetGraphs": [
-        "MonoAndroid,Version=v9.0"
-      ]
-    }
-  ]
+  "logs": []
 }

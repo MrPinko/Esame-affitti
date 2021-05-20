@@ -50,6 +50,7 @@ public class WebInterface
         return urlContents;
     }
 
+
     public string getCF()
 	{
         return cf;

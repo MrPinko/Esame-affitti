@@ -28,24 +28,24 @@ class Database_Query
         }
     }
 
-    public function find($id)
-    {
+    public function find($hashedName, $hashedPw){
         $statement = "
             SELECT
-                id, testcol
+                *
             FROM
-                test
-            WHERE id = ?;
+                utente
+            WHERE nome = ?
+            AND pw = ?;
         ";
-
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($id));
+            $statement->execute(array($hashedName,$hashedPw));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException$e) {
             exit($e->getMessage());
         }
+
     }
 
     public function insert(array $input)

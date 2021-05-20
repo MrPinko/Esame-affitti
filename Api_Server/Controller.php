@@ -9,6 +9,9 @@ class Controller
     private $queryMenu;              //può essere RegisterUser, loginUser
     private $DBquery;
 
+    private $hashedName;
+    private $hashedPw;
+
     public function __construct($db, $requestMethod, $queryMenu)               
     {
         $this->db = $db;
@@ -16,12 +19,20 @@ class Controller
         $this->queryMenu = $queryMenu;
 
         $this->DBquery = new Database_Query($db);
+
+        if($queryMenu == 'loginUser'){
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $uri = explode('/', $uri);
+            $this->hashedName = $uri[5];         //contiene il nome
+            $this->hashedPw = $uri[6];          //contiene la password
+        }
     }
 
     public function processRequest()
     {
         switch ($this->requestMethod) {
-            case 'GET':
+            case 'GET' && $this->queryMenu == "loginUser":
+                $response = $this->checkLoginUser($this->hashedName, $this->hashedPw);
                 /*if ($this->userId) { //se esiste un id
                     $response = $this->getUser($this->userId);
                 } else {
@@ -32,10 +43,10 @@ class Controller
                 $response = $this->createUserFromRequest();
                 break;
             case 'PUT':
-                $response = $this->updateUserFromRequest($this->userId);
+                //$response = $this->updateUserFromRequest($this->userId);
                 break;
             case 'DELETE':
-                $response = $this->deleteUser($this->userId);
+                //$response = $this->deleteUser($this->userId);
                 break;
             default:
                 $response = $this->notFoundResponse();
@@ -55,13 +66,11 @@ class Controller
         return $response;
     }
 
-    private function getUser($id)
-    {
-        $result = $this->DBquery->find($id);
+    private function checkLoginUser($hashedName, $hashedPw){
+        $result = $this->DBquery->find($hashedName, $hashedPw);
         if (!$result) {
             return $this->notFoundResponse();
         }
-        echo "id = " . $result[0]['id'];
         echo "<br>";
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
@@ -83,7 +92,7 @@ class Controller
         return $response;
     }
 
-    private function updateUserFromRequest($id)
+    /*private function updateUserFromRequest($id)
     {
         $result = $this->DBquery->find($id);
 
@@ -95,7 +104,7 @@ class Controller
 
         /*if (!$this->validatePerson($input)) {
             return $this->unprocessableEntityResponse();
-        }*/
+        }
 
         $this->DBquery->update($id, $input);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
@@ -113,7 +122,7 @@ class Controller
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = null;
         return $response;
-    }
+    }*/
 
     private function validatePerson($input)
     {

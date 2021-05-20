@@ -27,6 +27,7 @@ namespace RentHouse.com
 		public MainPage()
 		{
 			InitializeComponent();
+			NavigationPage.SetHasNavigationBar(this, false);
 			LocalJson();
 			loadAttrazioniJson();
 			customMap();
@@ -61,8 +62,8 @@ namespace RentHouse.com
 			}
 
 			//muovo la telecamera sulla città cercata
-			var latitudine = location.GetLocation().Result.Latitude;
-			var longitudine = location.GetLocation().Result.Longitude;
+			//var latitudine = location.GetLocation().Result.Latitude;
+			//var longitudine = location.GetLocation().Result.Longitude;
 
 			//map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(latitudine,longitudine), Distance.FromMeters(5000)));   //si posiziona sulla posizione corrente
 
@@ -213,7 +214,14 @@ namespace RentHouse.com
 			}
 		}
 
+		protected override bool OnBackButtonPressed()
+		{
+			System.Diagnostics.Process.GetCurrentProcess().CloseMainWindow();
+			return true;
+		}
 	}
+
+
 
 }
 
