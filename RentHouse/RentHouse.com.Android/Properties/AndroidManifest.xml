@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.xamarin.renthouse.com" android:installLocation="preferExternal">
-	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="29" />
-	<application android:label="RentHouse.com.Android" android:theme="@style/MainTheme">
+	<uses-sdk android:minSdkVersion="27" android:targetSdkVersion="30" />
+	<application android:label="RentHouse.com.Android" android:theme="@style/MainTheme" android:usesCleartextTraffic="true">
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAnXdxwBRXLMregctVbDqIp3pyljS6aybA" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	</application>

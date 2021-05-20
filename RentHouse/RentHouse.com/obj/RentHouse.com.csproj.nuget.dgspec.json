@@ -85,10 +85,6 @@
             "Xamarin.Forms.PancakeView": {
               "target": "Package",
               "version": "[2.3.0.759, )"
-            },
-            "Xfx.Controls": {
-              "target": "Package",
-              "version": "[1.2.1, )"
             }
           },
           "imports": [

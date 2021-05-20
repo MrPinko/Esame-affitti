@@ -18,8 +18,7 @@
           "Xamarin.FFImageLoading.Forms": "2.4.11.982",
           "Xamarin.Forms": "4.8.0.1451",
           "Xamarin.Forms.GoogleMaps": "3.3.0",
-          "Xamarin.Forms.PancakeView": "2.3.0.759",
-          "Xfx.Controls": "1.2.1"
+          "Xamarin.Forms.PancakeView": "2.3.0.759"
         },
         "runtime": {
           "RentHouse.com.dll": {}
@@ -209,17 +208,6 @@
             "fileVersion": "2.0.1.0"
           }
         }
-      },
-      "Xfx.Controls/1.2.1": {
-        "dependencies": {
-          "Xamarin.Forms": "4.8.0.1451"
-        },
-        "runtime": {
-          "lib/netstandard1.3/Xfx.Controls.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -368,13 +356,6 @@
       "sha512": "sha512-TGVsLJuGd/PKlyhmcBxZnHhHqyhYppzyrdb2q/sy+S6dQYkeGM8A+HmIIHVhbi7r8Sjasa/HRBkOmTSYQOZzhQ==",
       "path": "xamarin.forms.pancakeview/2.3.0.759",
       "hashPath": "xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512"
-    },
-    "Xfx.Controls/1.2.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-jVBI7U0Vmu87yLeWxkFptR2e/9583QHnvbDK3vjt9xmjo3BgZHYz3Ob+9gaHEmEb1JFc14dE5Gfdm+PRAkh2OQ==",
-      "path": "xfx.controls/1.2.1",
-      "hashPath": "xfx.controls.1.2.1.nupkg.sha512"
     }
   }
 }

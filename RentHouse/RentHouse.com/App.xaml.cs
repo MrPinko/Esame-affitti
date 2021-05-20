@@ -12,7 +12,7 @@ namespace RentHouse.com
 
 			MainPage = new NavigationPage(new loginUser());
 			//MainPage = new NavigationPage(new MainPage());
-			//MainPage = new registerUser();      //vera main page
+			//MainPage = new NavigationPage(new registerUser());     //vera main page
 		}
 
 		protected override void OnStart()

@@ -49,7 +49,7 @@ namespace RentHouse.com
 				}*/
 			}
 		}
-		bool isFirstContainerOnScreen = true;
+
 		private void confirmimagePressed(object sender, EventArgs e)
 		{
 			moveContainer("forward");
@@ -100,10 +100,9 @@ namespace RentHouse.com
 						}
 						break;
 					case 2:
-						//insertNewUser();
 						postRequest();
 							
-						Navigation.PushAsync(new MainPage());
+						Navigation.PushAsync(new MainPage(review_email.Text));
 						break;
 				}
 			}
@@ -139,52 +138,27 @@ namespace RentHouse.com
 			}
 		}
 
-		private void insertNewUser()
-		{
-			/*using (WebClient client = new WebClient())
-			{
-				string json = "{" +
-					"'pw' : '" + MD5Hash(pwEntry.Text) + 
-					"', 'email': '" + review_email.Text + 
-					"', 'cell' : '" + review_cell.Text + 
-					"', 'citta' : '" + review_citta.Text + 
-					"', 'via' : '" + review_via.Text + 
-					"', 'numero': '" + review_numero.Text + 
-					"', 'cap' : '" + review_cap.Text + 
-					"', 'dataN': '" + data.Date.ToString("yyyy-MM-dd") + 
-					"', 'sesso': '" + review_sesso.Text + 
-					"', 'cf_utente' : '" + codiceFiscale.Text + 
-					"', 'nome' : '" + review_nome.Text + 
-					"', 'cognome': '" + review_cognome.Text + 
-					"', 'm_pagamento': ' " + review_MPagamento.Text +
-					"'}";
-
-				client.UploadString("http://localhost/Api_Server/index.php/user/registerUser", json);
-
-			}*/
-
-		}
-
-		private async System.Threading.Tasks.Task<string> postRequest()
+		private async void postRequest()
 		{
 			var client = new HttpClient();
-			Uri uri = new Uri("http://localhost/Api_Server/index.php/user/registerUser");
+			Uri uri = new Uri("http://rosafedericoesame.altervista.org/index.php/user/registerUser");
 
-			string jsonData = @"{" +
-					"'pw' : '" + MD5Hash(pwEntry.Text) +
-					"', 'email': '" + review_email.Text +
-					"', 'cell' : '" + review_cell.Text +
-					"', 'citta' : '" + review_citta.Text +
-					"', 'via' : '" + review_via.Text +
-					"', 'numero': '" + review_numero.Text +
-					"', 'cap' : '" + review_cap.Text +
-					"', 'dataN': '" + data.Date.ToString("yyyy-MM-dd") +
-					"', 'sesso': '" + review_sesso.Text +
-					"', 'cf_utente' : '" + codiceFiscale.Text +
-					"', 'nome' : '" + review_nome.Text +
-					"', 'cognome': '" + review_cognome.Text +
-					"', 'm_pagamento': ' " + review_MPagamento.Text +
-					"'}";
+			string jsonData = "{" +
+							"\"pw\" : \"" + MD5Hash(pwEntry.Text) +
+							"\", \"email\": \"" + review_email.Text +
+							"\", \"cell\" : \"" + review_cell.Text +
+							"\", \"citta\" : \"" + review_citta.Text +
+							"\", \"via\" : \"" + review_via.Text +
+							"\", \"numero\": \"" + review_numero.Text +
+							"\", \"cap\" : \"" + review_cap.Text +
+							"\", \"dataN\": \"" + data.Date.ToString("yyyy-MM-dd") +
+							"\", \"sesso\": \"" + review_sesso.Text +
+							"\", \"cf_utente\" : \"" + codiceFiscale.Text +
+							"\", \"nome\" : \"" + MD5Hash(review_nome.Text) +
+							"\", \"cognome\": \"" + MD5Hash(review_cognome.Text) +
+							"\", \"m_pagamento\": \" " + review_MPagamento.Text +
+							"\"}";
+
 
 			var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 			HttpResponseMessage response = await client.PostAsync(uri, content);
@@ -193,7 +167,6 @@ namespace RentHouse.com
 			var result = await response.Content.ReadAsStringAsync();
 
 			Console.WriteLine(result);
-			return result;
 		}
 
 
@@ -256,6 +229,18 @@ namespace RentHouse.com
 			}
 
 			return hashedPwd;
+		}
+
+
+		private void gotoLogin(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new loginUser());
+		}
+
+		protected override bool OnBackButtonPressed()
+		{
+			System.Diagnostics.Process.GetCurrentProcess().CloseMainWindow();
+			return true;
 		}
 
 		public class Zona

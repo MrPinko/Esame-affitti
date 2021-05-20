@@ -39,7 +39,6 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
-    <PackageReference Include="Xfx.Controls" Version="1.2.1" />
 	  
   </ItemGroup>
 

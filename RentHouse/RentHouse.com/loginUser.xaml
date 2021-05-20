@@ -17,7 +17,16 @@
 					<Entry x:Name="LoginnomeEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="nome" Margin="0,0,0,20"></Entry>
 					<Entry x:Name="LoginpasswordEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="password" IsPassword="True"></Entry>
 				</StackLayout>
+
+				<Label Text="Registrati" VerticalOptions="End" TextColor="#ee3861" Margin="10,0,0,10" >
+					<Label.GestureRecognizers>
+						<TapGestureRecognizer Tapped="gotoRegistrazione"></TapGestureRecognizer>
+					</Label.GestureRecognizers>
+				</Label>
+
 			</StackLayout>
+			
+			
 		</yummy:PancakeView>
 
 		<Image x:Name="loginConfirmButton" 
@@ -26,6 +35,7 @@
 				<TapGestureRecognizer Tapped="loginConfirm_Tapped"></TapGestureRecognizer>
 			</Image.GestureRecognizers>
 		</Image>
+
 
 	</AbsoluteLayout>
 </ContentPage>

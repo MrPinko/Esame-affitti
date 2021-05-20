@@ -39,6 +39,16 @@ class Controller
                     $response = $this->getAllUsers();
                 };*/
                 break;
+            case 'GET' && $this->queryMenu == 'attrazioniTuristiche':
+                $response = $this->getAttrazioniTuristiche();
+                break;
+            case 'GET' && $this->queryMenu == 'appartamenti':
+                $response = $this->getAppartamenti();
+                break;
+
+                            case 'GET' && $this->queryMenu == 'review':
+                $response = $this->getReview();
+                break;
             case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
                 break;
@@ -61,6 +71,28 @@ class Controller
     private function getAllUsers()
     {
         $result = $this->DBquery->getAll();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getAttrazioniTuristiche(){
+        $result = $this->DBquery->getAttrazioniTuristiche();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getAppartamenti(){
+        $result = $this->DBquery->getAppartamenti();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    
+    private function getReview(){
+        $result = $this->DBquery->getReview();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;

@@ -23,14 +23,14 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "monoandroid90"
+          "monoandroid10.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "monoandroid90": {
+          "monoandroid10.0": {
             "projectReferences": {
               "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj": {
                 "projectPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj"
@@ -40,7 +40,7 @@
         }
       },
       "frameworks": {
-        "monoandroid90": {
+        "monoandroid10.0": {
           "dependencies": {
             "Plugin.CurrentActivity": {
               "target": "Package",
@@ -143,10 +143,6 @@
             "Xamarin.Forms.PancakeView": {
               "target": "Package",
               "version": "[2.3.0.759, )"
-            },
-            "Xfx.Controls": {
-              "target": "Package",
-              "version": "[1.2.1, )"
             }
           },
           "imports": [

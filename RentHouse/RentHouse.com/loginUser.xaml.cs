@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +10,7 @@ namespace RentHouse.com
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class loginUser : ContentPage
 	{
-        private HttpClient _client;
+		private HttpClient _client;
 		private static bool isLoginSuccesseful = false;
 		private static string responseString = "";
 
@@ -25,28 +22,48 @@ namespace RentHouse.com
 
 		private void loginConfirm_Tapped(object sender, EventArgs e)
 		{
-		//checkLoginUser("http://192.168.1.106/Api_Server/index.php/user/loginUser/" + LoginnomeEntry.Text + "/" + MD5Hash(LoginpasswordEntry.Text));      //per localhost su fisso
-		checkLoginUser("http://rosafedericoesame.altervista.org/index.php/user/loginUser/" + LoginnomeEntry.Text + "/" + MD5Hash(LoginpasswordEntry.Text));           //per altervista
+			//checkLoginUser("http://192.168.1.106/Api_Server/index.php/user/loginUser/" + LoginnomeEntry.Text + "/" + MD5Hash(LoginpasswordEntry.Text));      //per localhost su fisso
 
-		
-			if (!responseString.Equals("NotFound"))
+			if (isAllFilled())
 			{
-				Navigation.PushAsync(new MainPage());
+				checkLoginUser("http://rosafedericoesame.altervista.org/index.php/user/loginUser/" + LoginnomeEntry.Text + "/" + MD5Hash(LoginpasswordEntry.Text));           //per altervista
 
+
+				if (!responseString.Equals("NotFound"))
+				{
+					Navigation.PushAsync(new MainPage(LoginnomeEntry.Text));
+				}
+				else
+				{
+					DisplayAlert("errore", "credenziali sbagliate", "ok");
+				}
 			}
 
 		}
 
-        public void WebInterface(HttpClient httpClient)
-        {
-            _client = httpClient;
-        }
+		public bool isAllFilled()
+		{
+			if (LoginnomeEntry.Text != null && LoginpasswordEntry != null)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-        static void checkLoginUser(string uri)
+
+		public void WebInterface(HttpClient httpClient)
+		{
+			_client = httpClient;
+		}
+
+		static void checkLoginUser(string uri)
 		{
 			var client = new HttpClient();
 			var response = client.GetAsync(uri);
-			
+
 			//l'utente è giusto
 			responseString = response.Result.StatusCode.ToString();
 
@@ -73,6 +90,17 @@ namespace RentHouse.com
 			}
 
 			return hashedPwd;
+		}
+
+		private void gotoRegistrazione(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new registerUser());
+		}
+
+		protected override bool OnBackButtonPressed()
+		{
+			System.Diagnostics.Process.GetCurrentProcess().CloseMainWindow();
+			return true;
 		}
 	}
 }

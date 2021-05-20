@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "n7ejthvoUIYVb2HYjuTawQzHCK09XxZtq/4FXyQPsTSh9hKerwk9rIXcdCSIPjY1yMdBjv492eYt4k/FYDysFA==",
+  "dgSpecHash": "LOBoUOCeRmpD+szAEb5oO81Nw8GzbOUHYzZjSEF1kktKO7PYrN4/WBcoOsmJzyAppDjH2QcLiIc+mHQ/iHxkhg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
   "expectedPackageFiles": [
@@ -23,8 +23,7 @@
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.ffimageloading.forms\\2.4.11.982\\xamarin.ffimageloading.forms.2.4.11.982.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms.googlemaps\\3.3.0\\xamarin.forms.googlemaps.3.3.0.nupkg.sha512",
-    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512",
-    "C:\\Users\\Federico\\.nuget\\packages\\xfx.controls\\1.2.1\\xfx.controls.1.2.1.nupkg.sha512"
+    "C:\\Users\\Federico\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512"
   ],
   "logs": []
 }

@@ -230,18 +230,6 @@
         "runtime": {
           "lib/netstandard2.0/Xamarin.Forms.PancakeView.dll": {}
         }
-      },
-      "Xfx.Controls/1.2.1": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.0.0"
-        },
-        "compile": {
-          "lib/netstandard1.3/Xfx.Controls.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Xfx.Controls.dll": {}
-        }
       }
     }
   },
@@ -1303,24 +1291,6 @@
         "xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512",
         "xamarin.forms.pancakeview.nuspec"
       ]
-    },
-    "Xfx.Controls/1.2.1": {
-      "sha512": "jVBI7U0Vmu87yLeWxkFptR2e/9583QHnvbDK3vjt9xmjo3BgZHYz3Ob+9gaHEmEb1JFc14dE5Gfdm+PRAkh2OQ==",
-      "type": "package",
-      "path": "xfx.controls/1.2.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/MonoAndroid/Xfx.Controls.Droid.dll",
-        "lib/MonoAndroid/Xfx.Controls.dll",
-        "lib/Xamarin.iOS10/Xfx.Controls.dll",
-        "lib/Xamarin.iOS10/Xfx.Controls.iOS.dll",
-        "lib/netcore45/Xfx.Controls.dll",
-        "lib/netstandard1.3/Xfx.Controls.dll",
-        "lib/portable-net45+win8+wpa81+wp8/Xfx.Controls.dll",
-        "xfx.controls.1.2.1.nupkg.sha512",
-        "xfx.controls.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -1334,8 +1304,7 @@
       "Xamarin.FFImageLoading.Forms >= 2.4.11.982",
       "Xamarin.Forms >= 4.8.0.1451",
       "Xamarin.Forms.GoogleMaps >= 3.3.0",
-      "Xamarin.Forms.PancakeView >= 2.3.0.759",
-      "Xfx.Controls >= 1.2.1"
+      "Xamarin.Forms.PancakeView >= 2.3.0.759"
     ]
   },
   "packageFolders": {
@@ -1423,10 +1392,6 @@
           "Xamarin.Forms.PancakeView": {
             "target": "Package",
             "version": "[2.3.0.759, )"
-          },
-          "Xfx.Controls": {
-            "target": "Package",
-            "version": "[1.2.1, )"
           }
         },
         "imports": [

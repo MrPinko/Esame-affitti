@@ -28,7 +28,8 @@ class Database_Query
         }
     }
 
-    public function find($hashedName, $hashedPw){
+    public function find($hashedName, $hashedPw)
+    {
         $statement = "
             SELECT
                 *
@@ -39,13 +40,101 @@ class Database_Query
         ";
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($hashedName,$hashedPw));
+            $statement->execute(array($hashedName, $hashedPw));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException$e) {
             exit($e->getMessage());
         }
 
+    }
+
+    public function getAttrazioniTuristiche()
+    {
+        $statement = "
+            SELECT
+            att_turistiche.nome,
+            att_turistiche.lat,
+            att_turistiche.`long`,
+            immagini.url
+            FROM att_turistiche JOIN immagini
+                ON att_turistiche.fk_immagini = immagini.id_immagini
+        ";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getAppartamenti()
+    {
+        $statement = "SELECT
+            appartamenti.nome,
+            appartamenti.piano,
+            appartamenti.superficie,
+            appartamenti.costo,
+            recensioni.posizione,
+            recensioni.qualita_prezzo,
+            recensioni.servizio,
+            immobile_privato.lat,
+            immobile_privato.`long`,
+            proprietario.nome AS nomeProprietario,
+            proprietario.cognome AS cognomeProprietario,
+            social.provider,
+            social.nome
+            FROM appartamenti
+            LEFT JOIN appartamenti_recensioni
+                ON appartamenti_recensioni.fk_appartamenti = appartamenti.idappartamenti
+            INNER JOIN immobile_privato
+                ON appartamenti.fk_immobilePrivato = immobile_privato.idimmobile
+            INNER JOIN proprietario
+                ON proprietario.fk_immobilePrivato = immobile_privato.idimmobile
+            INNER JOIN proprietario_social
+                ON proprietario_social.fk_proprietario = proprietario.cf_proprietario
+            INNER JOIN social
+                ON proprietario_social.fk_social = social.idsocial
+            LEFT JOIN recensioni
+                ON appartamenti_recensioni.fk_recensioni = recensioni.idrecensioni
+
+        ";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getReview()
+    {
+        $statement = "SELECT
+            appartamenti.nome,
+            immagini.url,
+            AVG(recensioni.posizione) AS avg_posizione,
+            AVG(recensioni.qualita_prezzo) AS avg_qualita_prezzo,
+            AVG(recensioni.servizio) AS servizio
+            FROM appartamenti
+            INNER JOIN immagini
+            ON appartamenti.fk_immagini = immagini.id_immagini
+            INNER JOIN appartamenti_recensioni
+            ON appartamenti_recensioni.fk_appartamenti = appartamenti.idappartamenti
+            INNER JOIN recensioni
+            ON appartamenti_recensioni.fk_recensioni = recensioni.idrecensioni
+            GROUP BY appartamenti.nome";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
     }
 
     public function insert(array $input)
@@ -80,8 +169,6 @@ class Database_Query
                 'nome' => $input['nome'],
                 'cognome' => $input['cognome'],
                 'm_pagamento' => $input['m_pagamento'],
-
-
 
             ));
             return $statement->rowCount();
