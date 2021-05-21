@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -14,17 +16,20 @@ namespace RentHouse.com
 {
 	public partial class MainPage : ContentPage
 	{
+		static NumberFormatInfo numberformat = null;
 		private List<Attrazioni> attrazioniList;
 		private List<string> houseImageList = new List<string>();
-		private List<Pin> AppartamentiList = new List<Pin>();
+		private List<Pin> appartamentiList = new List<Pin>();
 		private List<Pin> attrazionipinList = new List<Pin>();
+		private Location location;
+
 		ObservableCollection<AppartamentiPosizione> appartamentiJson;
-		ObservableCollection<ReviewAndImage> reviewJson;
+		ObservableCollection<Review> reviewJson;
+		ObservableCollection<AppartamentiImmagini> appartamentiImmaginiJson;
+
 		private bool bottomBarUp = false, isExpanded = false;
-		Location location;
 		string userEmail;
 		int cityID;
-
 
 		public MainPage(string userEmail) { }
 
@@ -38,25 +43,34 @@ namespace RentHouse.com
 
 			getrequestForRecensioni();
 
+			getRequestForAppartamentiImmagini();
+
 			foreach (AppartamentiPosizione item in appartamentiJson)
 			{
-				AppartamentiList.Add(
+				double latWithDot = toDouble(item.lat);
+				double longWithDot = toDouble(item.@long);
+
+				appartamentiList.Add(
 					new Pin
 					{
 						Type = PinType.Place,
-						Label = item.nome,
+						Label = item.Nomeappartamento,
 						Address = item.via + " " + item.numeroC,
 						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
 					});
+
+
 			}
 
 			this.userEmail = userEmail;
 
-			location = new Location();
-
 			//aggiugno i pin alla mappa 
-			foreach (Pin pin in AppartamentiList)
+			foreach (Pin pin in appartamentiList)
 			{
+				Console.WriteLine(pin.Label);
+				Console.WriteLine(pin.Position.Latitude);
+				Console.WriteLine(pin.Position.Longitude);
+
 				map.Pins.Add(pin);
 			}
 
@@ -65,7 +79,6 @@ namespace RentHouse.com
 			//var longitudine = location.GetLocation().Result.Longitude;
 
 			//map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(latitudine,longitudine), Distance.FromMeters(5000)));   //si posiziona sulla posizione corrente
-
 
 		}
 
@@ -89,9 +102,10 @@ namespace RentHouse.com
 				int cityID = findID(e.Pin.Label.ToString());             //cerco l'id del pin selezionato nel json
 
 				//caricamento delle immagini
-				foreach (string s in reviewJson[cityID].url)
+				foreach (AppartamentiImmagini ai in appartamentiImmaginiJson)
 				{
-					houseImageList.Add(s);
+					if(ai.nome.ToLower().Equals(e.Pin.Label.ToLower()))
+					houseImageList.Add(ai.url);
 				}
 
 				if (bottomBarUp)
@@ -99,31 +113,30 @@ namespace RentHouse.com
 					bottomBar.TranslateTo(0, 0, 300);
 					bottomBarUp = false;
 				}
-				else
+				else             //la barra sotto non è visibile
 				{
 					bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
-					houseName.Text = appartamentiJson[cityID].nome.ToUpper();
+					houseName.Text = appartamentiJson[cityID].Nomeappartamento.ToUpper();
 
 					houseImage.ItemsSource = houseImageList;
 					houseImage.HeightRequest = bottomBar.Height / 3;
 					houseImage.WidthRequest = bottomBar.Width;
 
 					//caricamento delle review
-					posizioneStar.Text = reviewJson[cityID].avg_posizione;
-					qpStar.Text = reviewJson[cityID].avg_qualita_prezzo;
-					servizioStar.Text = reviewJson[cityID].avg_servizio;
+					//posizioneStar.Text = reviewJson[cityID].avg_posizione;
+					//qpStar.Text = reviewJson[cityID].avg_qualita_prezzo;
+					//servizioStar.Text = reviewJson[cityID].avg_servizio;
 
 					bottomBarUp = true;
 				}
 			}
 		}
 
-		
-
-		private void expandBottomBar(object sender, SwipedEventArgs e)
+		private void expandBottomBar(object sender, SwipedEventArgs e)       //massima altezza
 		{
 			bottomBar.TranslateTo(0, -bottomBar.Height, 350);
 			isExpanded = true;
+			houseImage.IsSwipeEnabled = true;
 		}
 
 		private void retriveBottomBar(object sender, SwipedEventArgs e)
@@ -138,8 +151,10 @@ namespace RentHouse.com
 				bottomBar.TranslateTo(0, 0, 350);
 				bottomBarUp = false;
 			}
-		}
 
+			houseImage.IsSwipeEnabled = false;
+
+		}
 
 		#region richieste GET
 
@@ -172,9 +187,26 @@ namespace RentHouse.com
 			task.Wait();
 			Console.WriteLine(myXMLstring);
 
-			var tr = JsonConvert.DeserializeObject<List<ReviewAndImage>>(myXMLstring);
+			var tr = JsonConvert.DeserializeObject<List<Review>>(myXMLstring);
 			//After deserializing , we store our data in the List called ObservableCollection
-			reviewJson = new ObservableCollection<ReviewAndImage>(tr);
+			reviewJson = new ObservableCollection<Review>(tr);
+		}
+
+		private void getRequestForAppartamentiImmagini()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/appartamentiImmagini";
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			task.Wait();
+			Console.WriteLine(myXMLstring);
+
+			var tr = JsonConvert.DeserializeObject<List<AppartamentiImmagini>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			appartamentiImmaginiJson = new ObservableCollection<AppartamentiImmagini>(tr);
 		}
 
 		async Task<String> AccessTheWebAsync(String url)
@@ -196,7 +228,7 @@ namespace RentHouse.com
 		{
 			for (int i = 0; i < appartamentiJson.Count; i++)
 			{
-				if (appartamentiJson[i].nome.Equals(s))
+				if (appartamentiJson[i].Nomeappartamento.Equals(s))
 					return i;
 			}
 
@@ -224,25 +256,67 @@ namespace RentHouse.com
 
 		#endregion
 
+		#region double formattati bene grazie pietro
+		private static double toDouble(string s)      //ovviamente va usata la virgola e non il punto per formattare un Double ...
+		{
+			double d = 0;
+			bool isNegative = false;
+			//leggo la parte prima del punto
+			int i = 0;
+			int decimalIndex = 0;
+			StringBuilder b = new StringBuilder("");
+
+			if (s[0] == '-')
+			{
+				isNegative = true;
+				i++;
+			}
+
+			for (; i < s.Length; i++)
+			{
+				if (s[i] == '.')
+				{
+					decimalIndex = i;
+					i++;
+					break;
+				}
+				d *= 10;
+				d += toInt(s[i]);
+			}
+			for (; i < s.Length; i++)
+			{
+				if (s[i] == 'E' || s[i] == 'e')
+				{
+					i++;
+					break;
+				}
+				d += toInt(s[i]) * Math.Pow(10, -(i - decimalIndex));
+			}
+			for (; i < s.Length; i++)
+			{
+				b.Append(s[i]);
+			}
+			if (b.ToString() != "")
+			{
+				int n = Convert.ToInt32(b.ToString());
+				d *= Math.Pow(10, n);
+			}
+			if (isNegative)
+				d = -d;
+
+			return d;
+		}
+
+		private static int toInt(char c)
+		{
+			return (Convert.ToInt32(c) - 48);
+		}
+		#endregion
+
 	}
 }
 
 #region classi per json
-
-public class City
-{
-	public string name { get; set; }
-	public string city { get; set; }
-	public List<string> image { get; set; }
-	public string address { get; set; }
-	public double Lat { get; set; }
-	public double Long { get; set; }
-	public int posizioneStar { get; set; }
-	public int qpStar { get; set; }
-	public int servizioStar { get; set; }
-
-
-}
 
 public class Attrazioni
 {
@@ -259,25 +333,40 @@ public class Attrazioni
 
 public class AppartamentiPosizione
 {
-	public string nome { get; set; }
+	public string Nomeappartamento { get; set; }
 	public string piano { get; set; }
 	public string superficie { get; set; }
 	public string costo { get; set; }
-	public string lat { get; set; }
-	public string @long { get; set; }
 	public string via { get; set; }
 	public string numeroC { get; set; }
+	public string lat { get; set; }
+	public string @long { get; set; }
+	public string citta { get; set; }
+	public string cf_proprietario { get; set; }
 }
 
-public class ReviewAndImage
+public class Review
 {
 	public string nome { get; set; }
-	public List<string> url { get; set; }
 	public string avg_posizione { get; set; }
 	public string avg_qualita_prezzo { get; set; }
 	public string avg_servizio { get; set; }
 }
 
+public class AttrazioniCordEImmagini
+{
+	public string nome { get; set; }
+	public string lat { get; set; }
+	public string @long { get; set; }
+	public string url { get; set; }
+}
+
+
+public class AppartamentiImmagini
+{
+	public string nome { get; set; }
+	public string url { get; set; }
+}
 #endregion
 
 

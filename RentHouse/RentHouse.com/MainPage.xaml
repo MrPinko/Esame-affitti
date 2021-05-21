@@ -11,17 +11,17 @@
 		<maps:Map x:Name="map" MapType="Street" PinClicked="map_PinClicked" MapClicked="map_MapClicked"
 			  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
 
-		<yummy:PancakeView
+			<yummy:PancakeView
 			x:Name="bottomBar"
             Margin="0"
             CornerRadius="32,32,0,0"
 			BackgroundColor="WhiteSmoke"
-			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}"
-			AbsoluteLayout.LayoutBounds="0.5,5.05,0.95,0.8"
+			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}" 
+			AbsoluteLayout.LayoutBounds="0.5,10,0.95,0.9"
 			AbsoluteLayout.LayoutFlags="All">
-			<StackLayout>
 
-				<CarouselView x:Name="houseImage">
+			<StackLayout>
+				<CarouselView x:Name="houseImage" IsSwipeEnabled="False">
 
 					<CarouselView.ItemTemplate>
 						<DataTemplate>
@@ -31,8 +31,9 @@
 									<SwipeGestureRecognizer Direction="Down" Swiped="retriveBottomBar"></SwipeGestureRecognizer>
 								</ff:CachedImage.GestureRecognizers>
 							</ff:CachedImage>
-							
+
 						</DataTemplate>
+
 					</CarouselView.ItemTemplate>
 				</CarouselView>
 
@@ -80,6 +81,5 @@
 				<SwipeGestureRecognizer Direction="Down" Swiped="retriveBottomBar"></SwipeGestureRecognizer>
 			</yummy:PancakeView.GestureRecognizers>
 		</yummy:PancakeView>
-
 	</AbsoluteLayout>
 </ContentPage>
