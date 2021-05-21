@@ -6,13 +6,13 @@ class Controller
 {
     private $db;
     private $requestMethod;
-    private $queryMenu;              //può essere RegisterUser, loginUser
+    private $queryMenu; //può essere RegisterUser, loginUser
     private $DBquery;
 
     private $hashedName;
     private $hashedPw;
 
-    public function __construct($db, $requestMethod, $queryMenu)               
+    public function __construct($db, $requestMethod, $queryMenu)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
@@ -20,11 +20,11 @@ class Controller
 
         $this->DBquery = new Database_Query($db);
 
-        if($queryMenu == 'loginUser'){
+        if ($queryMenu == 'loginUser') {
             $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $uri = explode('/', $uri);
-            $this->hashedName = $uri[5];         //contiene il nome
-            $this->hashedPw = $uri[6];          //contiene la password
+            $this->hashedName = $uri[5]; //contiene il nome
+            $this->hashedPw = $uri[6]; //contiene la password
         }
     }
 
@@ -45,9 +45,11 @@ class Controller
             case 'GET' && $this->queryMenu == 'appartamenti':
                 $response = $this->getAppartamenti();
                 break;
-
-                            case 'GET' && $this->queryMenu == 'review':
+            case 'GET' && $this->queryMenu == 'review':
                 $response = $this->getReview();
+                break;
+            case 'GET' && $this->queryMenu == 'appartamentiImmagini':
+                $response = $this->getAppartamentiImmagini();
                 break;
             case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
@@ -76,29 +78,40 @@ class Controller
         return $response;
     }
 
-    private function getAttrazioniTuristiche(){
+    private function getAttrazioniTuristiche()
+    {
         $result = $this->DBquery->getAttrazioniTuristiche();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
     }
 
-    private function getAppartamenti(){
+    private function getAppartamenti()
+    {
         $result = $this->DBquery->getAppartamenti();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
     }
 
-    
-    private function getReview(){
+    private function getReview()
+    {
         $result = $this->DBquery->getReview();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
     }
 
-    private function checkLoginUser($hashedName, $hashedPw){
+    private function getAppartamentiImmagini()
+    {
+        $result = $this->DBquery->getAppartamentiImmagini();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function checkLoginUser($hashedName, $hashedPw)
+    {
         $result = $this->DBquery->find($hashedName, $hashedPw);
         if (!$result) {
             return $this->notFoundResponse();

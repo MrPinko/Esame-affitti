@@ -51,15 +51,15 @@ class Database_Query
 
     public function getAttrazioniTuristiche()
     {
-        $statement = "
-            SELECT
-            att_turistiche.nome,
-            att_turistiche.lat,
-            att_turistiche.`long`,
-            immagini.url
-            FROM att_turistiche JOIN immagini
-                ON att_turistiche.fk_immagini = immagini.id_immagini
-        ";
+        $statement = "SELECT
+                    att_turistiche.nome,
+                    att_turistiche.lat,
+                    att_turistiche.`long`,
+                    immagini_per_attrazionituristiche.url
+                    FROM att_turistiche
+                    INNER JOIN immagini_per_attrazionituristiche
+                        ON att_turistiche.fk_immagini = immagini_per_attrazionituristiche.idimmagini_per_attrazioniTuristiche
+                    ";
 
         try {
             $statement = $this->db->query($statement);
@@ -73,7 +73,7 @@ class Database_Query
     public function getAppartamenti()
     {
         $statement = "SELECT
-            appartamenti.nome,
+            appartamenti.nome as nomeAppartamento,
             appartamenti.piano,
             appartamenti.superficie,
             appartamenti.costo,
@@ -115,18 +115,32 @@ class Database_Query
     {
         $statement = "SELECT
             appartamenti.nome,
-            immagini.url,
             AVG(recensioni.posizione) AS avg_posizione,
             AVG(recensioni.qualita_prezzo) AS avg_qualita_prezzo,
-            AVG(recensioni.servizio) AS servizio
+            AVG(recensioni.servizio) AS avg_servizio
             FROM appartamenti
-            INNER JOIN immagini
-            ON appartamenti.fk_immagini = immagini.id_immagini
             INNER JOIN appartamenti_recensioni
             ON appartamenti_recensioni.fk_appartamenti = appartamenti.idappartamenti
             INNER JOIN recensioni
             ON appartamenti_recensioni.fk_recensioni = recensioni.idrecensioni
             GROUP BY appartamenti.nome";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getAppartamentiImmagini(){
+        $statement = "SELECT
+                    appartamenti.nome,
+                    immagini_per_appartamenti.url
+                    FROM immagini_per_appartamenti
+                    INNER JOIN appartamenti
+                    ON immagini_per_appartamenti.fkAppartamento = appartamenti.idappartamenti";
 
         try {
             $statement = $this->db->query($statement);
