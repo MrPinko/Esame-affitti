@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LOBoUOCeRmpD+szAEb5oO81Nw8GzbOUHYzZjSEF1kktKO7PYrN4/WBcoOsmJzyAppDjH2QcLiIc+mHQ/iHxkhg==",
+  "dgSpecHash": "XHPFephUGYlzpbcjr4mu1KNFMNYNlixeMSxDrJ4mJmLleGzbuXYmB/zyHPSco7DSjyWiUn7jyi2ogDnYoeUuvA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
+  "projectFilePath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Federico\\.nuget\\packages\\expandableview\\1.0.10\\expandableview.1.0.10.nupkg.sha512",
     "C:\\Users\\Federico\\.nuget\\packages\\google.api.commonprotos\\2.3.0\\google.api.commonprotos.2.3.0.nupkg.sha512",

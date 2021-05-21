@@ -8,7 +8,6 @@ using Plugin.CurrentActivity;
 #else
 	[Application(Debuggable = false)]
 #endif
-[MetaData("com.google.android.maps.v2.API_KEY", Value = "AIzaSyAnXdxwBRXLMregctVbDqIp3pyljS6aybA")]
 public class MainApplication : Application
 {
 	public MainApplication(IntPtr handle, JniHandleOwnership transer)
