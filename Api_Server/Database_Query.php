@@ -77,9 +77,7 @@ class Database_Query
             appartamenti.piano,
             appartamenti.superficie,
             appartamenti.costo,
-            recensioni.posizione,
-            recensioni.qualita_prezzo,
-            recensioni.servizio,
+
             immobile_privato.lat,
             immobile_privato.`long`,
             proprietario.nome AS nomeProprietario,
@@ -109,6 +107,21 @@ class Database_Query
         } catch (\PDOException$e) {
             exit($e->getMessage());
         }
+    }
+
+    public function getNomeEcognome($email)
+    {
+        $statement = "SELECT nome, cognome FROM utente WHERE email = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($email));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+
     }
 
     public function getReview()

@@ -11,6 +11,7 @@ class Controller
 
     private $hashedName;
     private $hashedPw;
+    private $email;
 
     public function __construct($db, $requestMethod, $queryMenu)
     {
@@ -23,15 +24,19 @@ class Controller
         if ($queryMenu == 'loginUser') {
             $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $uri = explode('/', $uri);
-            $this->hashedName = $uri[5]; //contiene il nome
-            $this->hashedPw = $uri[6]; //contiene la password
+            if(isset($uri[6])){
+                $this->hashedName = $uri[5]; //contiene il nome
+                $this->hashedPw = $uri[6]; //contiene la password
+            }else{
+                $this->email = $uri[5];
+            }
         }
     }
 
     public function processRequest()
     {
         switch ($this->requestMethod) {
-            case 'GET' && $this->queryMenu == "loginUser":
+            case 'GET' && $this->queryMenu == "loginUser" && $this->hashedPw != null:
                 $response = $this->checkLoginUser($this->hashedName, $this->hashedPw);
                 /*if ($this->userId) { //se esiste un id
                     $response = $this->getUser($this->userId);
@@ -50,6 +55,9 @@ class Controller
                 break;
             case 'GET' && $this->queryMenu == 'appartamentiImmagini':
                 $response = $this->getAppartamentiImmagini();
+                break;
+            case 'GET' && $this->queryMenu == 'loginUser' && $this->hashedPw == null:
+                $response = $this->getNomeEcognome($this->email);
                 break;
             case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
@@ -105,6 +113,14 @@ class Controller
     private function getAppartamentiImmagini()
     {
         $result = $this->DBquery->getAppartamentiImmagini();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getNomeEcognome($email)
+    {
+        $result = $this->DBquery->getNomeEcognome($email);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
