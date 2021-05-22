@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CardsView" Version="2.7.8" />
     <PackageReference Include="ExpandableView" Version="1.0.10" />
     <PackageReference Include="Google.Api.CommonProtos" Version="2.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

@@ -12,6 +12,8 @@ public class MonoPackageManager_Resources {
 		"Google.Api.CommonProtos.dll",
 		"Google.Protobuf.dll",
 		"Newtonsoft.Json.dll",
+		"PanCardView.dll",
+		"PanCardView.Droid.dll",
 		"Plugin.CurrentActivity.dll",
 		"RentHouse.com.dll",
 		"RestSharp.dll",

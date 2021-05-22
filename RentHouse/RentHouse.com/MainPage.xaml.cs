@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using FFImageLoading;
-using FFImageLoading.Cache;
-using FFImageLoading.Forms;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -22,6 +17,7 @@ namespace RentHouse.com
 		private List<string> houseImageList = new List<string>();
 		private List<Pin> appartamentiList = new List<Pin>();
 		private List<Pin> attrazionipinList = new List<Pin>();
+		private List<string> appartamenti_ImmaginiList = new List<string>();
 		private Location location;
 
 		ObservableCollection<AppartamentiPosizione> appartamentiJson;
@@ -37,6 +33,7 @@ namespace RentHouse.com
 		public MainPage()
 		{
 			InitializeComponent();
+			BindingContext = this;
 			NavigationPage.SetHasNavigationBar(this, false);
 			customMap();
 
@@ -55,7 +52,7 @@ namespace RentHouse.com
 					new Pin
 					{
 						Type = PinType.Place,
-						Label = item.Nomeappartamento,
+						Label = item.nomeAppartamento,
 						Address = item.via + " " + item.numeroC,
 						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
 					});
@@ -90,31 +87,30 @@ namespace RentHouse.com
 			{
 				bottomBar.TranslateTo(0, 0, 300);
 				bottomBarUp = false;
-				houseImage.IsSwipeEnabled = false;
+				carousel.IsSwipeEnabled = false;
 			}
 			Console.WriteLine("tapped at " + e.Point.Latitude + "," + e.Point.Longitude);
 		}
 
-		private ObservableCollection<AppartamentiImmagini> appartamentiImmaginiXaml { get; set; } = new ObservableCollection<AppartamentiImmagini>();  
 		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
-			BindingContext = this;
 			if (e.Pin.Type == PinType.Place)
 			{
-
 				//caricamento delle immagini
 
-				ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Memory);
-				houseImageList.Clear();
-				
+				appartamenti_ImmaginiList.Clear();
+
 				foreach (AppartamentiImmagini ai in appartamentiImmaginiJson)
 				{
 					if (ai.nome.ToLower().Equals(e.Pin.Label.ToLower()))
 					{
-						houseImageList.Add(ai.url);
+						appartamenti_ImmaginiList.Add(ai.url);
 					}
 				}
+
+				AppartamentiImmaginiFromUrl appartamentiImmagini = new AppartamentiImmaginiFromUrl(appartamenti_ImmaginiList[0], appartamenti_ImmaginiList[1], appartamenti_ImmaginiList[2]);
+				carousel.BindingContext = appartamentiImmagini;
 
 				if (bottomBarUp)
 				{
@@ -126,24 +122,31 @@ namespace RentHouse.com
 					bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
 					houseName.Text = e.Pin.Label.ToUpper();
 
-					houseImage.ItemsSource = houseImageList;
-					houseImage.HeightRequest = bottomBar.Height / 3;
-					houseImage.WidthRequest = bottomBar.Width;
+					carousel.HeightRequest = bottomBar.Height / 3;
+					carousel.WidthRequest = bottomBar.Width;
 
 					//caricamento delle review
-					foreach(Review re in reviewJson)
+					foreach (Review re in reviewJson)
 					{
 						if (re.nome.ToLower().Equals(e.Pin.Label.ToLower()))
 						{
-							posizioneStar.Text = re.avg_posizione;
-							qpStar.Text = re.avg_qualita_prezzo;
-							servizioStar.Text = re.avg_servizio;
+							posizioneStar.Text = re.avg_posizione.Substring(0,1);
+							qpStar.Text = re.avg_qualita_prezzo.Substring(0, 1);
+							servizioStar.Text = re.avg_servizio.Substring(0, 1);
+
 							break;
 						}
 					}
-					
 
-					bottomBarUp = true;
+					foreach (AppartamentiPosizione item in appartamentiJson)
+					{
+						nomeProprietario.Text = item.nomeProprietario.ToLower();
+						Cognomeproprietario.Text = item.cognomeProprietario.ToLower();
+						iban.Text = item.iban.ToUpper();
+					}
+
+
+						bottomBarUp = true;
 				}
 			}
 		}
@@ -152,7 +155,7 @@ namespace RentHouse.com
 		{
 			bottomBar.TranslateTo(0, -bottomBar.Height, 350);
 			isExpanded = true;
-			houseImage.IsSwipeEnabled = true;
+			carousel.IsSwipeEnabled = true;
 		}
 
 		private void retriveBottomBar(object sender, SwipedEventArgs e)
@@ -168,7 +171,7 @@ namespace RentHouse.com
 				bottomBarUp = false;
 			}
 
-			houseImage.IsSwipeEnabled = false;
+			//houseImage.IsSwipeEnabled = false;
 
 		}
 
@@ -268,7 +271,7 @@ namespace RentHouse.com
 		{
 			for (int i = 0; i < appartamentiJson.Count; i++)
 			{
-				if (appartamentiJson[i].Nomeappartamento.Equals(s))
+				if (appartamentiJson[i].nomeAppartamento.Equals(s))
 					return i;
 			}
 
@@ -353,6 +356,7 @@ namespace RentHouse.com
 		}
 		#endregion
 
+
 	}
 }
 
@@ -373,16 +377,19 @@ public class Attrazioni
 
 public class AppartamentiPosizione
 {
-	public string Nomeappartamento { get; set; }
+	public string nomeAppartamento { get; set; }
 	public string piano { get; set; }
 	public string superficie { get; set; }
 	public string costo { get; set; }
-	public string via { get; set; }
-	public string numeroC { get; set; }
 	public string lat { get; set; }
 	public string @long { get; set; }
-	public string citta { get; set; }
-	public string cf_proprietario { get; set; }
+	public string via { get; set; }
+	public string numeroC { get; set; }
+	public string nomeProprietario { get; set; }
+	public string cognomeProprietario { get; set; }
+	public string provider { get; set; }
+	public string nome { get; set; }
+	public string iban { get; set; }
 }
 
 public class Review
@@ -408,4 +415,41 @@ public class AppartamentiImmagini
 }
 #endregion
 
+public class CarouselModel
+{
+	public CarouselModel(string imagestr)
+	{
+		Image = imagestr;
+	}
+	private string _image;
 
+	public string Image
+	{
+		get { return _image; }
+		set { _image = value; }
+	}
+}
+
+public class AppartamentiImmaginiFromUrl
+{
+	public class StringData
+	{
+		public string uri { get; set; }
+	}
+
+	public List<StringData> uris { get; set; }
+
+	public void clearUrl()
+	{
+		//uris.Clear();
+	}
+
+	public AppartamentiImmaginiFromUrl(string url1, string url2, string url3)
+	{
+		uris = new List<StringData>() {
+			new StringData() { uri = url1 },
+			new StringData() { uri = url2 },
+			new StringData() { uri = url3 },
+		};
+	}
+}

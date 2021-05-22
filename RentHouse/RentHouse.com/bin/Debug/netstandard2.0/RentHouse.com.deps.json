@@ -9,6 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "RentHouse.com/1.0.0": {
         "dependencies": {
+          "CardsView": "2.7.8",
           "ExpandableView": "1.0.10",
           "Google.Api.CommonProtos": "2.3.0",
           "NETStandard.Library": "2.0.3",
@@ -22,6 +23,14 @@
         },
         "runtime": {
           "RentHouse.com.dll": {}
+        }
+      },
+      "CardsView/2.7.8": {
+        "runtime": {
+          "lib/netstandard2.0/PanCardView.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "ExpandableView/1.0.10": {
@@ -216,6 +225,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "CardsView/2.7.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YEy3xfqlGJJEPetGk5mvQySL5+K1LeAKDfIsgCxfxo90KgODNPJQfCdUv3Y0GFyKNOefVyafshYJoZzHdODodw==",
+      "path": "cardsview/2.7.8",
+      "hashPath": "cardsview.2.7.8.nupkg.sha512"
     },
     "ExpandableView/1.0.10": {
       "type": "package",

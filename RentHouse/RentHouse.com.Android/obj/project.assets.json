@@ -2,6 +2,17 @@
   "version": 3,
   "targets": {
     "MonoAndroid,Version=v9.0": {
+      "CardsView/2.7.8": {
+        "type": "package",
+        "compile": {
+          "lib/MonoAndroid10/PanCardView.Droid.dll": {},
+          "lib/MonoAndroid10/PanCardView.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid10/PanCardView.Droid.dll": {},
+          "lib/MonoAndroid10/PanCardView.dll": {}
+        }
+      },
       "ExpandableView/1.0.10": {
         "type": "package",
         "dependencies": {
@@ -1040,6 +1051,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "CardsView": "2.7.8",
           "ExpandableView": "1.0.10",
           "Google.Api.CommonProtos": "2.3.0",
           "Newtonsoft.Json": "13.0.1",
@@ -1060,6 +1072,33 @@
     }
   },
   "libraries": {
+    "CardsView/2.7.8": {
+      "sha512": "YEy3xfqlGJJEPetGk5mvQySL5+K1LeAKDfIsgCxfxo90KgODNPJQfCdUv3Y0GFyKNOefVyafshYJoZzHdODodw==",
+      "type": "package",
+      "path": "cardsview/2.7.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "cardsview.2.7.8.nupkg.sha512",
+        "cardsview.nuspec",
+        "images/Cardsview-logotype-main.png",
+        "lib/MonoAndroid10/PanCardView.Droid.dll",
+        "lib/MonoAndroid10/PanCardView.dll",
+        "lib/Xamarin.Mac20/PanCardView.dll",
+        "lib/Xamarin.iOS10/PanCardView.dll",
+        "lib/Xamarin.iOS10/PanCardView.iOS.dll",
+        "lib/XamarinTVOS/PanCardView.dll",
+        "lib/net45/PanCardView.dll",
+        "lib/net46/PanCardView.dll",
+        "lib/netstandard1.0/PanCardView.dll",
+        "lib/netstandard2.0/PanCardView.dll",
+        "lib/tizen40/PanCardView.Tizen.dll",
+        "lib/tizen40/PanCardView.dll",
+        "lib/uap/PanCardView.dll",
+        "lib/win81/PanCardView.dll",
+        "lib/wpa81/PanCardView.dll"
+      ]
+    },
     "ExpandableView/1.0.10": {
       "sha512": "uzLIepGkNGBKRlsktnHeJowqUznhThVKku/QYjhacX4jytV+8JjpLAWNu/n0FoLa0EOf5Yd8HlUjWTdVMV3wHA==",
       "type": "package",
@@ -2728,11 +2767,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
+      "projectUniqueName": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
       "projectName": "RentHouse.com.Android",
-      "projectPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
+      "projectPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\RentHouse.com.Android.csproj",
       "packagesPath": "C:\\Users\\Federico\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com.Android\\obj\\",
+      "outputPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -2753,8 +2792,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj": {
-              "projectPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj"
+            "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj": {
+              "projectPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj"
             }
           }
         }

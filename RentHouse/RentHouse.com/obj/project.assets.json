@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
+      "CardsView/2.7.8": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/PanCardView.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/PanCardView.dll": {}
+        }
+      },
       "ExpandableView/1.0.10": {
         "type": "package",
         "dependencies": {
@@ -234,6 +243,33 @@
     }
   },
   "libraries": {
+    "CardsView/2.7.8": {
+      "sha512": "YEy3xfqlGJJEPetGk5mvQySL5+K1LeAKDfIsgCxfxo90KgODNPJQfCdUv3Y0GFyKNOefVyafshYJoZzHdODodw==",
+      "type": "package",
+      "path": "cardsview/2.7.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "cardsview.2.7.8.nupkg.sha512",
+        "cardsview.nuspec",
+        "images/Cardsview-logotype-main.png",
+        "lib/MonoAndroid10/PanCardView.Droid.dll",
+        "lib/MonoAndroid10/PanCardView.dll",
+        "lib/Xamarin.Mac20/PanCardView.dll",
+        "lib/Xamarin.iOS10/PanCardView.dll",
+        "lib/Xamarin.iOS10/PanCardView.iOS.dll",
+        "lib/XamarinTVOS/PanCardView.dll",
+        "lib/net45/PanCardView.dll",
+        "lib/net46/PanCardView.dll",
+        "lib/netstandard1.0/PanCardView.dll",
+        "lib/netstandard2.0/PanCardView.dll",
+        "lib/tizen40/PanCardView.Tizen.dll",
+        "lib/tizen40/PanCardView.dll",
+        "lib/uap/PanCardView.dll",
+        "lib/win81/PanCardView.dll",
+        "lib/wpa81/PanCardView.dll"
+      ]
+    },
     "ExpandableView/1.0.10": {
       "sha512": "uzLIepGkNGBKRlsktnHeJowqUznhThVKku/QYjhacX4jytV+8JjpLAWNu/n0FoLa0EOf5Yd8HlUjWTdVMV3wHA==",
       "type": "package",
@@ -1295,6 +1331,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "CardsView >= 2.7.8",
       "ExpandableView >= 1.0.10",
       "Google.Api.CommonProtos >= 2.3.0",
       "NETStandard.Library >= 2.0.3",
@@ -1314,11 +1351,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
+      "projectUniqueName": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
       "projectName": "RentHouse.com",
-      "projectPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
+      "projectPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\RentHouse.com.csproj",
       "packagesPath": "C:\\Users\\Federico\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Federico\\Desktop\\esame\\RentHouse\\RentHouse.com\\obj\\",
+      "outputPath": "C:\\Users\\Federico\\Desktop\\Fede\\scuola\\Esame\\RentHouse\\RentHouse.com\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
@@ -1351,6 +1388,10 @@
       "netstandard2.0": {
         "targetAlias": "netstandard2.0",
         "dependencies": {
+          "CardsView": {
+            "target": "Package",
+            "version": "[2.7.8, )"
+          },
           "ExpandableView": {
             "target": "Package",
             "version": "[1.0.10, )"
@@ -1404,7 +1445,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
