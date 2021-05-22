@@ -101,6 +101,7 @@ CREATE TABLE `appartamenti_recensioni` (
 
 LOCK TABLES `appartamenti_recensioni` WRITE;
 /*!40000 ALTER TABLE `appartamenti_recensioni` DISABLE KEYS */;
+INSERT INTO `appartamenti_recensioni` VALUES (0,0,0),(1,3,0),(2,1,1),(3,2,2),(4,4,3),(5,5,4);
 /*!40000 ALTER TABLE `appartamenti_recensioni` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,6 +154,57 @@ LOCK TABLES `immagini` WRITE;
 /*!40000 ALTER TABLE `immagini` DISABLE KEYS */;
 INSERT INTO `immagini` VALUES (NULL,0),(NULL,1),(NULL,2),(NULL,3),(NULL,4);
 /*!40000 ALTER TABLE `immagini` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `immagini_per_appartamenti`
+--
+
+DROP TABLE IF EXISTS `immagini_per_appartamenti`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `immagini_per_appartamenti` (
+  `id_immagini` int(11) NOT NULL,
+  `url` mediumtext,
+  `fkAppartamento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_immagini`),
+  KEY `fk_immagini_apparamento_idx` (`fkAppartamento`),
+  CONSTRAINT `fk_immagini_apparamento` FOREIGN KEY (`fkAppartamento`) REFERENCES `appartamenti` (`idappartamenti`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `immagini_per_appartamenti`
+--
+
+LOCK TABLES `immagini_per_appartamenti` WRITE;
+/*!40000 ALTER TABLE `immagini_per_appartamenti` DISABLE KEYS */;
+INSERT INTO `immagini_per_appartamenti` VALUES (0,'https://i.postimg.cc/4xrjdW6v/heart-milan1.jpg',0),(1,'https://i.postimg.cc/fLsF7kgJ/heart-milan2.jpg',0),(2,'https://i.postimg.cc/vZ1pbJVH/heart-milan3.jpg',0),(3,'https://i.postimg.cc/3wmVD21s/vittoria-corner.jpg',1),(4,'https://i.postimg.cc/fTqG4zkr/vittoria-corner2.jpg',1),(5,'https://i.postimg.cc/pr2wvyDg/vittoria-corner3.jpg',1),(6,'https://i.postimg.cc/QNJDzZp2/brera-appartments1.jpg',2),(7,'https://i.postimg.cc/Zn4Sqwhs/brera-appartments2.jpg',2),(8,'https://i.postimg.cc/sXFzkVHr/brera-appartments3.jpg',2),(9,'https://i.postimg.cc/YSFKf5ry/la-perla1.jpg',3),(10,'https://i.postimg.cc/ydFKBw2S/la-perla2.jpg',3),(11,'https://i.postimg.cc/d36KZGss/la-perla3.jpg',3),(12,'https://i.postimg.cc/85d2xLrR/vanitelli-home1.jpg',4),(13,'https://i.postimg.cc/3Jrh5f1d/vanitelli-home2.jpg',4),(14,'https://i.postimg.cc/c4DSs7kT/vanitelli-home3.jpg',4);
+/*!40000 ALTER TABLE `immagini_per_appartamenti` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `immagini_per_attrazionituristiche`
+--
+
+DROP TABLE IF EXISTS `immagini_per_attrazionituristiche`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `immagini_per_attrazionituristiche` (
+  `idimmagini_per_attrazioniTuristiche` int(11) NOT NULL,
+  `url` mediumtext,
+  PRIMARY KEY (`idimmagini_per_attrazioniTuristiche`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `immagini_per_attrazionituristiche`
+--
+
+LOCK TABLES `immagini_per_attrazionituristiche` WRITE;
+/*!40000 ALTER TABLE `immagini_per_attrazionituristiche` DISABLE KEYS */;
+INSERT INTO `immagini_per_attrazionituristiche` VALUES (0,'https://i.postimg.cc/ZRJTdSd7/Parco-del-Castello-Ducale-di-Aglie.jpg'),(1,'https://i.postimg.cc/TPVd1wp5/Palazzo-Anguissola.jpg'),(2,'https://i.postimg.cc/gcSYn1ks/Orto-Botanico-Lorenzo-Rota.jpg'),(3,'https://i.postimg.cc/gJ4GyTyY/Cripta-di-San-Giovanni-in-Conca.jpg'),(4,'https://i.postimg.cc/zXyqWpyr/Terme-di-Cavascura.jpg'),(5,'https://i.postimg.cc/Gt5rVTSV/Villa-di-Diomede.jpg');
+/*!40000 ALTER TABLE `immagini_per_attrazionituristiche` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -260,7 +312,7 @@ CREATE TABLE `recensioni` (
   `qualita_prezzo` int(11) DEFAULT NULL,
   `servizio` int(11) DEFAULT NULL,
   PRIMARY KEY (`idrecensioni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,6 +321,7 @@ CREATE TABLE `recensioni` (
 
 LOCK TABLES `recensioni` WRITE;
 /*!40000 ALTER TABLE `recensioni` DISABLE KEYS */;
+INSERT INTO `recensioni` VALUES (0,6,7,2),(1,9,8,9),(2,4,8,7),(3,3,7,6),(4,8,7,6),(5,5,9,7);
 /*!40000 ALTER TABLE `recensioni` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,4 +451,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-17 13:25:39
+-- Dump completed on 2021-05-22 20:08:02
