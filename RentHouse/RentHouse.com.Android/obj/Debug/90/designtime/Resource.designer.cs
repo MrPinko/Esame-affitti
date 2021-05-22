@@ -11169,6 +11169,9 @@ namespace RentHouse.com.Droid
 			// aapt resource value: 0x7F07008F
 			public const int touristPin = 2131165327;
 			
+			// aapt resource value: 0x7F070090
+			public const int userImage = 2131165328;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

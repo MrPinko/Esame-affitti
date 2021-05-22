@@ -18,7 +18,6 @@ C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\bin\Debug\netstandard2.0
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\bin\Debug\netstandard2.0\RentHouse.com.dll
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\bin\Debug\netstandard2.0\ref\RentHouse.com.dll
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\bin\Debug\netstandard2.0\RentHouse.com.pdb
-C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\RentHouse.com.csprojAssemblyReference.cache
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\loginUser.xaml.g.cs
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
@@ -30,3 +29,4 @@ C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\RentHouse.com.dll
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\ref\RentHouse.com.dll
 C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\RentHouse.com.pdb
+C:\Users\Federico\Desktop\esame\RentHouse\RentHouse.com\obj\Debug\netstandard2.0\RentHouse.com.csprojAssemblyReference.cache

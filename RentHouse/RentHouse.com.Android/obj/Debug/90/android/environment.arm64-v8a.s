@@ -3,8 +3,8 @@
 	.section	.rodata.env.str.1,"aMS",@progbits,1
 	.type	.L.env.str.1, @object
 .L.env.str.1:
-	.asciz	"com.companyname.vaccini"
-	.size	.L.env.str.1, 24
+	.asciz	"com.xamarin.renthouse.com"
+	.size	.L.env.str.1, 26
 	.section	.data.application_config,"aw",@progbits
 	.type	application_config, @object
 	.p2align	3
@@ -73,7 +73,7 @@ mono_aot_mode_name:
 	.section	.rodata.env.str.8,"aMS",@progbits,1
 	.type	.L.env.str.8, @object
 .L.env.str.8:
-	.asciz	"16174449-0ce3-4fb0-8fa6-4f6c72b03e11"
+	.asciz	"9e805032-a94e-4135-81e5-545f8ddc9929"
 	.size	.L.env.str.8, 37
 	.section	.rodata.env.str.9,"aMS",@progbits,1
 	.type	.L.env.str.9, @object

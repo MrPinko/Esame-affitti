@@ -154,8 +154,8 @@ namespace RentHouse.com
 							"\", \"dataN\": \"" + data.Date.ToString("yyyy-MM-dd") +
 							"\", \"sesso\": \"" + review_sesso.Text +
 							"\", \"cf_utente\" : \"" + codiceFiscale.Text +
-							"\", \"nome\" : \"" + MD5Hash(review_nome.Text) +
-							"\", \"cognome\": \"" + MD5Hash(review_cognome.Text) +
+							"\", \"nome\" : \"" +review_nome.Text +
+							"\", \"cognome\": \"" + review_cognome.Text +
 							"\", \"m_pagamento\": \" " + review_MPagamento.Text +
 							"\"}";
 

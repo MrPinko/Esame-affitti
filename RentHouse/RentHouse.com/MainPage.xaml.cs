@@ -8,6 +8,9 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using FFImageLoading;
+using FFImageLoading.Cache;
+using FFImageLoading.Forms;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -16,8 +19,6 @@ namespace RentHouse.com
 {
 	public partial class MainPage : ContentPage
 	{
-		static NumberFormatInfo numberformat = null;
-		private List<Attrazioni> attrazioniList;
 		private List<string> houseImageList = new List<string>();
 		private List<Pin> appartamentiList = new List<Pin>();
 		private List<Pin> attrazionipinList = new List<Pin>();
@@ -89,23 +90,30 @@ namespace RentHouse.com
 			{
 				bottomBar.TranslateTo(0, 0, 300);
 				bottomBarUp = false;
+				houseImage.IsSwipeEnabled = false;
 			}
 			Console.WriteLine("tapped at " + e.Point.Latitude + "," + e.Point.Longitude);
 		}
 
+		private ObservableCollection<AppartamentiImmagini> appartamentiImmaginiXaml { get; set; } = new ObservableCollection<AppartamentiImmagini>();  
 		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
-
+			BindingContext = this;
 			if (e.Pin.Type == PinType.Place)
 			{
-				int cityID = findID(e.Pin.Label.ToString());             //cerco l'id del pin selezionato nel json
 
 				//caricamento delle immagini
+
+				ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Memory);
+				houseImageList.Clear();
+				
 				foreach (AppartamentiImmagini ai in appartamentiImmaginiJson)
 				{
-					if(ai.nome.ToLower().Equals(e.Pin.Label.ToLower()))
-					houseImageList.Add(ai.url);
+					if (ai.nome.ToLower().Equals(e.Pin.Label.ToLower()))
+					{
+						houseImageList.Add(ai.url);
+					}
 				}
 
 				if (bottomBarUp)
@@ -116,16 +124,24 @@ namespace RentHouse.com
 				else             //la barra sotto non è visibile
 				{
 					bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
-					houseName.Text = appartamentiJson[cityID].Nomeappartamento.ToUpper();
+					houseName.Text = e.Pin.Label.ToUpper();
 
 					houseImage.ItemsSource = houseImageList;
 					houseImage.HeightRequest = bottomBar.Height / 3;
 					houseImage.WidthRequest = bottomBar.Width;
 
 					//caricamento delle review
-					//posizioneStar.Text = reviewJson[cityID].avg_posizione;
-					//qpStar.Text = reviewJson[cityID].avg_qualita_prezzo;
-					//servizioStar.Text = reviewJson[cityID].avg_servizio;
+					foreach(Review re in reviewJson)
+					{
+						if (re.nome.ToLower().Equals(e.Pin.Label.ToLower()))
+						{
+							posizioneStar.Text = re.avg_posizione;
+							qpStar.Text = re.avg_qualita_prezzo;
+							servizioStar.Text = re.avg_servizio;
+							break;
+						}
+					}
+					
 
 					bottomBarUp = true;
 				}
@@ -154,6 +170,30 @@ namespace RentHouse.com
 
 			houseImage.IsSwipeEnabled = false;
 
+		}
+
+		private bool isUserPopUpVisible = false;
+		private void userImage_tapped(object sender, EventArgs e)
+		{
+			if (!isUserPopUpVisible)
+			{
+				userPopUp.IsVisible = true;
+				userPopUp.IsEnabled = true;
+
+				isUserPopUpVisible = true;
+			}
+			else
+			{
+				userPopUp.IsVisible = false;
+				userPopUp.IsEnabled = false;
+
+				isUserPopUpVisible = false;
+			}
+		}
+
+		private void logoutButton_Tapped(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new loginUser());
 		}
 
 		#region richieste GET
@@ -360,7 +400,6 @@ public class AttrazioniCordEImmagini
 	public string @long { get; set; }
 	public string url { get; set; }
 }
-
 
 public class AppartamentiImmagini
 {

@@ -11,6 +11,33 @@
 		<maps:Map x:Name="map" MapType="Street" PinClicked="map_PinClicked" MapClicked="map_MapClicked"
 			  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
 
+		<Image x:Name="userImage" Source="userImage.png" 
+			   AbsoluteLayout.LayoutBounds="1,0,0.1,0.1" AbsoluteLayout.LayoutFlags="All">
+			<Image.GestureRecognizers>
+				<TapGestureRecognizer Tapped="userImage_tapped"></TapGestureRecognizer>
+			</Image.GestureRecognizers>
+		</Image>
+
+		<yummy:PancakeView x:Name="userPopUp"
+			AbsoluteLayout.LayoutBounds="1,0.1,0.4,0.15" AbsoluteLayout.LayoutFlags="All"
+			CornerRadius="16,16,16,16"
+			BackgroundColor="White"
+			IsVisible="False" IsEnabled="False">
+			<yummy:PancakeView.Border>
+				<yummy:Border Color="LightBlue" Thickness="5" />
+			</yummy:PancakeView.Border>
+			<StackLayout Margin="10">
+				<Label Text="nome: " TextColor="Black"></Label>
+				<Label Text="cognome: " TextColor="Black"></Label>
+				<Label Text="logout" TextColor="Red">
+					<Label.GestureRecognizers>
+						<TapGestureRecognizer Tapped="logoutButton_Tapped"/>
+					</Label.GestureRecognizers>
+				</Label>
+			</StackLayout>
+			
+		</yummy:PancakeView>
+		
 			<yummy:PancakeView
 			x:Name="bottomBar"
             Margin="0"
@@ -25,7 +52,7 @@
 
 					<CarouselView.ItemTemplate>
 						<DataTemplate>
-							<ff:CachedImage  Source="{Binding .}" Aspect="AspectFill">
+							<ff:CachedImage Source="{Binding .}" Aspect="AspectFill" DownsampleToViewSize="True">
 								<ff:CachedImage.GestureRecognizers>
 									<SwipeGestureRecognizer Direction="Up" Swiped="expandBottomBar"></SwipeGestureRecognizer>
 									<SwipeGestureRecognizer Direction="Down" Swiped="retriveBottomBar"></SwipeGestureRecognizer>
