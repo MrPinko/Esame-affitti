@@ -174,7 +174,8 @@ namespace RentHouse.com
 				datiBottomPopUp.IsEnabled = false;
 				foreach (AttrazioniCordEImmagini item in attrazioniCordEImmaginiJson)
 				{
-					if (e.Pin.Label.ToLower().Equals(item.nome.ToLower())){
+					if (e.Pin.Label.ToLower().Equals(item.nome.ToLower())){        //trovo il posto selezionato
+						descrizioneposto.Text = item.descrizione.ToLower();
 						AttrazioniImmaginiFromUrl attrazioniImmagini = new AttrazioniImmaginiFromUrl(item.url);
 						carousel.BindingContext = attrazioniImmagini;
 						break;
@@ -457,6 +458,7 @@ public class Review
 public class AttrazioniCordEImmagini
 {
 	public string nome { get; set; }
+	public string descrizione { get; set; }
 	public string lat { get; set; }
 	public string @long { get; set; }
 	public string url { get; set; }

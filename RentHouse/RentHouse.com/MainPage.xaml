@@ -80,6 +80,8 @@
 				<!--  -->
 				<Label x:Name="houseName" HorizontalOptions="Center" Margin="20" FontSize="Medium" FontAttributes="Bold"/>
 
+				<Label x:Name="descrizioneposto" Margin="20,20,20,20" TextColor="Black" ></Label>
+				
 				<!-- RECENSIONI  -->
 				<Grid VerticalOptions="EndAndExpand" x:Name="datiBottomPopUp">
 					<Grid.RowDefinitions>
