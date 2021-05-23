@@ -11,8 +11,8 @@ namespace RentHouse.com
 			InitializeComponent();
 
 			//MainPage = new NavigationPage(new loginUser());
-			//MainPage = new NavigationPage(new MainPage());
-			MainPage = new NavigationPage(new registerUser());     //vera main page
+			MainPage = new NavigationPage(new MainPage("test"));
+			//MainPage = new NavigationPage(new registerUser());     //vera main page
 		}
 
 		protected override void OnStart()

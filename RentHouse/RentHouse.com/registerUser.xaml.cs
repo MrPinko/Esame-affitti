@@ -16,7 +16,6 @@ namespace RentHouse.com
 	public partial class registerUser : ContentPage
 	{
 		private List<Comuni> comuniList;
-		Boolean comuneIsValid = false;
 		private int menuInt = 0;
 
 		public registerUser()
@@ -68,7 +67,6 @@ namespace RentHouse.com
 			{
 				if (comuneDiNascita.Text.ToUpper().Equals(obj.nome.ToUpper()))
 				{
-					comuneIsValid = true;
 					capEntry.Text = obj.cap[0];
 					sigla = obj.sigla;
 					return;

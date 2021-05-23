@@ -52,7 +52,7 @@
 			
 		</yummy:PancakeView>
 		
-			<yummy:PancakeView
+		<yummy:PancakeView
 			x:Name="bottomBar"
             Margin="0"
             CornerRadius="32,32,0,0"
@@ -77,10 +77,45 @@
 					</CarouselView.ItemTemplate>
 				</CarouselView>
 
-				<!--  -->
+				<!-- body pancake view -->
 				<Label x:Name="houseName" HorizontalOptions="Center" Margin="20" FontSize="Medium" FontAttributes="Bold"/>
 
 				<Label x:Name="descrizioneposto" Margin="20,20,20,20" TextColor="Black" ></Label>
+
+				<Grid x:Name="prenotaGriglia">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="auto"/>
+						<ColumnDefinition Width="auto"/>
+					</Grid.ColumnDefinitions>
+					<Picker x:Name="datePicker" Margin="20,20,20,20" Title="Date Disponibili"
+							Grid.Column="0" Grid.Row="0"
+					ItemDisplayBinding="{Binding Value}"
+					ItemsSource="{Binding PickerItemList}"
+					SelectedItem="{Binding SelectedItem}" />
+
+					<Frame HorizontalOptions="Fill" 
+						VerticalOptions="Center"
+						HeightRequest="30"
+						Margin="0,15"
+						BackgroundColor="Green"
+						CornerRadius="10"
+						   Scale="0.5"
+						Grid.Column="2" Grid.Row="0">
+						<Frame.GestureRecognizers>
+							<TapGestureRecognizer Tapped="Riserva_Tapped"/>
+						</Frame.GestureRecognizers>
+						<Label Text="RISERVA" 
+							TextColor="White" 
+							FontSize="Large"
+							VerticalTextAlignment="Center"
+							HorizontalTextAlignment="Center"/>
+					</Frame>
+				</Grid>
+				
 				
 				<!-- RECENSIONI  -->
 				<Grid VerticalOptions="EndAndExpand" x:Name="datiBottomPopUp">

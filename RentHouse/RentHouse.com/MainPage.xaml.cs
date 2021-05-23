@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
@@ -14,21 +15,17 @@ namespace RentHouse.com
 {
 	public partial class MainPage : ContentPage
 	{
-		private List<string> houseImageList = new List<string>();
+
 		private List<Pin> appartamentiList = new List<Pin>();
-		private List<Pin> attrazionipinList = new List<Pin>();
 		private List<string> appartamenti_ImmaginiList = new List<string>();
-		private Location location;
 
 		ObservableCollection<AppartamentiPosizione> appartamentiJson;
 		ObservableCollection<Review> reviewJson;
 		ObservableCollection<AppartamentiImmagini> appartamentiImmaginiJson;
-		ObservableCollection<AttrazioniCordEImmagini> attrazioniCordEImmaginiJson;	
+		ObservableCollection<AttrazioniCordEImmagini> attrazioniCordEImmaginiJson;
+		ObservableCollection<DateDisponibili> dateDisponibiliJson;
 
 		private bool bottomBarUp = false, isExpanded = false;
-		string userEmail;
-		int cityID;
-
 
 		public MainPage(string username)
 		{
@@ -47,6 +44,8 @@ namespace RentHouse.com
 
 			getRequestForAttrazioniCordEImmagini();
 
+			getDateDisponibili();
+
 			foreach (AppartamentiPosizione item in appartamentiJson)
 			{
 				double latWithDot = toDouble(item.lat);
@@ -57,6 +56,7 @@ namespace RentHouse.com
 					{
 						Type = PinType.Place,
 						Label = item.nomeAppartamento,
+						Icon = BitmapDescriptorFactory.FromBundle("home"),
 						Address = item.via + " " + item.numeroC,
 						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
 					});
@@ -73,13 +73,11 @@ namespace RentHouse.com
 					{
 						Type = PinType.SearchResult,
 						Label = item.nome,
+						Icon = BitmapDescriptorFactory.FromBundle("tourist"),
 						//Address = item.via + " " + item.numeroC,
 						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
 					});
 			}
-
-
-			this.userEmail = userEmail;
 
 			//aggiugno i pin alla mappa 
 			foreach (Pin pin in appartamentiList)
@@ -114,14 +112,16 @@ namespace RentHouse.com
 		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
+
 			if (e.Pin.Type == PinType.Place)        //popup degli apartamenti
 			{
-
-				datiBottomPopUp.IsVisible = false;
-				datiBottomPopUp.IsEnabled = false;
+				descrizioneposto.Text = "";
+				prenotaGriglia.IsVisible = true;
+				prenotaGriglia.IsEnabled = true;
+				datiBottomPopUp.IsVisible = true;
+				datiBottomPopUp.IsEnabled = true;
 
 				appartamenti_ImmaginiList.Clear();
-
 				foreach (AppartamentiImmagini ai in appartamentiImmaginiJson)
 				{
 					if (ai.nome.ToLower().Equals(e.Pin.Label.ToLower()))
@@ -130,8 +130,19 @@ namespace RentHouse.com
 					}
 				}
 
-				AppartamentiImmaginiFromUrl appartamentiImmagini = new AppartamentiImmaginiFromUrl(appartamenti_ImmaginiList[0], appartamenti_ImmaginiList[1], appartamenti_ImmaginiList[2]);
-				carousel.BindingContext = appartamentiImmagini;
+				AppartamentiImmaginiFromUrl attrazioniImmagini = new AppartamentiImmaginiFromUrl(appartamenti_ImmaginiList[0], appartamenti_ImmaginiList[1], appartamenti_ImmaginiList[2]);
+				carousel.BindingContext = attrazioniImmagini;
+
+				getDateDisponibili();
+				datePicker.Items.Clear();
+				foreach (DateDisponibili DD in dateDisponibiliJson)              //date picker
+				{
+					if (DD.nome.ToLower().Equals(e.Pin.Label.ToLower()))
+					{
+						datePicker.Items.Add(Convert.ToDateTime(DD.dataInizio).ToString("dd-MM-yyyy") + " fino a " + Convert.ToDateTime(DD.dataFine).ToString("dd-MM-yyyy"));
+					}
+				}
+
 
 				if (bottomBarUp)
 				{
@@ -154,7 +165,6 @@ namespace RentHouse.com
 							posizioneStar.Text = re.avg_posizione.Substring(0,1);
 							qpStar.Text = re.avg_qualita_prezzo.Substring(0, 1);
 							servizioStar.Text = re.avg_servizio.Substring(0, 1);
-
 							break;
 						}
 					}
@@ -172,6 +182,8 @@ namespace RentHouse.com
 			{
 				datiBottomPopUp.IsVisible = false;
 				datiBottomPopUp.IsEnabled = false;
+				prenotaGriglia.IsVisible = false;
+				prenotaGriglia.IsEnabled = false;
 				foreach (AttrazioniCordEImmagini item in attrazioniCordEImmaginiJson)
 				{
 					if (e.Pin.Label.ToLower().Equals(item.nome.ToLower())){        //trovo il posto selezionato
@@ -197,7 +209,6 @@ namespace RentHouse.com
 				}
 
 				bottomBarUp = true;
-
 
 			}
 		}
@@ -248,6 +259,11 @@ namespace RentHouse.com
 		private void logoutButton_Tapped(object sender, EventArgs e)
 		{
 			Navigation.PushAsync(new loginUser());
+		}
+
+		private void Riserva_Tapped(object sender, EventArgs e)
+		{
+
 		}
 
 		#region richieste GET
@@ -319,6 +335,25 @@ namespace RentHouse.com
 			//After deserializing , we store our data in the List called ObservableCollection
 			attrazioniCordEImmaginiJson = new ObservableCollection<AttrazioniCordEImmagini>(tr);
 		}
+
+
+		private void getDateDisponibili()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/dateDisponibili";
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			task.Wait();
+			Console.WriteLine(myXMLstring);
+
+			var tr = JsonConvert.DeserializeObject<List<DateDisponibili>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			dateDisponibiliJson = new ObservableCollection<DateDisponibili>(tr);
+		}
+		
 
 		async Task<String> AccessTheWebAsync(String url)
 		{
@@ -422,8 +457,8 @@ namespace RentHouse.com
 		{
 			return (Convert.ToInt32(c) - 48);
 		}
-		#endregion
 
+		#endregion
 
 	}
 }
@@ -468,6 +503,14 @@ public class AppartamentiImmagini
 {
 	public string nome { get; set; }
 	public string url { get; set; }
+}
+
+public class DateDisponibili
+{
+	public string idUtente_Apaprtamenti { get; set; }
+	public string nome { get; set; }
+	public string dataInizio { get; set; }
+	public string dataFine { get; set; }
 }
 #endregion
 

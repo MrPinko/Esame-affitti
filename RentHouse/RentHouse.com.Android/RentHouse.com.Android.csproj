@@ -70,6 +70,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitmapConfig.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -128,10 +129,15 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\userImage.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\homePin.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionRentHousecomAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionRentHousecomAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionRentHousecomAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionRentHousecomAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

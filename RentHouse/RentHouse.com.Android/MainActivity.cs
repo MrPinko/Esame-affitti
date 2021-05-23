@@ -1,10 +1,11 @@
-﻿
+﻿	
 using Android;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
+using Xamarin.Forms.GoogleMaps.Android;
 
 namespace RentHouse.com.Droid
 {
@@ -16,8 +17,17 @@ namespace RentHouse.com.Droid
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
 			SetStatusBarColor((Android.Graphics.Color.ParseColor("#ee3861")));
+
+			var platformConfig = new PlatformConfig
+			{
+				BitmapDescriptorFactory = new BitmapConfig()
+			};
+			Xamarin.FormsGoogleMaps.Init(this, savedInstanceState, platformConfig);
+
 			base.OnCreate(savedInstanceState);
 			CrossCurrentActivity.Current.Init(this, savedInstanceState);
+
+
 			Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 			Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
