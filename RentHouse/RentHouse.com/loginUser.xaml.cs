@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Security.Cryptography;
-
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,8 +13,8 @@ namespace RentHouse.com
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class loginUser : ContentPage
 	{
+		ObservableCollection<UsernameLogin> usernameLoginJson;
 		private HttpClient _client;
-		private static bool isLoginSuccesseful = false;
 		private static string responseString = "";
 
 		public loginUser()
@@ -26,12 +29,13 @@ namespace RentHouse.com
 
 			if (isAllFilled())
 			{
-				checkLoginUser("http://rosafedericoesame.altervista.org/index.php/user/loginUser/" + LoginnomeEntry.Text + "/" + MD5Hash(LoginpasswordEntry.Text));           //per altervista
+				checkLoginUser("http://rosafedericoesame.altervista.org/index.php/user/loginUser/" + LoginEmailEntry.Text + "/" + MD5Hash(LoginpasswordEntry.Text));           //per altervista
 
 
 				if (!responseString.Equals("NotFound"))
 				{
-					Navigation.PushAsync(new MainPage(LoginnomeEntry.Text));
+					getRequestForUsername();
+					Navigation.PushAsync(new MainPage(usernameLoginJson[0].username));
 				}
 				else
 				{
@@ -43,7 +47,7 @@ namespace RentHouse.com
 
 		public bool isAllFilled()
 		{
-			if (LoginnomeEntry.Text != null && LoginpasswordEntry != null)
+			if (LoginEmailEntry.Text != null && LoginpasswordEntry != null)
 			{
 				return true;
 			}
@@ -67,11 +71,38 @@ namespace RentHouse.com
 			//l'utente è giusto
 			responseString = response.Result.StatusCode.ToString();
 
-			isLoginSuccesseful = true;
 			//cose in più (utili nel futuro)
 			//string content = await response.Content.ReadAsStringAsync();
 			//Items = JsonSerializer.Deserialize<List<TodoItem>>(content, serializerOptions);
 
+		}
+
+		private void getRequestForUsername()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/loginUser/" + LoginEmailEntry.Text.ToLower();
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			task.Wait();
+			Console.WriteLine(myXMLstring);
+
+			var tr = JsonConvert.DeserializeObject<List<UsernameLogin>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			usernameLoginJson = new ObservableCollection<UsernameLogin>(tr);
+		}
+
+		async Task<String> AccessTheWebAsync(String url)
+		{
+			HttpClient client = new HttpClient();
+
+			Task<string> getStringTask = client.GetStringAsync(url);
+
+			string urlContents = await getStringTask;
+
+			return urlContents;
 		}
 
 		public static string MD5Hash(string _password)
@@ -103,4 +134,9 @@ namespace RentHouse.com
 			return true;
 		}
 	}
+}
+
+public class UsernameLogin
+{
+	public string username { get; set; }
 }

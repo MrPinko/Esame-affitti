@@ -18,6 +18,7 @@
 			</Image.GestureRecognizers>
 		</Image>
 
+		<!--DATI UTENTE POPUP-->
 		<yummy:PancakeView x:Name="userPopUp"
 			AbsoluteLayout.LayoutBounds="1,0.1,0.4,0.15" AbsoluteLayout.LayoutFlags="All"
 			CornerRadius="16,16,16,16"
@@ -27,7 +28,7 @@
 				<yummy:Border Color="LightBlue" Thickness="5" />
 			</yummy:PancakeView.Border>
 			<StackLayout Margin="10">
-				<Grid>
+				<Grid>          
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
 						<RowDefinition Height="*" />
@@ -38,11 +39,8 @@
 						<ColumnDefinition Width="auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-					<Label Text="nome: " TextColor="Black" Grid.Column="0" Grid.Row="0"></Label>
-					<Label x:Name="nomeUtente" Text="error" TextColor="Black" Grid.Column="2" Grid.Row="0"></Label>
-
-					<Label Text="cognome: " TextColor="Black" Grid.Column="0" Grid.Row="1"></Label>
-					<Label x:Name="cognomeutente" Text="error" TextColor="Black" Grid.Column="2" Grid.Row="1"></Label>
+					<Label Text="username: " TextColor="Black" Grid.Column="0" Grid.Row="0"></Label>
+					<Label x:Name="UserNameLabel" Text="error" TextColor="Black" Grid.Column="2" Grid.Row="0"></Label>
 
 					<Label Text="logout" TextColor="Red" Grid.Column="0" Grid.Row="2" >
 					<Label.GestureRecognizers>
@@ -83,7 +81,7 @@
 				<Label x:Name="houseName" HorizontalOptions="Center" Margin="20" FontSize="Medium" FontAttributes="Bold"/>
 
 				<!-- RECENSIONI  -->
-				<Grid VerticalOptions="EndAndExpand">
+				<Grid VerticalOptions="EndAndExpand" x:Name="datiBottomPopUp">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>

@@ -23,25 +23,29 @@ namespace RentHouse.com
 		ObservableCollection<AppartamentiPosizione> appartamentiJson;
 		ObservableCollection<Review> reviewJson;
 		ObservableCollection<AppartamentiImmagini> appartamentiImmaginiJson;
+		ObservableCollection<AttrazioniCordEImmagini> attrazioniCordEImmaginiJson;	
 
 		private bool bottomBarUp = false, isExpanded = false;
 		string userEmail;
 		int cityID;
 
-		public MainPage(string userEmail) { }
 
-		public MainPage()
+		public MainPage(string username)
 		{
 			InitializeComponent();
 			BindingContext = this;
 			NavigationPage.SetHasNavigationBar(this, false);
 			customMap();
 
+			UserNameLabel.Text = username;
+
 			getRequestForAppartamenti();
 
 			getrequestForRecensioni();
 
 			getRequestForAppartamentiImmagini();
+
+			getRequestForAttrazioniCordEImmagini();
 
 			foreach (AppartamentiPosizione item in appartamentiJson)
 			{
@@ -56,9 +60,24 @@ namespace RentHouse.com
 						Address = item.via + " " + item.numeroC,
 						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
 					});
-
-
 			}
+
+
+			foreach (AttrazioniCordEImmagini item in attrazioniCordEImmaginiJson)
+			{
+				double latWithDot = toDouble(item.lat);
+				double longWithDot = toDouble(item.@long);
+
+				appartamentiList.Add(
+					new Pin
+					{
+						Type = PinType.SearchResult,
+						Label = item.nome,
+						//Address = item.via + " " + item.numeroC,
+						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
+					});
+			}
+
 
 			this.userEmail = userEmail;
 
@@ -95,9 +114,11 @@ namespace RentHouse.com
 		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
-			if (e.Pin.Type == PinType.Place)
+			if (e.Pin.Type == PinType.Place)        //popup degli apartamenti
 			{
-				//caricamento delle immagini
+
+				datiBottomPopUp.IsVisible = false;
+				datiBottomPopUp.IsEnabled = false;
 
 				appartamenti_ImmaginiList.Clear();
 
@@ -145,9 +166,38 @@ namespace RentHouse.com
 						iban.Text = item.iban.ToUpper();
 					}
 
-
-						bottomBarUp = true;
+					bottomBarUp = true;
 				}
+			}else if(e.Pin.Type == PinType.SearchResult)       //apro il popup dele attrazioni turistiche
+			{
+				datiBottomPopUp.IsVisible = false;
+				datiBottomPopUp.IsEnabled = false;
+				foreach (AttrazioniCordEImmagini item in attrazioniCordEImmaginiJson)
+				{
+					if (e.Pin.Label.ToLower().Equals(item.nome.ToLower())){
+						AttrazioniImmaginiFromUrl attrazioniImmagini = new AttrazioniImmaginiFromUrl(item.url);
+						carousel.BindingContext = attrazioniImmagini;
+						break;
+					}
+				}
+
+				if (bottomBarUp)
+				{
+					bottomBar.TranslateTo(0, 0, 300);
+					bottomBarUp = false;
+				}
+				else             //la barra sotto non è visibile
+				{
+					bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
+					houseName.Text = e.Pin.Label.ToUpper();
+
+					carousel.HeightRequest = bottomBar.Height / 3;
+					carousel.WidthRequest = bottomBar.Width;
+				}
+
+				bottomBarUp = true;
+
+
 			}
 		}
 
@@ -250,6 +300,23 @@ namespace RentHouse.com
 			var tr = JsonConvert.DeserializeObject<List<AppartamentiImmagini>>(myXMLstring);
 			//After deserializing , we store our data in the List called ObservableCollection
 			appartamentiImmaginiJson = new ObservableCollection<AppartamentiImmagini>(tr);
+		}
+
+		private void getRequestForAttrazioniCordEImmagini()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/attrazioniTuristiche";
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			task.Wait();
+			Console.WriteLine(myXMLstring);
+
+			var tr = JsonConvert.DeserializeObject<List<AttrazioniCordEImmagini>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			attrazioniCordEImmaginiJson = new ObservableCollection<AttrazioniCordEImmagini>(tr);
 		}
 
 		async Task<String> AccessTheWebAsync(String url)
@@ -362,19 +429,6 @@ namespace RentHouse.com
 
 #region classi per json
 
-public class Attrazioni
-{
-	public string ccomune { get; set; }
-	public string cprovincia { get; set; }
-	public string cregione { get; set; }
-	public string cnome { get; set; }
-	public string canno_inserimento { get; set; }
-	public DateTime cdata_e_ora_inserimento { get; set; }
-	public string cidentificatore_in_openstreetmap { get; set; }
-	public string clongitudine { get; set; }
-	public string clatitudine { get; set; }
-}
-
 public class AppartamentiPosizione
 {
 	public string nomeAppartamento { get; set; }
@@ -439,17 +493,30 @@ public class AppartamentiImmaginiFromUrl
 
 	public List<StringData> uris { get; set; }
 
-	public void clearUrl()
-	{
-		//uris.Clear();
-	}
-
 	public AppartamentiImmaginiFromUrl(string url1, string url2, string url3)
 	{
 		uris = new List<StringData>() {
 			new StringData() { uri = url1 },
 			new StringData() { uri = url2 },
 			new StringData() { uri = url3 },
+		};
+	}
+}
+
+
+public class AttrazioniImmaginiFromUrl
+{
+	public class StringData
+	{
+		public string uri { get; set; }
+	}
+
+	public List<StringData> uris { get; set; }
+
+	public AttrazioniImmaginiFromUrl(string url1)
+	{
+		uris = new List<StringData>() {
+			new StringData() { uri = url1 }
 		};
 	}
 }

@@ -102,7 +102,7 @@ namespace RentHouse.com
 					case 2:
 						postRequest();
 							
-						Navigation.PushAsync(new MainPage(review_email.Text));
+						Navigation.PushAsync(new MainPage(review_Username.Text));
 						break;
 				}
 			}
@@ -144,7 +144,8 @@ namespace RentHouse.com
 			Uri uri = new Uri("http://rosafedericoesame.altervista.org/index.php/user/registerUser");
 
 			string jsonData = "{" +
-							"\"pw\" : \"" + MD5Hash(pwEntry.Text) +
+							"\"username\" : \"" + usernameEntry.Text +
+							"\", \"pw\" : \"" + MD5Hash(pwEntry.Text) +
 							"\", \"email\": \"" + review_email.Text +
 							"\", \"cell\" : \"" + review_cell.Text +
 							"\", \"citta\" : \"" + review_citta.Text +
@@ -173,7 +174,8 @@ namespace RentHouse.com
 
 		public bool checkAllEntry()
 		{
-			if (nomeEntry.Text != null &&
+			if (usernameEntry.Text != null &&
+				nomeEntry.Text != null &&
 				cognomeEntry.Text.Length != 0 &&
 				sessoEntry.SelectedItem != null &&
 				cellEntry.Text.Length != 0 &&
@@ -197,6 +199,7 @@ namespace RentHouse.com
 
 		public void insertIntoReviewContainer()
 		{
+			review_Username.Text = usernameEntry.Text.ToLower();
 			review_nome.Text = nomeEntry.Text.ToLower();
 			review_cognome.Text = cognomeEntry.Text.ToLower();
 			review_sesso.Text = sessoEntry.SelectedItem.ToString().ToLower();

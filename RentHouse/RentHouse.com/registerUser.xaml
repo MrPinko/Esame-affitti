@@ -7,16 +7,16 @@
 		<Image Source="bg.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"></Image>
 			
 		<yummy:PancakeView x:Name="firstContainer"
-					AbsoluteLayout.LayoutBounds="0.5,0.6,0.9,0.7" AbsoluteLayout.LayoutFlags="All"
+			AbsoluteLayout.LayoutBounds="0.5,0.6,0.9,0.7" AbsoluteLayout.LayoutFlags="All"
             CornerRadius="16,16,16,16"
 			BackgroundColor="#1b114a">
 			<yummy:PancakeView.Border>
 				<yummy:Border Color="#ee3861" Thickness="10" />
 			</yummy:PancakeView.Border>
 			<StackLayout Padding="5">
-				<Label Text="DATI UTENTE" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
+				<Label Text="REGISTTRAZIONE" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
 				<StackLayout VerticalOptions="CenterAndExpand" Margin="40,0">
-
+					<Entry x:Name="usernameEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="username"></Entry>
 					<Entry x:Name="nomeEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="nome"></Entry>
 					<Entry x:Name="cognomeEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="cognome"></Entry>
 					<Picker x:Name="sessoEntry" TextColor="#ee3861" TitleColor="WhiteSmoke" Title="scegliere il sesso" HorizontalOptions="FillAndExpand">
@@ -28,35 +28,33 @@
 					<DatePicker x:Name="data" TextColor="#ee3861" MinimumDate="01/01/1900" Format="dd-MM-yyyy"/>
 					<Entry x:Name="emailEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="email"></Entry>
 					<Entry x:Name="pwEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="password" IsPassword="True"></Entry>
-					<Picker x:Name="MPagamentoEntry" TextColor="#ee3861" TitleColor="WhiteSmoke" Title="scegliere il metodo di pagamento " HorizontalOptions="FillAndExpand">
-						<Picker.Items>
-							<x:String>carta prepagata</x:String>
-							<x:String>bonifico</x:String>
-							<x:String>contanti</x:String>
-						</Picker.Items>
-					</Picker>
 				</StackLayout>
-
 				<Label Text="Login" VerticalOptions="End" TextColor="#ee3861" Margin="10,0,0,10" >
-					<Label.GestureRecognizers>
-						<TapGestureRecognizer Tapped="gotoLogin"></TapGestureRecognizer>
-					</Label.GestureRecognizers>
-				</Label>
+						<Label.GestureRecognizers>
+							<TapGestureRecognizer Tapped="gotoLogin"></TapGestureRecognizer>
+						</Label.GestureRecognizers>
+					</Label>
 			</StackLayout>
-				</yummy:PancakeView>
+			</yummy:PancakeView>
 
 
-				<yummy:PancakeView x:Name="secondContainer"
+			<yummy:PancakeView x:Name="secondContainer"
 					AbsoluteLayout.LayoutBounds="0.5,0.6,0.9,0.7" AbsoluteLayout.LayoutFlags="All"
-            CornerRadius="16,16,16,16"
-			BackgroundColor="#1b114a">
+					CornerRadius="16,16,16,16"
+					BackgroundColor="#1b114a">
 			<yummy:PancakeView.Border>
 				<yummy:Border Color="#ee3861" Thickness="10" />
 			</yummy:PancakeView.Border>
 					<StackLayout Padding="5">
-				<Label Text="RESIDENZA" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
+				<Label Text="REGISTTRAZIONE" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
 				<StackLayout VerticalOptions="CenterAndExpand" Margin="40,0">
-						<Entry x:Name="comuneDiNascita" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="comune di nascita" Unfocused="comuneDiNascita_Unfocused"/>
+					<Picker x:Name="MPagamentoEntry" TextColor="#ee3861" TitleColor="WhiteSmoke" Title="scegliere il metodo di pagamento " HorizontalOptions="FillAndExpand">
+						<Picker.Items>
+							<x:String>carta prepagata</x:String>
+							<x:String>bonifico</x:String>
+						</Picker.Items>
+					</Picker>
+					<Entry x:Name="comuneDiNascita" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="comune di nascita" Unfocused="comuneDiNascita_Unfocused"/>
 						<Entry x:Name="cittaEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="città"/>
 						<Entry x:Name="viaEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="via"></Entry>
 						<Entry x:Name="numeroEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="numero"></Entry>
@@ -79,23 +77,25 @@
 			<yummy:PancakeView.Border>
 				<yummy:Border Color="#ee3861" Thickness="10" />
 			</yummy:PancakeView.Border>
-					<StackLayout Padding="5" VerticalOptions="CenterAndExpand">
-						<Entry x:Name="review_nome" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_cognome" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_sesso" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_data" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_cell" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_email" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_comuneDiNascita" TextColor="#ee3861" IsReadOnly="True"/>
-						<Entry x:Name="review_citta" TextColor="#ee3861" IsReadOnly="True"/>
-						<Entry x:Name="review_via" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_numero" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_cap" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="review_MPagamento" TextColor="#ee3861" IsReadOnly="True"></Entry>
-						<Entry x:Name="codiceFiscale" TextColor="#ee3861" IsReadOnly="True"></Entry>
-
-					</StackLayout>
-				</yummy:PancakeView>
+			<ScrollView>
+				<StackLayout Padding="5" VerticalOptions="CenterAndExpand">
+					<Entry x:Name="review_Username" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_nome" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_cognome" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_sesso" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_data" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_cell" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_email" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_comuneDiNascita" TextColor="#ee3861" IsReadOnly="True"/>
+					<Entry x:Name="review_citta" TextColor="#ee3861" IsReadOnly="True"/>
+					<Entry x:Name="review_via" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_numero" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_cap" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="review_MPagamento" TextColor="#ee3861" IsReadOnly="True"></Entry>
+					<Entry x:Name="codiceFiscale" TextColor="#ee3861" IsReadOnly="True"></Entry>
+				</StackLayout>
+			</ScrollView>
+		</yummy:PancakeView>
 
 			<Image x:Name="confirmButton" 
 				   Source="forward.png" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,0.15,0.1" Margin="0,0,10,0" >
