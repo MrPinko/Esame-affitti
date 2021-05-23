@@ -147,13 +147,35 @@ class Database_Query
         }
     }
 
-    public function getAppartamentiImmagini(){
+    public function getAppartamentiImmagini()
+    {
         $statement = "SELECT
                     appartamenti.nome,
                     immagini_per_appartamenti.url
                     FROM immagini_per_appartamenti
                     INNER JOIN appartamenti
                     ON immagini_per_appartamenti.fkAppartamento = appartamenti.idappartamenti";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getDateDisponibili()
+    {
+        $statement = "SELECT
+                    utente_appartamenti.idUtente_Apaprtamenti,
+                    appartamenti.nome,
+                    utente_appartamenti.dataInizio,
+                    utente_appartamenti.dataFine
+                    FROM utente_appartamenti
+                    INNER JOIN appartamenti
+                        ON utente_appartamenti.fk_appartamenti = appartamenti.idappartamenti
+                        WHERE fk_utente IS NULL";
 
         try {
             $statement = $this->db->query($statement);

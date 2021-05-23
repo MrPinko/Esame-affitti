@@ -7,7 +7,7 @@ class DatabaseConnector
 
     public function __construct()
     {
-        $dns = 'mysql:host=localhost;dbname=esame';
+        $dns = 'mysql:host=localhost;dbname=dbesame';
         $user = 'root';
         $pass = 'Rosa';
 

@@ -59,6 +59,9 @@ class Controller
             case 'GET' && $this->queryMenu == 'loginUser' && $this->hashedPw == null:
                 $response = $this->getNomeEcognome($this->email);
                 break;
+            case 'GET' && $this->queryMenu == 'dateDisponibili':
+                $response = $this->getDateDisponibili();
+                break;
             case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
                 break;
@@ -125,6 +128,15 @@ class Controller
         $response['body'] = json_encode($result);
         return $response;
     }
+
+    private function getDateDisponibili()
+    {
+        $result = $this->DBquery->getDateDisponibili();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+    
 
     private function checkLoginUser($hashedName, $hashedPw)
     {
