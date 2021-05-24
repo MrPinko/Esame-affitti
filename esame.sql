@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mag 23, 2021 alle 11:19
+-- Generation Time: Mag 24, 2021 alle 20:19
 -- Versione del server: 8.0.21
 -- PHP Version: 5.6.40
 
@@ -102,24 +102,25 @@ CREATE TABLE IF NOT EXISTS `att_turistiche` (
   `idatt_turistiche` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   `descrizione` text NOT NULL,
+  `provincia` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `lat` double DEFAULT NULL,
   `long` double DEFAULT NULL,
   `fk_immagini` int DEFAULT NULL,
   PRIMARY KEY (`idatt_turistiche`),
   KEY `fk_immagini_idx` (`fk_immagini`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dump dei dati per la tabella `att_turistiche`
 --
 
-INSERT INTO `att_turistiche` (`idatt_turistiche`, `nome`, `descrizione`, `lat`, `long`, `fk_immagini`) VALUES
-(0, 'parco del castello ducale degli aglie', 'Imponente castello con più di 300 camere e una sala da ballo affrescata, oltre a parco, fontane e giardini.', 45.36034073514196, 7.77013591317539, 0),
-(1, 'palazzo anguissola', 'Il corpo interno del palazzo fu realizzato tra il 1775 e il 1778 su progetto dell''architetto Carlo Felice Soave, originario di Lugano su incarico di Antonio Anguissola. ', 45.46829856600218, 9.191056783220107, 1),
-(2, 'orto botanico lorenzo rota', 'L''Orto botanico Lorenzo Rota di Bergamo che si trova sul Colle Aperto di Città Alta, è un piccolo laboratorio naturistico dove la passione e l''arte degli addetti fanno convivere piante esotiche con quelle indigene.', 45.70739090645334, 9.660151337194366, 2),
-(3, 'cripta di san giovanni', 'La cripta di San Giovanni in Conca è un monumento situato in piazza Missori a Milano. Si tratta dei resti dell''antica basilica di San Giovanni in Conca, della quale rimangono oggi solo poche tracce risalenti all''XI secolo, vale a dire parte dell''abside e l''intera cripta, da cui il nome dei moderni resti', 45.46130950655222, 9.18885752925188, 3),
-(4, 'terme di cavascura', 'Le terme di Cavascura sono delle sorgenti naturali conosciute fin dal periodo della colonizzazione greca dell''isola d''Ischia ma fu nel periodo romano che esse conobbero un momento di grande splendore. Si tratta di un bacino idrologico allo stato naturale scavato nella pietra viva di un vallone.', 40.7041479139664, 13.904566283104904, 4),
-(5, 'villa di diomele', 'Si sviluppa scenograficamente su tre livelli aprendosi con giardini e piscine verso l''antica linea di costa. Uno degli spazi più suggestivi è il bellissimo giardino al centro del quale vi era un triclinio coperto da una pergola per i banchetti estivi e una piscina.', 40.75233667691031, 14.478324970937294, 5);
+INSERT INTO `att_turistiche` (`idatt_turistiche`, `nome`, `descrizione`, `provincia`, `lat`, `long`, `fk_immagini`) VALUES
+(0, 'parco del castello ducale degli aglie', 'Imponente castello con più di 300 camere e una sala da ballo affrescata, oltre a parco, fontane e giardini.', 'torino', 45.36034073514196, 7.77013591317539, 0),
+(1, 'giardini reali di venezia', 'Area paesaggistica sul Canal Grande con stradine, panchine e terminal dei traghetti.\n', 'venezia', 45.43387347723215, 12.338243971004955, 1),
+(2, 'orto botanico lorenzo rota', 'L''Orto botanico Lorenzo Rota di Bergamo che si trova sul Colle Aperto di Città Alta, è un piccolo laboratorio naturistico dove la passione e l''arte degli addetti fanno convivere piante esotiche con quelle indigene.', 'bergamo', 45.70739090645334, 9.660151337194366, 2),
+(3, 'cripta di san giovanni', 'La cripta di San Giovanni in Conca è un monumento situato in piazza Missori a Milano. Si tratta dei resti dell''antica basilica di San Giovanni in Conca, della quale rimangono oggi solo poche tracce risalenti all''XI secolo, vale a dire parte dell''abside e l''intera cripta, da cui il nome dei moderni resti', 'milano', 45.46130950655222, 9.18885752925188, 3),
+(4, 'terme di cavascura', 'Le terme di Cavascura sono delle sorgenti naturali conosciute fin dal periodo della colonizzazione greca dell''isola d''Ischia ma fu nel periodo romano che esse conobbero un momento di grande splendore. Si tratta di un bacino idrologico allo stato naturale scavato nella pietra viva di un vallone.', 'napoli', 40.7041479139664, 13.904566283104904, 4),
+(5, 'villa di diomele', 'Si sviluppa scenograficamente su tre livelli aprendosi con giardini e piscine verso l''antica linea di costa. Uno degli spazi più suggestivi è il bellissimo giardino al centro del quale vi era un triclinio coperto da una pergola per i banchetti estivi e una piscina.', 'napoli', 40.75233667691031, 14.478324970937294, 5);
 
 -- --------------------------------------------------------
 
@@ -197,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `immagini_per_attrazionituristiche` (
 
 INSERT INTO `immagini_per_attrazionituristiche` (`idimmagini_per_attrazioniTuristiche`, `url`) VALUES
 (0, 'https://i.postimg.cc/ZRJTdSd7/Parco-del-Castello-Ducale-di-Aglie.jpg'),
-(1, 'https://i.postimg.cc/TPVd1wp5/Palazzo-Anguissola.jpg'),
+(1, 'https://i.postimg.cc/GtrvQkHS/giardini-reali-di-venezia.jpg'),
 (2, 'https://i.postimg.cc/gcSYn1ks/Orto-Botanico-Lorenzo-Rota.jpg'),
 (3, 'https://i.postimg.cc/gJ4GyTyY/Cripta-di-San-Giovanni-in-Conca.jpg'),
 (4, 'https://i.postimg.cc/zXyqWpyr/Terme-di-Cavascura.jpg'),
@@ -300,6 +301,7 @@ CREATE TABLE IF NOT EXISTS `recensioni` (
   `posizione` int DEFAULT NULL,
   `qualita_prezzo` int DEFAULT NULL,
   `servizio` int DEFAULT NULL,
+  `timestamp` timestamp NOT NULL,
   PRIMARY KEY (`idrecensioni`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
@@ -307,13 +309,13 @@ CREATE TABLE IF NOT EXISTS `recensioni` (
 -- Dump dei dati per la tabella `recensioni`
 --
 
-INSERT INTO `recensioni` (`idrecensioni`, `posizione`, `qualita_prezzo`, `servizio`) VALUES
-(0, 6, 7, 2),
-(1, 9, 8, 9),
-(2, 4, 8, 7),
-(3, 3, 7, 6),
-(4, 8, 7, 6),
-(5, 5, 9, 7);
+INSERT INTO `recensioni` (`idrecensioni`, `posizione`, `qualita_prezzo`, `servizio`, `timestamp`) VALUES
+(0, 6, 7, 2, '2021-05-05 08:13:42'),
+(1, 9, 8, 9, '2021-05-18 19:20:30'),
+(2, 4, 8, 7, '2021-04-12 22:00:59'),
+(3, 3, 7, 6, '2021-02-18 14:16:30'),
+(4, 8, 7, 6, '2021-02-18 20:40:19'),
+(5, 5, 9, 7, '2021-04-09 12:23:47');
 
 -- --------------------------------------------------------
 
@@ -408,15 +410,31 @@ INSERT INTO `utente` (`username`, `pw`, `email`, `cell`, `citta`, `via`, `numero
 --
 
 CREATE TABLE IF NOT EXISTS `utente_appartamenti` (
-  `idUtente_Apaprtamenti` int NOT NULL AUTO_INCREMENT,
+  `idUtente_Appartamenti` int NOT NULL AUTO_INCREMENT,
   `dataInizio` date DEFAULT NULL,
   `dataFine` date DEFAULT NULL,
   `fk_appartamenti` int DEFAULT NULL,
   `fk_utente` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idUtente_Apaprtamenti`),
+  `timestamp` timestamp NOT NULL,
+  PRIMARY KEY (`idUtente_Appartamenti`),
   KEY `fk_utente_idx` (`fk_utente`),
   KEY `fk_appartamenti_idx` (`fk_appartamenti`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dump dei dati per la tabella `utente_appartamenti`
+--
+
+INSERT INTO `utente_appartamenti` (`idUtente_Appartamenti`, `dataInizio`, `dataFine`, `fk_appartamenti`, `fk_utente`, `timestamp`) VALUES
+(0, '2021-05-25', '2021-05-30', 0, NULL, '0000-00-00 00:00:00'),
+(1, '2021-06-07', '2021-06-13', 0, NULL, '0000-00-00 00:00:00'),
+(2, '2021-05-25', '2021-05-30', 1, NULL, '0000-00-00 00:00:00'),
+(3, '2021-06-12', '2021-06-19', 2, NULL, '0000-00-00 00:00:00'),
+(4, '2021-06-05', '2021-06-12', 3, NULL, '0000-00-00 00:00:00'),
+(5, '2021-07-01', '2021-07-08', 3, NULL, '0000-00-00 00:00:00'),
+(6, '2021-07-02', '2021-07-09', 4, 'RSOFRC21E23C623Y', '2021-05-24 16:09:12'),
+(7, '2021-07-14', '2021-07-21', 4, NULL, '0000-00-00 00:00:00'),
+(8, '2021-07-24', '2021-07-31', 4, NULL, '0000-00-00 00:00:00');
 
 --
 -- Limiti per le tabelle scaricate
