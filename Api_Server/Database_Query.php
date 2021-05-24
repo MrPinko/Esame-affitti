@@ -10,24 +10,6 @@ class Database_Query
         $this->db = $db;
     }
 
-    public function getAll()
-    {
-        $statement = "
-            SELECT
-                id, testcol
-            FROM
-                test;
-        ";
-
-        try {
-            $statement = $this->db->query($statement);
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $result;
-        } catch (\PDOException$e) {
-            exit($e->getMessage());
-        }
-    }
-
     public function find($hashedName, $hashedPw)
     {
         $statement = "
@@ -35,7 +17,7 @@ class Database_Query
                 *
             FROM
                 utente
-            WHERE nome = ?
+            WHERE email = ?
             AND pw = ?;
         ";
         try {
@@ -53,6 +35,7 @@ class Database_Query
     {
         $statement = "SELECT
                     att_turistiche.nome,
+                    att_turistiche.descrizione,
                     att_turistiche.lat,
                     att_turistiche.`long`,
                     immagini_per_attrazionituristiche.url
@@ -77,11 +60,11 @@ class Database_Query
             appartamenti.piano,
             appartamenti.superficie,
             appartamenti.costo,
-
             immobile_privato.lat,
             immobile_privato.`long`,
             proprietario.nome AS nomeProprietario,
             proprietario.cognome AS cognomeProprietario,
+            proprietario.iban,
             social.provider,
             social.nome
             FROM appartamenti
@@ -109,10 +92,9 @@ class Database_Query
         }
     }
 
-    public function getNomeEcognome($email)
+    public function getUsername($email)
     {
-        $statement = "SELECT nome, cognome FROM utente WHERE email = ?";
-
+        $statement = "SELECT username FROM utente WHERE email = ?";
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($email));
@@ -121,7 +103,20 @@ class Database_Query
         } catch (\PDOException$e) {
             exit($e->getMessage());
         }
+    }
 
+    public function getCF($username)
+    {
+        $statement = "SELECT cf_utente FROM utente WHERE username = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($username));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
     }
 
     public function getReview()
@@ -168,7 +163,7 @@ class Database_Query
     public function getDateDisponibili()
     {
         $statement = "SELECT
-                    utente_appartamenti.idUtente_Apaprtamenti,
+                    utente_appartamenti.idUtente_Appartamenti,
                     appartamenti.nome,
                     utente_appartamenti.dataInizio,
                     utente_appartamenti.dataFine
@@ -184,6 +179,27 @@ class Database_Query
         } catch (\PDOException$e) {
             exit($e->getMessage());
         }
+    }
+
+    public function getOrdiniEffettuati()
+    {
+
+        $statement = "SELECT
+                    utente.username,
+                    utente_appartamenti.dataInizio,
+                    utente_appartamenti.dataFine
+                    FROM utente_appartamenti
+                    INNER JOIN utente
+                        ON utente_appartamenti.fk_utente = utente.cf_utente";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+
     }
 
     public function insert(array $input)
@@ -219,6 +235,26 @@ class Database_Query
                 'cognome' => $input['cognome'],
                 'm_pagamento' => $input['m_pagamento'],
 
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function BindingUserToDate(array $input)
+    {
+        /*
+        {"fk_utente" : "RSOFRC21E23C623Y", "idUtente_Appartamenti" : 0}
+        TUTTO SU UNA RIGA MANNAGGIA AI JSON
+        */
+        $statement = "UPDATE utente_appartamenti SET fk_utente = :fk_utente WHERE idUtente_Appartamenti = :idUtente_Appartamenti ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'fk_utente' => $input['fk_utente'],
+                'idUtente_Appartamenti' => $input['idUtente_Appartamenti'],
             ));
             return $statement->rowCount();
         } catch (\PDOException$e) {

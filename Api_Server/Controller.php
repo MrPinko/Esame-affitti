@@ -21,15 +21,14 @@ class Controller
 
         $this->DBquery = new Database_Query($db);
 
-        if ($queryMenu == 'loginUser') {
-            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-            $uri = explode('/', $uri);
-            if(isset($uri[6])){
-                $this->hashedName = $uri[5]; //contiene il nome
-                $this->hashedPw = $uri[6]; //contiene la password
-            }else{
-                $this->email = $uri[5];
-            }
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $uri = explode('/', $uri);
+
+        if(isset($uri[6])){
+            $this->hashedName = $uri[5]; //contiene il nome
+            $this->hashedPw = $uri[6]; //contiene la password
+        }else if (isset($uri[5])){
+            $this->email = $uri[5];
         }
     }
 
@@ -57,13 +56,19 @@ class Controller
                 $response = $this->getAppartamentiImmagini();
                 break;
             case 'GET' && $this->queryMenu == 'loginUser' && $this->hashedPw == null:
-                $response = $this->getNomeEcognome($this->email);
+                $response = $this->getUsername($this->email);
+                break;
+            case 'GET' && $this->queryMenu == 'getCF' && $this->hashedPw == null:
+                $response = $this->getCF($this->email);
                 break;
             case 'GET' && $this->queryMenu == 'dateDisponibili':
                 $response = $this->getDateDisponibili();
                 break;
             case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
+                break;
+            case 'POST' && $this->queryMenu == "addUserToAppartamenti":
+                $response = $this->BindingUserToDate();
                 break;
             case 'PUT':
                 //$response = $this->updateUserFromRequest($this->userId);
@@ -79,14 +84,6 @@ class Controller
         if ($response['body']) {
             echo $response['body'];
         }
-    }
-
-    private function getAllUsers()
-    {
-        $result = $this->DBquery->getAll();
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
-        return $response;
     }
 
     private function getAttrazioniTuristiche()
@@ -121,13 +118,22 @@ class Controller
         return $response;
     }
 
-    private function getNomeEcognome($email)
+    private function getUsername($email)
     {
-        $result = $this->DBquery->getNomeEcognome($email);
+        $result = $this->DBquery->getUsername($email);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
     }
+
+    private function getCF($username)
+    {
+        $result = $this->DBquery->getCF($username);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+    
 
     private function getDateDisponibili()
     {
@@ -165,6 +171,22 @@ class Controller
         return $response;
     }
 
+    private function BindingUserToDate()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        print_r($input);
+
+        /*if (!$this->validatePerson($input)) {
+            return $this->unprocessableEntityResponse();
+        }*/
+
+        $this->DBquery->BindingUserToDate($input);
+        $response['status_code_header'] = 'HTTP/1.1 201 Created';
+        $response['body'] = null;
+        return $response;
+    }
+
+    
     /*private function updateUserFromRequest($id)
     {
         $result = $this->DBquery->find($id);

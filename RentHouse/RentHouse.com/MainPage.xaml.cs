@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
@@ -24,6 +23,8 @@ namespace RentHouse.com
 		ObservableCollection<AppartamentiImmagini> appartamentiImmaginiJson;
 		ObservableCollection<AttrazioniCordEImmagini> attrazioniCordEImmaginiJson;
 		ObservableCollection<DateDisponibili> dateDisponibiliJson;
+		ObservableCollection<CodiceFiscaleUtente> codiceFiscaleUtenteJson;
+
 
 		private bool bottomBarUp = false, isExpanded = false;
 
@@ -45,6 +46,8 @@ namespace RentHouse.com
 			getRequestForAttrazioniCordEImmagini();
 
 			getDateDisponibili();
+
+			getRequestForCodiceFiscale();
 
 			foreach (AppartamentiPosizione item in appartamentiJson)
 			{
@@ -102,9 +105,14 @@ namespace RentHouse.com
 		{
 			if (bottomBarUp)
 			{
-				bottomBar.TranslateTo(0, 0, 300);
+				bottomBar.TranslateTo(0, 0, 200);
 				bottomBarUp = false;
 				carousel.IsSwipeEnabled = false;
+			}
+			if (isUserPopUpVisible)
+			{
+				userPopUp.TranslateTo(0, 0, 200);
+				isUserPopUpVisible = false;
 			}
 			Console.WriteLine("tapped at " + e.Point.Latitude + "," + e.Point.Longitude);
 		}
@@ -120,6 +128,8 @@ namespace RentHouse.com
 				prenotaGriglia.IsEnabled = true;
 				datiBottomPopUp.IsVisible = true;
 				datiBottomPopUp.IsEnabled = true;
+				containerDatiAppartamento.IsVisible = true;
+				containerDatiAppartamento.IsEnabled = true;
 
 				appartamenti_ImmaginiList.Clear();
 				foreach (AppartamentiImmagini ai in appartamentiImmaginiJson)
@@ -133,6 +143,16 @@ namespace RentHouse.com
 				AppartamentiImmaginiFromUrl attrazioniImmagini = new AppartamentiImmaginiFromUrl(appartamenti_ImmaginiList[0], appartamenti_ImmaginiList[1], appartamenti_ImmaginiList[2]);
 				carousel.BindingContext = attrazioniImmagini;
 
+				foreach (AppartamentiPosizione obj in appartamentiJson)
+				{
+					if (obj.nomeAppartamento.ToLower().Equals(e.Pin.Label.ToLower()))
+					{
+						prezzoAppartamento.Text = "Costo: " + obj.costo;
+						pianoAppartamento.Text = "Piano: " + obj.piano;
+						superficieAppartamento.Text = "Superficie: " + obj.superficie;
+					}
+				}
+
 				getDateDisponibili();
 				datePicker.Items.Clear();
 				foreach (DateDisponibili DD in dateDisponibiliJson)              //date picker
@@ -143,16 +163,18 @@ namespace RentHouse.com
 					}
 				}
 
-
-				if (bottomBarUp)
+				if (bottomBarUp)       //abbasso la barra se clicco un altro pin e la barra sotto è visibile    
 				{
 					bottomBar.TranslateTo(0, 0, 300);
 					bottomBarUp = false;
 				}
-				else             //la barra sotto non è visibile
+				else             //la barra sotto non è visibile quindi la porto su
 				{
 					bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
 					houseName.Text = e.Pin.Label.ToUpper();
+
+					userPopUp.TranslateTo(0, 0, 300);           //nascondo la barra laterale se apro la barra sotto
+					isUserPopUpVisible = false;
 
 					carousel.HeightRequest = bottomBar.Height / 3;
 					carousel.WidthRequest = bottomBar.Width;
@@ -162,7 +184,7 @@ namespace RentHouse.com
 					{
 						if (re.nome.ToLower().Equals(e.Pin.Label.ToLower()))
 						{
-							posizioneStar.Text = re.avg_posizione.Substring(0,1);
+							posizioneStar.Text = re.avg_posizione.Substring(0, 1);
 							qpStar.Text = re.avg_qualita_prezzo.Substring(0, 1);
 							servizioStar.Text = re.avg_servizio.Substring(0, 1);
 							break;
@@ -178,15 +200,19 @@ namespace RentHouse.com
 
 					bottomBarUp = true;
 				}
-			}else if(e.Pin.Type == PinType.SearchResult)       //apro il popup dele attrazioni turistiche
+			}
+			else if (e.Pin.Type == PinType.SearchResult)       //apro il popup dele attrazioni turistiche
 			{
 				datiBottomPopUp.IsVisible = false;
 				datiBottomPopUp.IsEnabled = false;
 				prenotaGriglia.IsVisible = false;
 				prenotaGriglia.IsEnabled = false;
+				containerDatiAppartamento.IsVisible = false;
+				containerDatiAppartamento.IsEnabled = false;
 				foreach (AttrazioniCordEImmagini item in attrazioniCordEImmaginiJson)
 				{
-					if (e.Pin.Label.ToLower().Equals(item.nome.ToLower())){        //trovo il posto selezionato
+					if (e.Pin.Label.ToLower().Equals(item.nome.ToLower()))
+					{        //trovo il posto selezionato
 						descrizioneposto.Text = item.descrizione.ToLower();
 						AttrazioniImmaginiFromUrl attrazioniImmagini = new AttrazioniImmaginiFromUrl(item.url);
 						carousel.BindingContext = attrazioniImmagini;
@@ -194,13 +220,16 @@ namespace RentHouse.com
 					}
 				}
 
-				if (bottomBarUp)
+				if (bottomBarUp)            //abbasso la barra se clicco un altro pin e la barra sotto è visibile   serve per il tocco    
 				{
-					bottomBar.TranslateTo(0, 0, 300);
+					bottomBar.TranslateTo(0, 0, 200);
 					bottomBarUp = false;
 				}
-				else             //la barra sotto non è visibile
+				else             //la barra sotto non è visibile quindi la porto su
 				{
+					userPopUp.TranslateTo(0, 0, 200);
+					isUserPopUpVisible = false;
+
 					bottomBar.TranslateTo(0, -bottomBar.Height / 3, 350);
 					houseName.Text = e.Pin.Label.ToUpper();
 
@@ -213,14 +242,14 @@ namespace RentHouse.com
 			}
 		}
 
-		private void expandBottomBar(object sender, SwipedEventArgs e)       //massima altezza
+		private void expandBottomBar(object sender, SwipedEventArgs e)       //massima altezza     serve per i drag
 		{
 			bottomBar.TranslateTo(0, -bottomBar.Height, 350);
 			isExpanded = true;
 			carousel.IsSwipeEnabled = true;
 		}
 
-		private void retriveBottomBar(object sender, SwipedEventArgs e)
+		private void retriveBottomBar(object sender, SwipedEventArgs e)     // 1/3 di altezza o tutto giù serve per i drag 
 		{
 			if (isExpanded)
 			{
@@ -233,25 +262,31 @@ namespace RentHouse.com
 				bottomBarUp = false;
 			}
 
-			//houseImage.IsSwipeEnabled = false;
+			carousel.IsSwipeEnabled = false;
 
 		}
 
 		private bool isUserPopUpVisible = false;
-		private void userImage_tapped(object sender, EventArgs e)
+		private void userImage_tapped(object sender, EventArgs e)         //compare il box utente
 		{
-			if (!isUserPopUpVisible)
+			if (!isUserPopUpVisible)      //barra laterale diventa visibile
 			{
-				userPopUp.IsVisible = true;
-				userPopUp.IsEnabled = true;
 
+				containerOrdiniCompletati.Children.Add(new Label
+				{
+					Text = "test",
+					TextColor = Color.Black
+				});
+
+				userPopUp.TranslateTo(-userPopUp.Width, 0, 300);
+				bottomBar.TranslateTo(0, 0, 200);
+
+				bottomBarUp = false;
 				isUserPopUpVisible = true;
 			}
 			else
 			{
-				userPopUp.IsVisible = false;
-				userPopUp.IsEnabled = false;
-
+				userPopUp.TranslateTo(0, 0, 300);
 				isUserPopUpVisible = false;
 			}
 		}
@@ -261,13 +296,20 @@ namespace RentHouse.com
 			Navigation.PushAsync(new loginUser());
 		}
 
-		private void Riserva_Tapped(object sender, EventArgs e)
+		private void Riserva_Tapped(object sender, EventArgs e)      //riserva la data
 		{
-
+			if (datePicker.SelectedItem != null)
+			{
+				postRequest();
+			}
+			else
+			{
+				DisplayAlert("errore", "inserire una data valida", "ok");
+			}
 		}
 
 		#region richieste GET
-
+		//auto esplicative
 		private void getRequestForAppartamenti()
 		{
 			var url = "http://rosafedericoesame.altervista.org/index.php/user/appartamenti";
@@ -336,6 +378,22 @@ namespace RentHouse.com
 			attrazioniCordEImmaginiJson = new ObservableCollection<AttrazioniCordEImmagini>(tr);
 		}
 
+		private void getRequestForCodiceFiscale()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/getCF/" + UserNameLabel.Text;
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			task.Wait();
+			Console.WriteLine(myXMLstring);
+
+			var tr = JsonConvert.DeserializeObject<List<CodiceFiscaleUtente>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			codiceFiscaleUtenteJson = new ObservableCollection<CodiceFiscaleUtente>(tr);
+		}
 
 		private void getDateDisponibili()
 		{
@@ -353,7 +411,39 @@ namespace RentHouse.com
 			//After deserializing , we store our data in the List called ObservableCollection
 			dateDisponibiliJson = new ObservableCollection<DateDisponibili>(tr);
 		}
-		
+
+		private async void postRequest()
+		{
+			//02-07-2021 fino a 09-07-2021
+			int id = 0;
+			foreach (DateDisponibili DD in dateDisponibiliJson)              //date picker
+			{
+				if ((Convert.ToDateTime(DD.dataInizio).ToString("dd-MM-yyyy") + " fino a " + Convert.ToDateTime(DD.dataFine).ToString("dd-MM-yyyy")).Equals(datePicker.SelectedItem))      //creo la stringa come è nel picker
+				{
+					id = Convert.ToInt32(DD.idUtente_Apaprtamenti);
+					break;
+				}
+
+			}
+
+			var client = new HttpClient();
+			Uri uri = new Uri("http://rosafedericoesame.altervista.org/index.php/user/addUserToAppartamenti");
+
+			string jsonData = "{" +
+							"\"fk_utente\" : \"" + codiceFiscaleUtenteJson[0].cf_utente +
+							"\", \"idUtente_Appartamenti\" : \"" + id +
+							"\"}";
+
+
+			var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+			HttpResponseMessage response = await client.PostAsync(uri, content);
+
+			// this result string should be something like: "{"token":"rgh2ghgdsfds"}"
+			var result = await response.Content.ReadAsStringAsync();
+
+			Console.WriteLine(result);
+		}
+
 
 		async Task<String> AccessTheWebAsync(String url)
 		{
@@ -368,18 +458,7 @@ namespace RentHouse.com
 
 		#endregion
 
-		#region findID mappa moddata e onback
-
-		private int findID(String s)
-		{
-			for (int i = 0; i < appartamentiJson.Count; i++)
-			{
-				if (appartamentiJson[i].nomeAppartamento.Equals(s))
-					return i;
-			}
-
-			return 0;
-		}
+		#region mappa moddata e onback
 
 		private void customMap()       //caricare la mappa da map wizard
 		{
@@ -403,7 +482,7 @@ namespace RentHouse.com
 		#endregion
 
 		#region double formattati bene grazie pietro
-		private static double toDouble(string s)      //ovviamente va usata la virgola e non il punto per formattare un Double ...
+		private static double toDouble(string s)      //ovviamente va usata la virgola e non il punto per formattare un Double
 		{
 			double d = 0;
 			bool isNegative = false;
@@ -512,6 +591,12 @@ public class DateDisponibili
 	public string dataInizio { get; set; }
 	public string dataFine { get; set; }
 }
+
+public class CodiceFiscaleUtente
+{
+	public string cf_utente { get; set; }
+}
+
 #endregion
 
 public class CarouselModel

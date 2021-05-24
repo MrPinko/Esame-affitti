@@ -20,15 +20,15 @@
 
 		<!--DATI UTENTE POPUP-->
 		<yummy:PancakeView x:Name="userPopUp"
-			AbsoluteLayout.LayoutBounds="1,0.1,0.4,0.15" AbsoluteLayout.LayoutFlags="All"
-			CornerRadius="16,16,16,16"
-			BackgroundColor="White"
-			IsVisible="False" IsEnabled="False">
+			AbsoluteLayout.LayoutBounds="2,1,0.5,1" AbsoluteLayout.LayoutFlags="All"
+			CornerRadius="16,0,16,0"
+			BackgroundColor="White">
 			<yummy:PancakeView.Border>
 				<yummy:Border Color="LightBlue" Thickness="5" />
 			</yummy:PancakeView.Border>
 			<StackLayout Margin="10">
-				<Grid>          
+				<Image Source="userImage.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="EndAndExpand"></Image>
+				<Grid Margin="0,30,0,0">          
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
 						<RowDefinition Height="*" />
@@ -41,13 +41,19 @@
 					</Grid.ColumnDefinitions>
 					<Label Text="username: " TextColor="Black" Grid.Column="0" Grid.Row="0"></Label>
 					<Label x:Name="UserNameLabel" Text="error" TextColor="Black" Grid.Column="2" Grid.Row="0"></Label>
-
-					<Label Text="logout" TextColor="Red" Grid.Column="0" Grid.Row="2" >
-					<Label.GestureRecognizers>
-							<TapGestureRecognizer Tapped="logoutButton_Tapped"/>
-						</Label.GestureRecognizers>
-					</Label>
 				</Grid>
+
+				<ScrollView>
+					<StackLayout x:Name="containerOrdiniCompletati">
+
+					</StackLayout>
+				</ScrollView>
+				
+				<Label Text="logout" TextColor="Red" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand">
+					<Label.GestureRecognizers>
+						<TapGestureRecognizer Tapped="logoutButton_Tapped"/>
+					</Label.GestureRecognizers>
+				</Label>
 			</StackLayout>
 			
 		</yummy:PancakeView>
@@ -58,7 +64,7 @@
             CornerRadius="32,32,0,0"
 			BackgroundColor="WhiteSmoke"
 			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}" 
-			AbsoluteLayout.LayoutBounds="0.5,10,0.95,0.9"
+			AbsoluteLayout.LayoutBounds="0.5,10.15,0.95,0.9"
 			AbsoluteLayout.LayoutFlags="All">
 
 			<StackLayout>
@@ -82,6 +88,13 @@
 
 				<Label x:Name="descrizioneposto" Margin="20,20,20,20" TextColor="Black" ></Label>
 
+				<StackLayout x:Name="containerDatiAppartamento" Margin="20,-10,0,0">
+					<Label x:Name="prezzoAppartamento" TextColor="Black" ></Label>
+					<Label x:Name="pianoAppartamento" TextColor="Black" ></Label>
+					<Label x:Name="superficieAppartamento" TextColor="Black" ></Label>
+				</StackLayout>
+
+				
 				<Grid x:Name="prenotaGriglia">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*"/>
