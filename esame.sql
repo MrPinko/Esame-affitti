@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mag 24, 2021 alle 20:19
+-- Generation Time: Mag 26, 2021 alle 16:16
 -- Versione del server: 8.0.21
 -- PHP Version: 5.6.40
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `appartamenti` (
 INSERT INTO `appartamenti` (`idappartamenti`, `nome`, `piano`, `superficie`, `costo`, `fk_immobilePrivato`, `fk_immagini`) VALUES
 (0, 'heart milan', '1', '71', 251, 0, 0),
 (1, 'vittoria corner', '3', '60', 200, 1, 1),
-(2, 'Brera Apartments ', '2', '25', 100, 0, 2),
+(2, 'Brera Apartments ', '2', '25', 100, 4, 2),
 (3, 'La Perla by Sedar', '1', '100', 500, 2, 3),
 (4, 'Vanvitelli''s Home', '1', '50', 200, 3, 4);
 
@@ -90,7 +90,10 @@ INSERT INTO `appartamenti_recensioni` (`idappartamenti_recensioni`, `fk_recensio
 (2, 1, 1),
 (3, 2, 2),
 (4, 4, 3),
-(5, 5, 4);
+(5, 5, 4),
+(6, 6, 2),
+(7, 7, 2),
+(8, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -102,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `att_turistiche` (
   `idatt_turistiche` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   `descrizione` text NOT NULL,
-  `provincia` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `provincia` varchar(45) NOT NULL,
   `lat` double DEFAULT NULL,
   `long` double DEFAULT NULL,
   `fk_immagini` int DEFAULT NULL,
@@ -231,7 +234,8 @@ INSERT INTO `immobile_privato` (`idimmobile`, `via`, `numeroC`, `cap`, `citta`, 
 (0, 'del parco', 29, 20064, 'milano', 'MI', 45.526318538655474, 9.406340990479956, 1980),
 (1, 'luigi sacco', 3, 22100, 'como', 'CO', 45.81019362511003, 9.08741389619552, 2000),
 (2, 'fratelli rosselli', 2, 24068, 'Seriate', 'BG', 45.67703729517465, 9.714916419303293, 2010),
-(3, 'giuseppe maria bosco', 111, 81100, 'Caserta', 'CE', 41.08052309544633, 14.336794799420527, 1946);
+(3, 'giuseppe maria bosco', 111, 81100, 'Caserta', 'CE', 41.08052309544633, 14.336794799420527, 1946),
+(4, 'Piazza della Vittoria', 14, 30030, 'venezia', 'VE', 45.55500889969162, 12.152080268869241, 2018);
 
 -- --------------------------------------------------------
 
@@ -260,6 +264,7 @@ INSERT INTO `proprietario` (`cf_proprietario`, `nome`, `cognome`, `dataN`, `emai
 ('DNZMLA95T49C088Y', 'amalia', 'iadanza', '1995-12-09', 'amalia95@hootmail.com', '03124985372', 'IT25B0300203280225412791151', 2),
 ('GNVCHR97P46E595H', 'chiara', 'genovesi', '1997-09-06', 'chiaraGenovesi@yahoo.com', '03453906573', 'IT19F0300203280148362476191', 3),
 ('GNVCMR64R10F492C', 'calimero', 'genovese', '1964-11-10', 'calimerogenovese@gmail.com', '00367905660', 'IT27E0300203280177977433552', 1),
+('HRNHDB42D05D969V', 'Hildibrand', 'Hornblower', '1942-04-05', 'HildibrandHornblower@outlook.com ', '03941540906', 'IT25D0300203280971925254858', 4),
 ('TRNDVD58A01B534L', 'davide', 'trentini', '1958-01-01', 'DavideTrentini@gmail.com', '03814962856', 'IT23X0300203280188444111643', 0);
 
 -- --------------------------------------------------------
@@ -288,7 +293,8 @@ INSERT INTO `proprietario_social` (`idproprietario_social`, `fk_proprietario`, `
 (3, 'TRNDVD58A01B534L', 3),
 (4, 'DNZMLA95T49C088Y', 6),
 (5, 'GNVCHR97P46E595H', 4),
-(6, 'GNVCHR97P46E595H', 5);
+(6, 'GNVCHR97P46E595H', 5),
+(7, 'HRNHDB42D05D969V', 7);
 
 -- --------------------------------------------------------
 
@@ -301,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `recensioni` (
   `posizione` int DEFAULT NULL,
   `qualita_prezzo` int DEFAULT NULL,
   `servizio` int DEFAULT NULL,
-  `timestamp` timestamp NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idrecensioni`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
@@ -315,7 +321,10 @@ INSERT INTO `recensioni` (`idrecensioni`, `posizione`, `qualita_prezzo`, `serviz
 (2, 4, 8, 7, '2021-04-12 22:00:59'),
 (3, 3, 7, 6, '2021-02-18 14:16:30'),
 (4, 8, 7, 6, '2021-02-18 20:40:19'),
-(5, 5, 9, 7, '2021-04-09 12:23:47');
+(5, 5, 9, 7, '2021-04-09 12:23:47'),
+(6, 0, 0, 0, '2021-12-12 11:01:11'),
+(7, 4, 6, 7, '2021-05-26 11:46:38'),
+(8, 3, 0, 4, '2021-05-26 12:00:10');
 
 -- --------------------------------------------------------
 
@@ -370,7 +379,8 @@ INSERT INTO `social` (`idsocial`, `provider`, `nome`) VALUES
 (3, 'twitter', 'davide trentini'),
 (4, 'facebook', 'chiara genovesi'),
 (5, 'instagram', 'chiara_case97'),
-(6, 'twitter', 'amalia iadanza');
+(6, 'twitter', 'amalia iadanza'),
+(7, 'facebook', 'Hildibrand Hornblower');
 
 -- --------------------------------------------------------
 
@@ -380,7 +390,7 @@ INSERT INTO `social` (`idsocial`, `provider`, `nome`) VALUES
 
 CREATE TABLE IF NOT EXISTS `utente` (
   `username` varchar(45) DEFAULT NULL,
-  `pw` longtext CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `pw` longtext,
   `email` varchar(45) DEFAULT NULL,
   `cell` varchar(45) DEFAULT NULL,
   `citta` varchar(45) DEFAULT NULL,
@@ -415,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `utente_appartamenti` (
   `dataFine` date DEFAULT NULL,
   `fk_appartamenti` int DEFAULT NULL,
   `fk_utente` varchar(45) DEFAULT NULL,
-  `timestamp` timestamp NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idUtente_Appartamenti`),
   KEY `fk_utente_idx` (`fk_utente`),
   KEY `fk_appartamenti_idx` (`fk_appartamenti`)
@@ -426,15 +436,15 @@ CREATE TABLE IF NOT EXISTS `utente_appartamenti` (
 --
 
 INSERT INTO `utente_appartamenti` (`idUtente_Appartamenti`, `dataInizio`, `dataFine`, `fk_appartamenti`, `fk_utente`, `timestamp`) VALUES
-(0, '2021-05-25', '2021-05-30', 0, NULL, '0000-00-00 00:00:00'),
-(1, '2021-06-07', '2021-06-13', 0, NULL, '0000-00-00 00:00:00'),
-(2, '2021-05-25', '2021-05-30', 1, NULL, '0000-00-00 00:00:00'),
-(3, '2021-06-12', '2021-06-19', 2, NULL, '0000-00-00 00:00:00'),
-(4, '2021-06-05', '2021-06-12', 3, NULL, '0000-00-00 00:00:00'),
-(5, '2021-07-01', '2021-07-08', 3, NULL, '0000-00-00 00:00:00'),
-(6, '2021-07-02', '2021-07-09', 4, 'RSOFRC21E23C623Y', '2021-05-24 16:09:12'),
-(7, '2021-07-14', '2021-07-21', 4, NULL, '0000-00-00 00:00:00'),
-(8, '2021-07-24', '2021-07-31', 4, NULL, '0000-00-00 00:00:00');
+(0, '2021-05-25', '2021-05-30', 0, NULL, '2021-05-25 08:47:49'),
+(1, '2021-06-07', '2021-06-13', 0, NULL, '2021-05-25 08:45:25'),
+(2, '2021-05-25', '2021-05-30', 1, 'RSOFRC21E23C623Y', '2021-05-21 22:00:00'),
+(3, '2021-06-12', '2021-06-19', 2, NULL, '2021-05-25 11:00:38'),
+(4, '2021-06-05', '2021-06-12', 3, NULL, '2021-05-25 08:47:59'),
+(5, '2021-07-01', '2021-07-08', 3, NULL, '2021-05-25 08:47:34'),
+(6, '2021-07-02', '2021-07-09', 4, NULL, '2021-05-25 08:48:15'),
+(7, '2021-07-14', '2021-07-21', 4, NULL, '2021-05-25 08:48:16'),
+(8, '2021-07-24', '2021-07-31', 4, NULL, '2021-05-25 08:48:17');
 
 --
 -- Limiti per le tabelle scaricate
