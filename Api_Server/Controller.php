@@ -24,10 +24,12 @@ class Controller
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = explode('/', $uri);
 
-        if(isset($uri[6])){
+        //print_r($uri);
+
+        if (isset($uri[6])) {
             $this->hashedName = $uri[5]; //contiene il nome
             $this->hashedPw = $uri[6]; //contiene la password
-        }else if (isset($uri[5])){
+        } else if (isset($uri[5])) {
             $this->email = $uri[5];
         }
     }
@@ -37,11 +39,6 @@ class Controller
         switch ($this->requestMethod) {
             case 'GET' && $this->queryMenu == "loginUser" && $this->hashedPw != null:
                 $response = $this->checkLoginUser($this->hashedName, $this->hashedPw);
-                /*if ($this->userId) { //se esiste un id
-                    $response = $this->getUser($this->userId);
-                } else {
-                    $response = $this->getAllUsers();
-                };*/
                 break;
             case 'GET' && $this->queryMenu == 'attrazioniTuristiche':
                 $response = $this->getAttrazioniTuristiche();
@@ -64,11 +61,20 @@ class Controller
             case 'GET' && $this->queryMenu == 'dateDisponibili':
                 $response = $this->getDateDisponibili();
                 break;
+            case 'GET' && $this->queryMenu == 'ordiniEffettuati' && $this->hashedPw == null:
+                $response = $this->getOrdiniEffettuati($this->email);
+                break;
             case 'POST' && $this->queryMenu == "registerUser":
                 $response = $this->createUserFromRequest();
                 break;
             case 'POST' && $this->queryMenu == "addUserToAppartamenti":
                 $response = $this->BindingUserToDate();
+                break;
+            case 'POST' && $this->queryMenu == "deleteBindingUserToDate":
+                $response = $this->DeleteBindingUserToDate();
+                break;
+            case 'POST' && $this->queryMenu == "createReview":
+                $response = $this->CreateReview();
                 break;
             case 'PUT':
                 //$response = $this->updateUserFromRequest($this->userId);
@@ -133,7 +139,6 @@ class Controller
         $response['body'] = json_encode($result);
         return $response;
     }
-    
 
     private function getDateDisponibili()
     {
@@ -142,7 +147,6 @@ class Controller
         $response['body'] = json_encode($result);
         return $response;
     }
-    
 
     private function checkLoginUser($hashedName, $hashedPw)
     {
@@ -186,7 +190,43 @@ class Controller
         return $response;
     }
 
-    
+    private function getOrdiniEffettuati($CF)
+    {
+        $result = $this->DBquery->getOrdiniEffettuati($CF);
+        if (!$result) {
+            return $this->notFoundResponse();
+        }
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function DeleteBindingUserToDate()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        print_r($input);
+
+        $this->DBquery->DeleteBindingUserToDate($input);
+        $response['status_code_header'] = 'HTTP/1.1 201 Created';
+        $response['body'] = null;
+        return $response;
+    }
+
+    private function CreateReview()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        print_r($input);
+
+        /*if (!$this->validatePerson($input)) {
+            return $this->unprocessableEntityResponse();
+        }*/
+
+        $this->DBquery->CreateReview($input);
+        $response['status_code_header'] = 'HTTP/1.1 201 Created';
+        $response['body'] = null;
+        return $response;
+    }
+
     /*private function updateUserFromRequest($id)
     {
         $result = $this->DBquery->find($id);

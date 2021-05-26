@@ -181,25 +181,28 @@ class Database_Query
         }
     }
 
-    public function getOrdiniEffettuati()
+    public function getOrdiniEffettuati($CF)
     {
-
         $statement = "SELECT
                     utente.username,
                     utente_appartamenti.dataInizio,
-                    utente_appartamenti.dataFine
-                    FROM utente_appartamenti
+                    utente_appartamenti.dataFine,
+                    utente_appartamenti.timestamp,
+                    appartamenti.nome AS nomeAppartamento
+                        FROM utente_appartamenti
+                    INNER JOIN appartamenti
+                        ON utente_appartamenti.fk_appartamenti = appartamenti.idappartamenti
                     INNER JOIN utente
-                        ON utente_appartamenti.fk_utente = utente.cf_utente";
-
+                        ON utente_appartamenti.fk_utente = utente.cf_utente
+                    WHERE utente_appartamenti.fk_utente = ?";
         try {
-            $statement = $this->db->query($statement);
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($CF));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException$e) {
             exit($e->getMessage());
         }
-
     }
 
     public function insert(array $input)
@@ -257,6 +260,76 @@ class Database_Query
                 'idUtente_Appartamenti' => $input['idUtente_Appartamenti'],
             ));
             return $statement->rowCount();
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function DeleteBindingUserToDate(array $input)
+    {
+        /*
+        {"idUtente_Appartamenti" : 0}
+        TUTTO SU UNA RIGA MANNAGGIA AI JSON
+        */
+        $statement = "UPDATE utente_appartamenti SET fk_utente = null, timestamp='0000-00-00 00:00:00' WHERE idUtente_Appartamenti= :idUtente_Appartamenti";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'idUtente_Appartamenti' => $input['idUtente_Appartamenti'],
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function CreateReview(array $input)
+    {
+        /*
+        {"idrecensioni" : 0, "posizione" : 0, "qualita_prezzo" : 0, "servizio" : 0, "timestamp" : 2021-12-12, "idappartamenti_recensioni" : 0, "fk_recensioni" : 0, "fk_appartamenti" : 0 }
+        idrecensinoi e idappartamenti_recensioni possiedono lo stesso numero 
+        */
+
+        $statement = "SELECT idappartamenti_recensioni FROM appartamenti_recensioni order by idappartamenti_recensioni desc limit 1";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $lastID = $result[0]['idappartamenti_recensioni'] + 1;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+
+        $statementRecensioni = "INSERT INTO recensioni
+            (idrecensioni, posizione, qualita_prezzo, servizio, timestamp)
+            VALUES
+            (:idrecensioni, :posizione, :qualita_prezzo, :servizio, :timestamp)";
+
+        try {
+            $statementRecensioni = $this->db->prepare($statementRecensioni);
+            $statementRecensioni->execute(array(
+                'idrecensioni' => $lastID,
+                'posizione' => $input['posizione'],
+                'qualita_prezzo' => $input['qualita_prezzo'],
+                'servizio' => $input['servizio'],
+                'timestamp' => $input['timestamp'],
+            ));
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+
+        $statementJoin = "INSERT INTO appartamenti_recensioni
+            (idappartamenti_recensioni, fk_recensioni, fk_appartamenti) VALUES
+            (:idappartamenti_recensioni, :fk_recensioni, :fk_appartamenti)";
+        try {
+            $statementJoin = $this->db->prepare($statementJoin);
+            $statementJoin->execute(array(
+                'idappartamenti_recensioni' => $lastID,
+                'fk_recensioni' => $lastID,
+                'fk_appartamenti' => $input['fk_appartamenti'],
+            ));
+            return $statementJoin->rowCount() . "   " . $statementRecensioni->rowCount();
         } catch (\PDOException$e) {
             exit($e->getMessage());
         }
