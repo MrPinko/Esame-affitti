@@ -28,7 +28,7 @@
 			</yummy:PancakeView.Border>
 			<StackLayout Margin="10">
 				<Image Source="userImage.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="EndAndExpand"></Image>
-				<Grid Margin="0,30,0,0">          
+				<Grid Margin="0,30,0,0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
 						<RowDefinition Height="*" />
@@ -42,22 +42,34 @@
 					<Label Text="username: " TextColor="Black" Grid.Column="0" Grid.Row="0"></Label>
 					<Label x:Name="UserNameLabel" Text="error" TextColor="Black" Grid.Column="2" Grid.Row="0"></Label>
 				</Grid>
-
 				<ScrollView>
-					<StackLayout x:Name="containerOrdiniCompletati">
-
-					</StackLayout>
+					<Grid x:Name="containerOrdiniCompletati">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<!--nome appartamento-->
+							<RowDefinition Height="*" />
+							<!--data inizio   e data fine-->
+							<RowDefinition Height="*" />
+							<!--conto alla rovescia-->
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<!--nome appartamento-->
+							<ColumnDefinition Width="auto" />
+							<ColumnDefinition Width="*" />
+							<!--data inizio e data fine-->
+						</Grid.ColumnDefinitions>
+					</Grid>
 				</ScrollView>
-				
 				<Label Text="logout" TextColor="Red" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand">
 					<Label.GestureRecognizers>
 						<TapGestureRecognizer Tapped="logoutButton_Tapped"/>
 					</Label.GestureRecognizers>
 				</Label>
 			</StackLayout>
-			
 		</yummy:PancakeView>
-		
+
+		<!--BOTTOM BAR-->
 		<yummy:PancakeView
 			x:Name="bottomBar"
             Margin="0"
@@ -94,7 +106,7 @@
 					<Label x:Name="superficieAppartamento" TextColor="Black" ></Label>
 				</StackLayout>
 
-				
+
 				<Grid x:Name="prenotaGriglia">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*"/>
@@ -128,9 +140,7 @@
 							HorizontalTextAlignment="Center"/>
 					</Frame>
 				</Grid>
-				
-				
-				<!-- RECENSIONI  -->
+				<!-- RECENSIONI BOTTOM POPUP -->
 				<Grid VerticalOptions="EndAndExpand" x:Name="datiBottomPopUp">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
@@ -140,7 +150,7 @@
 						<ColumnDefinition Width="auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-					
+
 					<Grid Padding="10" Grid.Column="0" Grid.Row="0">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="*" />
@@ -200,14 +210,95 @@
 						<BoxView Color="Black" Grid.ColumnSpan="3" Grid.Row="5"/>
 					</Grid>
 				</Grid>
-									
-				
 			</StackLayout>
 
 			<yummy:PancakeView.GestureRecognizers>
 				<SwipeGestureRecognizer Direction="Up" Swiped="expandBottomBar"></SwipeGestureRecognizer>
 				<SwipeGestureRecognizer Direction="Down" Swiped="retriveBottomBar"></SwipeGestureRecognizer>
 			</yummy:PancakeView.GestureRecognizers>
+		</yummy:PancakeView>
+
+		<!--RECENSIONI -->
+		<yummy:PancakeView x:Name="reviewContainer"
+			AbsoluteLayout.LayoutBounds="-1,1,0.5,1" AbsoluteLayout.LayoutFlags="All"
+			CornerRadius="0,16,0,16"
+			BackgroundColor="White">
+			<yummy:PancakeView.Border>
+				<yummy:Border Color="LightBlue" Thickness="5" />
+			</yummy:PancakeView.Border>
+			<StackLayout Margin="10">
+				<Grid VerticalOptions="CenterAndExpand">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="1" />
+						<RowDefinition Height="*" />
+						<RowDefinition Height="1" />
+						<RowDefinition Height="*" />
+						<RowDefinition Height="1" />
+
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Label Text="Posizione" Grid.Column="0" Grid.Row="0" Margin="0,20,0,0"></Label>
+					<Picker x:Name="pickerPosizione" Grid.Column="1" Grid.Row="0" HorizontalOptions="CenterAndExpand">
+						<Picker.Items>
+							<x:String>0</x:String>
+							<x:String>1</x:String>
+							<x:String>2</x:String>
+							<x:String>3</x:String>
+							<x:String>4</x:String>
+							<x:String>5</x:String>
+							<x:String>6</x:String>
+							<x:String>7</x:String>
+							<x:String>8</x:String>
+							<x:String>9</x:String>
+							<x:String>10</x:String>
+						</Picker.Items>
+					</Picker>
+					<BoxView Color="Black" Grid.ColumnSpan="2" Grid.Row="1"/>
+
+					<Label Text="Qualità Prezzo" Grid.Column="0" Grid.Row="2" Margin="0,20,0,0"></Label>
+					<Picker x:Name="pickerQualità_Prezzo" Grid.Column="1" Grid.Row="2" HorizontalOptions="CenterAndExpand">
+						<Picker.Items>
+							<x:String>0</x:String>
+							<x:String>1</x:String>
+							<x:String>2</x:String>
+							<x:String>3</x:String>
+							<x:String>4</x:String>
+							<x:String>5</x:String>
+							<x:String>6</x:String>
+							<x:String>7</x:String>
+							<x:String>8</x:String>
+							<x:String>9</x:String>
+							<x:String>10</x:String>
+						</Picker.Items>
+					</Picker>
+					<BoxView Color="Black" Grid.ColumnSpan="2" Grid.Row="3"/>
+
+					<Label Text="Servizio" Grid.Column="0" Grid.Row="4" Margin="0,20,0,0"></Label>
+					<Picker x:Name="pickerServizio" Grid.Column="1" Grid.Row="4" HorizontalOptions="CenterAndExpand">
+						<Picker.Items>
+							<x:String>0</x:String>
+							<x:String>1</x:String>
+							<x:String>2</x:String>
+							<x:String>3</x:String>
+							<x:String>4</x:String>
+							<x:String>5</x:String>
+							<x:String>6</x:String>
+							<x:String>7</x:String>
+							<x:String>8</x:String>
+							<x:String>9</x:String>
+							<x:String>10</x:String>
+						</Picker.Items>
+					</Picker>
+					<BoxView Color="Black" Grid.ColumnSpan="2" Grid.Row="5"/>
+				</Grid>
+				<Button Text="submit" CornerRadius="10" Scale="0.9" Clicked="ReviewButton_Clicked">
+
+				</Button>
+			</StackLayout>
 		</yummy:PancakeView>
 	</AbsoluteLayout>
 </ContentPage>

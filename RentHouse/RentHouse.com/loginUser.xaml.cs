@@ -39,8 +39,12 @@ namespace RentHouse.com
 				}
 				else
 				{
-					DisplayAlert("errore", "credenziali sbagliate", "ok");
+					DependencyService.Get<IMessage>().ShortAlert("credenziali sbagliate");
 				}
+			}
+			else
+			{
+				DependencyService.Get<IMessage>().ShortAlert("inserire le credenziali");
 			}
 
 		}
@@ -140,3 +144,4 @@ public class UsernameLogin
 {
 	public string username { get; set; }
 }
+

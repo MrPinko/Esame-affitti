@@ -24,9 +24,9 @@ namespace RentHouse.com
 		ObservableCollection<AttrazioniCordEImmagini> attrazioniCordEImmaginiJson;
 		ObservableCollection<DateDisponibili> dateDisponibiliJson;
 		ObservableCollection<CodiceFiscaleUtente> codiceFiscaleUtenteJson;
+		ObservableCollection<OrdiniEffettuati> ordiniEffettuatiJson;
 
-
-		private bool bottomBarUp = false, isExpanded = false;
+		private bool bottomBarUp = false, isExpanded = false, isReviewContainer = false;
 
 		public MainPage(string username)
 		{
@@ -35,7 +35,7 @@ namespace RentHouse.com
 			NavigationPage.SetHasNavigationBar(this, false);
 			customMap();
 
-			UserNameLabel.Text = username;
+			UserNameLabel.Text = "federosa";
 
 			getRequestForAppartamenti();
 
@@ -114,6 +114,11 @@ namespace RentHouse.com
 				userPopUp.TranslateTo(0, 0, 200);
 				isUserPopUpVisible = false;
 			}
+			if (isReviewContainer)
+			{
+				reviewContainer.TranslateTo(0, 0, 300);
+				isReviewContainer = false;
+			}
 			Console.WriteLine("tapped at " + e.Point.Latitude + "," + e.Point.Longitude);
 		}
 
@@ -147,9 +152,9 @@ namespace RentHouse.com
 				{
 					if (obj.nomeAppartamento.ToLower().Equals(e.Pin.Label.ToLower()))
 					{
-						prezzoAppartamento.Text = "Costo: " + obj.costo;
-						pianoAppartamento.Text = "Piano: " + obj.piano;
-						superficieAppartamento.Text = "Superficie: " + obj.superficie;
+						prezzoAppartamento.Text = "Costo: " + obj.costo + "€";
+						pianoAppartamento.Text = "Piano: " + obj.piano + "°";
+						superficieAppartamento.Text = "Superficie: " + obj.superficie + "m²";
 					}
 				}
 
@@ -267,16 +272,106 @@ namespace RentHouse.com
 		}
 
 		private bool isUserPopUpVisible = false;
+
 		private void userImage_tapped(object sender, EventArgs e)         //compare il box utente
 		{
 			if (!isUserPopUpVisible)      //barra laterale diventa visibile
 			{
-
-				containerOrdiniCompletati.Children.Add(new Label
+				getOrdiniEffettuati();
+				if (ordiniEffettuatiJson != null)   //ci sono ordini 
 				{
-					Text = "test",
-					TextColor = Color.Black
-				});
+					int gridAutoInc = 0;
+					int buttonID = 0;
+					containerOrdiniCompletati.Children.Clear();
+
+					foreach (OrdiniEffettuati obj in ordiniEffettuatiJson)
+					{
+						Label TemplabelAppartamento = new Label
+						{
+							Text = obj.nomeAppartamento,
+							HorizontalOptions = LayoutOptions.CenterAndExpand,
+							TextColor = Color.Black
+						};
+
+						Label TemplabelDataInizio = new Label
+						{
+							Text = obj.dataInizio,
+							HorizontalOptions = LayoutOptions.CenterAndExpand,
+							TextColor = Color.Black
+						};
+
+						Label tempConnetti = new Label
+						{
+							Text = "=>",
+							HorizontalOptions = LayoutOptions.CenterAndExpand,
+							TextColor = Color.Black
+						};
+
+						Label TemplabelDataFine = new Label
+						{
+							Text = obj.dataFine,
+							HorizontalOptions = LayoutOptions.CenterAndExpand,
+							TextColor = Color.Black
+						};
+
+						Label TemplabelTimestamp = new Label
+						{
+							Text = obj.timestamp,
+							HorizontalOptions = LayoutOptions.CenterAndExpand,
+							TextColor = Color.Black
+						};
+
+						Button tempButtonRemoveOrdine = new Button
+						{
+							Text = "Remove",
+							ClassId = obj.idUtente_Appartamenti,
+							TextColor = Color.White,
+							BackgroundColor = Color.Red,
+							Scale = 0.8,
+							CornerRadius = 10
+						};
+
+
+						System.TimeSpan diff = DateTime.UtcNow.Subtract(Convert.ToDateTime(obj.timestamp));
+						if (diff.TotalDays <= 3)
+						{
+							tempButtonRemoveOrdine.Clicked += TempButtonRemoveOrdine_Clicked;
+						}
+						else if (Convert.ToDateTime(obj.dataFine) > DateTime.UtcNow.Date)
+						{
+							tempButtonRemoveOrdine.Text = "review";
+							foreach(AppartamentiPosizione app in appartamentiJson)
+							{
+								if (app.nomeAppartamento.ToLower().Equals(obj.nomeAppartamento))
+								{
+									tempButtonRemoveOrdine.ClassId = app.idappartamenti;
+									break;
+								}
+							}
+
+							tempButtonRemoveOrdine.BackgroundColor = Color.Green;
+							tempButtonRemoveOrdine.Clicked += RecensisciTempButton_Clicked;
+						}
+						else
+						{
+							tempButtonRemoveOrdine.BackgroundColor = Color.Gray;
+							tempButtonRemoveOrdine.Clicked += DisabledTempButton_Clicked;
+						}
+
+						containerOrdiniCompletati.Children.Add(TemplabelAppartamento, 0, gridAutoInc);        //colonna iniziale riga iniziale
+
+						containerOrdiniCompletati.Children.Add(TemplabelDataInizio, 0, gridAutoInc + 1);       //prima riga
+						containerOrdiniCompletati.Children.Add(tempConnetti, 1, gridAutoInc + 1);
+						containerOrdiniCompletati.Children.Add(TemplabelDataFine, 2, gridAutoInc + 1);
+						containerOrdiniCompletati.Children.Add(TemplabelTimestamp, 0, gridAutoInc + 2);            //terza e ultima riga del blocco
+						containerOrdiniCompletati.Children.Add(tempButtonRemoveOrdine, 2, gridAutoInc + 2);            //bottone per rimuovere un appartamento
+
+						Grid.SetColumnSpan(TemplabelAppartamento, 3);
+
+						gridAutoInc += 4;           //salto a creare il blocco successivo con uno spazio vuoto tra essi
+						buttonID++;
+					}
+				}
 
 				userPopUp.TranslateTo(-userPopUp.Width, 0, 300);
 				bottomBar.TranslateTo(0, 0, 200);
@@ -288,6 +383,9 @@ namespace RentHouse.com
 			{
 				userPopUp.TranslateTo(0, 0, 300);
 				isUserPopUpVisible = false;
+
+				reviewContainer.TranslateTo(0, 0, 300);
+				isReviewContainer = false;
 			}
 		}
 
@@ -300,12 +398,55 @@ namespace RentHouse.com
 		{
 			if (datePicker.SelectedItem != null)
 			{
-				postRequest();
+				bindingUserToDate();
+				DependencyService.Get<IMessage>().ShortAlert("prenotazione eseguita con successo");
 			}
 			else
 			{
-				DisplayAlert("errore", "inserire una data valida", "ok");
+				DependencyService.Get<IMessage>().ShortAlert("inserire una data valida");
 			}
+		}
+
+		private void TempButtonRemoveOrdine_Clicked(object sender, EventArgs e)
+		{
+
+			Button btn = (Button)sender;
+			Console.WriteLine(btn.ClassId);
+			deleteBindingUserToDate(Convert.ToInt32(btn.ClassId));
+
+			DependencyService.Get<IMessage>().ShortAlert("rimozione eseguita con successo");
+
+
+			userPopUp.TranslateTo(0, 0, 300);           //nascondo la barra laterale finita la query cosi da aggiornare
+			isUserPopUpVisible = false;
+
+		}
+
+		private void DisabledTempButton_Clicked(object sender, EventArgs e)
+		{
+			DependencyService.Get<IMessage>().ShortAlert("i 3 giorni per annullare la prenotazione sono scaduti");
+		}
+
+		private int reviewAppartamentoTemp;
+		private void RecensisciTempButton_Clicked(object sender, EventArgs e)
+		{
+			reviewAppartamentoTemp = Convert.ToInt32(((Button)sender).ClassId);           //tiene traccia del bottone assegnato ad un appartamento 
+			if (!isReviewContainer)
+			{
+				reviewContainer.TranslateTo(reviewContainer.Width, 0, 300);
+				isReviewContainer = true;
+			}
+			else
+			{
+				reviewContainer.TranslateTo(0, 0, 300);
+				isReviewContainer = false;
+			}
+
+		}
+
+		private void ReviewButton_Clicked(object sender, EventArgs e)
+		{
+			CreateReview();
 		}
 
 		#region richieste GET
@@ -412,7 +553,33 @@ namespace RentHouse.com
 			dateDisponibiliJson = new ObservableCollection<DateDisponibili>(tr);
 		}
 
-		private async void postRequest()
+		private void getOrdiniEffettuati()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/ordiniEffettuati/" + codiceFiscaleUtenteJson[0].cf_utente;
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			try
+			{
+				task.Wait();
+			}
+			catch (Exception)
+			{
+				if (ordiniEffettuatiJson != null)
+					ordiniEffettuatiJson.Clear();
+				return;
+			}
+
+			Console.WriteLine(myXMLstring);
+			var tr = JsonConvert.DeserializeObject<List<OrdiniEffettuati>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			ordiniEffettuatiJson = new ObservableCollection<OrdiniEffettuati>(tr);
+		}
+
+		private async void bindingUserToDate()
 		{
 			//02-07-2021 fino a 09-07-2021
 			int id = 0;
@@ -420,7 +587,7 @@ namespace RentHouse.com
 			{
 				if ((Convert.ToDateTime(DD.dataInizio).ToString("dd-MM-yyyy") + " fino a " + Convert.ToDateTime(DD.dataFine).ToString("dd-MM-yyyy")).Equals(datePicker.SelectedItem))      //creo la stringa come è nel picker
 				{
-					id = Convert.ToInt32(DD.idUtente_Apaprtamenti);
+					id = Convert.ToInt32(DD.idUtente_Appartamenti);
 					break;
 				}
 
@@ -432,6 +599,7 @@ namespace RentHouse.com
 			string jsonData = "{" +
 							"\"fk_utente\" : \"" + codiceFiscaleUtenteJson[0].cf_utente +
 							"\", \"idUtente_Appartamenti\" : \"" + id +
+							"\", \"timestamp\" : \"" + DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss") +
 							"\"}";
 
 
@@ -444,6 +612,51 @@ namespace RentHouse.com
 			Console.WriteLine(result);
 		}
 
+		private async void deleteBindingUserToDate(int idTabella)
+		{
+
+			var client = new HttpClient();
+			Uri uri = new Uri("http://rosafedericoesame.altervista.org/index.php/user/deleteBindingUserToDate");
+
+			string jsonData = "{" +
+							"\"idUtente_Appartamenti\" : \"" + idTabella +
+							"\"}";
+
+
+			var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+			HttpResponseMessage response = await client.PostAsync(uri, content);
+
+			// this result string should be something like: "{"token":"rgh2ghgdsfds"}"
+			var result = await response.Content.ReadAsStringAsync();
+
+			Console.WriteLine(result);
+		}
+
+		private async void CreateReview()
+		{
+
+			var client = new HttpClient();
+			Uri uri = new Uri("http://rosafedericoesame.altervista.org/index.php/user/createReview");
+
+			//gli id vengono calcolati nel web service
+			string jsonData = "{" +
+							"\"posizione\" : \"" + pickerPosizione.SelectedItem +
+							"\", \"qualita_prezzo\" : \"" + pickerQualità_Prezzo.SelectedItem +
+							"\", \"servizio\" : \"" + pickerServizio.SelectedItem +
+							"\", \"timestamp\" : \"" + DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss") +
+							"\", \"fk_appartamenti\" : \"" + reviewAppartamentoTemp +
+							"\"}";
+
+			var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+			HttpResponseMessage response = await client.PostAsync(uri, content);
+
+			// this result string should be something like: "{"token":"rgh2ghgdsfds"}"
+			var result = await response.Content.ReadAsStringAsync();
+
+			Console.WriteLine(result);
+
+			getrequestForRecensioni();
+		}
 
 		async Task<String> AccessTheWebAsync(String url)
 		{
@@ -471,7 +684,6 @@ namespace RentHouse.com
 			}
 			map.MapStyle = MapStyle.FromJson(Json);
 		}
-
 
 		protected override bool OnBackButtonPressed()
 		{
@@ -546,6 +758,7 @@ namespace RentHouse.com
 
 public class AppartamentiPosizione
 {
+	public string idappartamenti { get; set; }
 	public string nomeAppartamento { get; set; }
 	public string piano { get; set; }
 	public string superficie { get; set; }
@@ -586,7 +799,7 @@ public class AppartamentiImmagini
 
 public class DateDisponibili
 {
-	public string idUtente_Apaprtamenti { get; set; }
+	public string idUtente_Appartamenti { get; set; }
 	public string nome { get; set; }
 	public string dataInizio { get; set; }
 	public string dataFine { get; set; }
@@ -597,8 +810,18 @@ public class CodiceFiscaleUtente
 	public string cf_utente { get; set; }
 }
 
+public class OrdiniEffettuati
+{
+	public string idUtente_Appartamenti { get; set; }
+	public string username { get; set; }
+	public string dataInizio { get; set; }
+	public string dataFine { get; set; }
+	public string timestamp { get; set; }
+	public string nomeAppartamento { get; set; }
+}
 #endregion
 
+#region classi per xaml
 public class CarouselModel
 {
 	public CarouselModel(string imagestr)
@@ -649,4 +872,12 @@ public class AttrazioniImmaginiFromUrl
 			new StringData() { uri = url1 }
 		};
 	}
+}
+
+#endregion
+
+public interface IMessage
+{
+	void LongAlert(string message);
+	void ShortAlert(string message);
 }

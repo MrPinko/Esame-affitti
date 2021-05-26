@@ -70,6 +70,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidMessage.cs" />
     <Compile Include="BitmapConfig.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
@@ -137,7 +138,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionRentHousecomAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionRentHousecomAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionRentHousecomAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionRentHousecomAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

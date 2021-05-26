@@ -168,8 +168,6 @@ namespace RentHouse.com
 			Console.WriteLine(result);
 		}
 
-
-
 		public bool checkAllEntry()
 		{
 			if (usernameEntry.Text != null &&
@@ -190,7 +188,7 @@ namespace RentHouse.com
 			}
 			else
 			{
-				DisplayAlert("errore", "inserire tutti i dati per continuare", "ok");
+				DependencyService.Get<IMessage>().ShortAlert("inserire tutti i dati prima di continuare");
 				return false;
 			}
 		}
