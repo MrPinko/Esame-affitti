@@ -23,7 +23,7 @@ namespace RentHouse.com.Droid
 				BitmapDescriptorFactory = new BitmapConfig()
 			};
 			Xamarin.FormsGoogleMaps.Init(this, savedInstanceState, platformConfig);
-
+			FormsControls.Droid.Main.Init(this);
 			base.OnCreate(savedInstanceState);
 			CrossCurrentActivity.Current.Init(this, savedInstanceState);
 

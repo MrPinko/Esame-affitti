@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage  xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base" 
+						 xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+			 xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:local="clr-namespace:RentHouse.com"
+						 x:Class="RentHouse.com.PayForm">
+	<controls:AnimationPage.PageAnimation>
+		<controls:SlidePageAnimation Duration="Medium" Subtype="FromTop" />
+	</controls:AnimationPage.PageAnimation>
+	<yummy:PancakeView x:Name="PaymentContainer"
+			BackgroundColor="#1b114a ">
+			<yummy:PancakeView.Border>
+			<yummy:Border Color="#ee3861" Thickness="5" />
+			</yummy:PancakeView.Border>
+		<StackLayout Margin="10" >
+			<Grid VerticalOptions="CenterAndExpand">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="10" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Label x:Name="paySliderLabel" TextColor="#ee3861" Grid.Row="0" Padding="10,0,0,0"></Label>
+				<Slider x:Name="paySlider" ValueChanged="paySlider_ValueChanged" Grid.Row="1" Grid.ColumnSpan="3" />
+				<Entry x:Name="cartaNum" TextColor="#ee3861" PlaceholderColor="#ee3861" Placeholder="numero carta" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Keyboard="Numeric"></Entry>
+				<DatePicker x:Name="dataScadenza" TextColor="#ee3861" Grid.Column="0" Grid.Row="3" Format="MM-yyyy"></DatePicker>
+				<Entry x:Name="cvc" TextColor="#ee3861" PlaceholderColor="#ee3861" Placeholder="CVC" Grid.Column="2" Grid.Row="3" Keyboard="Numeric"></Entry>
+			</Grid>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+			</Grid>
+			<Grid VerticalOptions="End">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Button Text="Annulla" TextColor="GhostWhite" Clicked="closePaymentMethod" Grid.Column="0" CornerRadius="20" BackgroundColor="#ee3861"></Button>
+				<Button Text="Conferma" TextColor="GhostWhite" Clicked="BuyButton" Grid.Column="1" CornerRadius="20" BackgroundColor="#ee3861"></Button>
+			</Grid>
+		</StackLayout>
+	</yummy:PancakeView>
+</controls:AnimationPage>

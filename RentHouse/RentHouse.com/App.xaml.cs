@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using FormsControls.Base;
+using Xamarin.Forms;
 
 namespace RentHouse.com
 {
@@ -11,7 +12,7 @@ namespace RentHouse.com
 			InitializeComponent();
 
 			//MainPage = new NavigationPage(new loginUser());
-			MainPage = new NavigationPage(new MainPage("test"));
+			MainPage = new AnimationNavigationPage(new MainPage("test"));
 			//MainPage = new NavigationPage(new registerUser());     //vera main page
 		}
 

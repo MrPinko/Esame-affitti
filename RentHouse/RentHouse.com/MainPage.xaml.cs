@@ -27,6 +27,7 @@ namespace RentHouse.com
 		ObservableCollection<OrdiniEffettuati> ordiniEffettuatiJson;
 
 		private bool bottomBarUp = false, isExpanded = false, isReviewContainer = false;
+		private double prezzoAppartamentoSelezionato;
 
 		public MainPage(string username)
 		{
@@ -34,6 +35,7 @@ namespace RentHouse.com
 			BindingContext = this;
 			NavigationPage.SetHasNavigationBar(this, false);
 			customMap();
+
 
 			UserNameLabel.Text = "federosa";
 
@@ -125,7 +127,7 @@ namespace RentHouse.com
 		//evento click sui pin della mappa
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
-
+			int gridAutoInc = 6;
 			if (e.Pin.Type == PinType.Place)        //popup degli apartamenti
 			{
 				descrizioneposto.Text = "";
@@ -152,6 +154,7 @@ namespace RentHouse.com
 				{
 					if (obj.nomeAppartamento.ToLower().Equals(e.Pin.Label.ToLower()))
 					{
+						prezzoAppartamentoSelezionato = Convert.ToDouble(obj.costo);
 						prezzoAppartamento.Text = "Costo: " + obj.costo + "€";
 						pianoAppartamento.Text = "Piano: " + obj.piano + "°";
 						superficieAppartamento.Text = "Superficie: " + obj.superficie + "m²";
@@ -198,9 +201,37 @@ namespace RentHouse.com
 
 					foreach (AppartamentiPosizione item in appartamentiJson)
 					{
-						nomeProprietario.Text = item.nomeProprietario.ToLower();
-						Cognomeproprietario.Text = item.cognomeProprietario.ToLower();
-						iban.Text = item.iban.ToUpper();
+						if (item.nomeAppartamento.ToLower().Equals(e.Pin.Label.ToLower()))
+						{
+							nomeProprietario.Text = item.nomeProprietario.ToLower();
+							Cognomeproprietario.Text = item.cognomeProprietario.ToLower();
+							iban.Text = item.iban.ToUpper();
+
+							Label tempProvvider = new Label
+							{
+								Text = item.provider
+							};
+
+							Label tempNome = new Label
+							{
+								Text = item.nome
+							};
+
+							BoxView boxView = new BoxView
+							{
+								Color = Color.Black
+							};
+							gridSocial.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+							gridSocial.RowDefinitions.Add(new RowDefinition { Height = 1 });
+
+							gridSocial.Children.Add(tempProvvider, 0, gridAutoInc);
+							gridSocial.Children.Add(tempNome, 2, gridAutoInc);
+							gridSocial.Children.Add(boxView, 0, gridAutoInc + 1);
+							Grid.SetColumnSpan(boxView, 3);
+
+							gridAutoInc += 2;
+						}
+
 					}
 
 					bottomBarUp = true;
@@ -340,7 +371,7 @@ namespace RentHouse.com
 						else if (Convert.ToDateTime(obj.dataFine) > DateTime.UtcNow.Date)
 						{
 							tempButtonRemoveOrdine.Text = "review";
-							foreach(AppartamentiPosizione app in appartamentiJson)
+							foreach (AppartamentiPosizione app in appartamentiJson)
 							{
 								if (app.nomeAppartamento.ToLower().Equals(obj.nomeAppartamento))
 								{
@@ -398,8 +429,7 @@ namespace RentHouse.com
 		{
 			if (datePicker.SelectedItem != null)
 			{
-				bindingUserToDate();
-				DependencyService.Get<IMessage>().ShortAlert("prenotazione eseguita con successo");
+				Navigation.PushAsync(new PayForm(prezzoAppartamentoSelezionato, dateDisponibiliJson, codiceFiscaleUtenteJson[0].cf_utente, datePicker.SelectedItem));
 			}
 			else
 			{
@@ -448,6 +478,7 @@ namespace RentHouse.com
 		{
 			CreateReview();
 		}
+
 
 		#region richieste GET
 		//auto esplicative
@@ -579,39 +610,6 @@ namespace RentHouse.com
 			ordiniEffettuatiJson = new ObservableCollection<OrdiniEffettuati>(tr);
 		}
 
-		private async void bindingUserToDate()
-		{
-			//02-07-2021 fino a 09-07-2021
-			int id = 0;
-			foreach (DateDisponibili DD in dateDisponibiliJson)              //date picker
-			{
-				if ((Convert.ToDateTime(DD.dataInizio).ToString("dd-MM-yyyy") + " fino a " + Convert.ToDateTime(DD.dataFine).ToString("dd-MM-yyyy")).Equals(datePicker.SelectedItem))      //creo la stringa come è nel picker
-				{
-					id = Convert.ToInt32(DD.idUtente_Appartamenti);
-					break;
-				}
-
-			}
-
-			var client = new HttpClient();
-			Uri uri = new Uri("http://rosafedericoesame.altervista.org/index.php/user/addUserToAppartamenti");
-
-			string jsonData = "{" +
-							"\"fk_utente\" : \"" + codiceFiscaleUtenteJson[0].cf_utente +
-							"\", \"idUtente_Appartamenti\" : \"" + id +
-							"\", \"timestamp\" : \"" + DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss") +
-							"\"}";
-
-
-			var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-			HttpResponseMessage response = await client.PostAsync(uri, content);
-
-			// this result string should be something like: "{"token":"rgh2ghgdsfds"}"
-			var result = await response.Content.ReadAsStringAsync();
-
-			Console.WriteLine(result);
-		}
-
 		private async void deleteBindingUserToDate(int idTabella)
 		{
 
@@ -689,6 +687,11 @@ namespace RentHouse.com
 		{
 			System.Diagnostics.Process.GetCurrentProcess().CloseMainWindow();
 			return true;
+		}
+
+		private void ClosePayContainer(object sender, EventArgs e)
+		{
+
 		}
 
 		#endregion
