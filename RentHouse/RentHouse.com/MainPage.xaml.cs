@@ -29,6 +29,9 @@ namespace RentHouse.com
 		private bool bottomBarUp = false, isExpanded = false, isReviewContainer = false;
 		private double prezzoAppartamentoSelezionato;
 
+		private Label tempProvvider, tempNome;
+		private BoxView boxView;
+
 		public MainPage(string username)
 		{
 			InitializeComponent();
@@ -128,6 +131,12 @@ namespace RentHouse.com
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
 			int gridAutoInc = 6;
+			if (tempProvvider != null)
+			{
+				gridSocial.Children.Remove(tempProvvider);
+				gridSocial.Children.Remove(tempNome);
+				gridSocial.Children.Remove(boxView);
+			}
 			if (e.Pin.Type == PinType.Place)        //popup degli apartamenti
 			{
 				descrizioneposto.Text = "";
@@ -207,20 +216,24 @@ namespace RentHouse.com
 							Cognomeproprietario.Text = item.cognomeProprietario.ToLower();
 							iban.Text = item.iban.ToUpper();
 
-							Label tempProvvider = new Label
+							tempProvvider = new Label
 							{
-								Text = item.provider
+								Text = item.provider,
+								TextColor = Color.FromHex("#ee3861")
+
 							};
 
-							Label tempNome = new Label
+							tempNome = new Label
 							{
-								Text = item.nome
+								Text = item.nome,
+								TextColor = Color.FromHex("#ee3861")
 							};
 
-							BoxView boxView = new BoxView
+							boxView = new BoxView
 							{
-								Color = Color.Black
+								Color = Color.FromHex("#ee3861"),
 							};
+
 							gridSocial.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
 							gridSocial.RowDefinitions.Add(new RowDefinition { Height = 1 });
 
