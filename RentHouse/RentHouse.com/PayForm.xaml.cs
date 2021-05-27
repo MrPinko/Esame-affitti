@@ -28,7 +28,7 @@ namespace RentHouse.com
 			dataScadenza.MinimumDate = DateTime.UtcNow.Date;
 			paySlider.Maximum = prezzoAppartamentoSelezionato;
 			paySlider.Minimum = prezzoAppartamentoSelezionato * 0.6;
-			paySliderLabel.Text = (prezzoAppartamentoSelezionato * 0.6).ToString();
+			paySliderLabel.Text = (prezzoAppartamentoSelezionato * 0.6).ToString() + "€";
 
 			this.prezzoAppartamentoSelezionato = prezzoAppartamentoSelezionato;
 			this.dateDisponibiliJson = dateDisponibilijson;
@@ -36,10 +36,9 @@ namespace RentHouse.com
 			this.datePickerSelectedItem = datePickerSelectedItem;
 		}
 
-
 		private void paySlider_ValueChanged(object sender, ValueChangedEventArgs e)
 		{
-			paySliderLabel.Text = paySlider.Value.ToString();
+			paySliderLabel.Text = paySlider.Value.ToString() + "€";
 		}
 
 		private void closePaymentMethod(object sender, EventArgs e)

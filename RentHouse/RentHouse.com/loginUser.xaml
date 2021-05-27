@@ -14,7 +14,7 @@
 			<StackLayout Padding="5">
 				<Label Text="LOGIN" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0" ></Label>
 				<StackLayout VerticalOptions="CenterAndExpand" Margin="40,0">
-					<Entry x:Name="LoginEmailEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="email" Margin="0,0,0,20"></Entry>
+					<Entry x:Name="LoginEmailEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="email" Margin="0,0,0,20" Keyboard="Email"></Entry>
 					<Entry x:Name="LoginpasswordEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="password" IsPassword="True"></Entry>
 				</StackLayout>
 

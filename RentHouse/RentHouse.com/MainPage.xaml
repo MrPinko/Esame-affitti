@@ -22,9 +22,9 @@
 		<yummy:PancakeView x:Name="userPopUp"
 			AbsoluteLayout.LayoutBounds="2,1,0.5,1" AbsoluteLayout.LayoutFlags="All"
 			CornerRadius="16,0,16,0"
-			BackgroundColor="White">
+			BackgroundColor="#1b114a">
 			<yummy:PancakeView.Border>
-				<yummy:Border Color="LightBlue" Thickness="5" />
+				<yummy:Border Color="#ee3861" Thickness="5" />
 			</yummy:PancakeView.Border>
 			<StackLayout Margin="10">
 				<Image Source="userImage.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="EndAndExpand"></Image>
@@ -39,8 +39,8 @@
 						<ColumnDefinition Width="auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-					<Label Text="username: " TextColor="Black" Grid.Column="0" Grid.Row="0"></Label>
-					<Label x:Name="UserNameLabel" Text="error" TextColor="Black" Grid.Column="2" Grid.Row="0"></Label>
+					<Label Text="username: " TextColor="#ee3861" Grid.Column="0" Grid.Row="0"></Label>
+					<Label x:Name="UserNameLabel" Text="error" TextColor="#ee3861" Grid.Column="2" Grid.Row="0"></Label>
 				</Grid>
 				<ScrollView>
 					<Grid x:Name="containerOrdiniCompletati">
@@ -61,7 +61,7 @@
 						</Grid.ColumnDefinitions>
 					</Grid>
 				</ScrollView>
-				<Label Text="logout" TextColor="Red" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand">
+				<Label Text="logout" TextColor="Red" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
 					<Label.GestureRecognizers>
 						<TapGestureRecognizer Tapped="logoutButton_Tapped"/>
 					</Label.GestureRecognizers>
@@ -75,10 +75,12 @@
 			x:Name="bottomBar"
             Margin="0"
             CornerRadius="32,32,0,0"
-			BackgroundColor="WhiteSmoke"
-			Border="{yummy:BorderMarkup Color=Black, Thickness='10'}" 
+			BackgroundColor="#1b114a"
 			AbsoluteLayout.LayoutBounds="0.5,10.15,0.95,0.9"
 			AbsoluteLayout.LayoutFlags="All">
+			<yummy:PancakeView.Border>
+				<yummy:Border Color="#ee3861" Thickness="10" />
+			</yummy:PancakeView.Border>
 
 			<StackLayout>
 				<CarouselView x:Name="carousel" IsSwipeEnabled="False" ItemsSource="{Binding uris}">
@@ -99,12 +101,12 @@
 				<!-- body pancake view -->
 				<Label x:Name="houseName" HorizontalOptions="Center" Margin="20" FontSize="Medium" FontAttributes="Bold"/>
 
-				<Label x:Name="descrizioneposto" Margin="20,20,20,20" TextColor="Black" ></Label>
+				<Label x:Name="descrizioneposto" Margin="20,20,20,20" TextColor="#ee3861" ></Label>
 
 				<StackLayout x:Name="containerDatiAppartamento" Margin="20,-10,0,0">
-					<Label x:Name="prezzoAppartamento" TextColor="Black" ></Label>
-					<Label x:Name="pianoAppartamento" TextColor="Black" ></Label>
-					<Label x:Name="superficieAppartamento" TextColor="Black" ></Label>
+					<Label x:Name="prezzoAppartamento" TextColor="#ee3861" ></Label>
+					<Label x:Name="pianoAppartamento" TextColor="#ee3861" ></Label>
+					<Label x:Name="superficieAppartamento" TextColor="#ee3861" ></Label>
 				</StackLayout>
 
 
@@ -117,7 +119,7 @@
 						<ColumnDefinition Width="auto"/>
 						<ColumnDefinition Width="auto"/>
 					</Grid.ColumnDefinitions>
-					<Picker x:Name="datePicker" Margin="20,20,20,20" Title="Date Disponibili"
+					<Picker x:Name="datePicker" Margin="20,20,20,20" Title="Date Disponibili"  TitleColor="LightGray" TextColor="#ee3861"
 							Grid.Column="0" Grid.Row="0"
 					ItemDisplayBinding="{Binding Value}"
 					ItemsSource="{Binding PickerItemList}"
@@ -170,17 +172,17 @@
 							<ColumnDefinition Width="*" />
 
 						</Grid.ColumnDefinitions>
-						<Label Text="Posizione" Grid.Column="0" Grid.Row="0"></Label>
-						<Label x:Name="posizioneStar" Grid.Column="2" Grid.Row="0"></Label>
-						<BoxView Color="Black" Grid.ColumnSpan="3" Grid.Row="1"/>
+						<Label Text="Posizione" TextColor="#ee3861" Grid.Column="0" Grid.Row="0"></Label>
+						<Label x:Name="posizioneStar" TextColor="#ee3861"  Grid.Column="2" Grid.Row="0"></Label>
+						<BoxView Color="#ee3861" Grid.ColumnSpan="3" Grid.Row="1"/>
 
-						<Label Text="Qualità/Prezzo" Grid.Column="0" Grid.Row="2"></Label>
-						<Label x:Name="qpStar" Grid.Column="2" Grid.Row="2"></Label>
-						<BoxView Color="Black" Grid.ColumnSpan="3" Grid.Row="3"/>
+						<Label Text="Qualità/Prezzo" TextColor="#ee3861" Grid.Column="0" Grid.Row="2" ></Label>
+						<Label x:Name="qpStar" TextColor="#ee3861" Grid.Column="2" Grid.Row="2"></Label>
+						<BoxView Color="#ee3861" Grid.ColumnSpan="3" Grid.Row="3"/>
 
-						<Label Text="Servizio" Grid.Column="0" Grid.Row="4"></Label>
-						<Label x:Name="servizioStar" Grid.Column="2" Grid.Row="4"></Label>
-						<BoxView Color="Black" Grid.ColumnSpan="3" Grid.Row="5"/>
+						<Label Text="Servizio" TextColor="#ee3861" Grid.Column="0" Grid.Row="4"></Label>
+						<Label x:Name="servizioStar" TextColor="#ee3861" Grid.Column="2" Grid.Row="4"></Label>
+						<BoxView Color="#ee3861" Grid.ColumnSpan="3" Grid.Row="5"/>
 					</Grid>
 					<ScrollView Grid.Column="2" Grid.Row="0" HeightRequest="50">
 					<Grid x:Name="gridSocial" Padding="10" >
@@ -199,17 +201,17 @@
 							<ColumnDefinition Width="*" />
 
 						</Grid.ColumnDefinitions>
-						<Label Text="Nome" Grid.Column="0" Grid.Row="0"></Label>
-						<Label x:Name="nomeProprietario" Grid.Column="2" Grid.Row="0"></Label>
-						<BoxView Color="Black" Grid.ColumnSpan="3" Grid.Row="1"/>
+							<Label Text="Nome" TextColor="#ee3861" Grid.Column="0" Grid.Row="0"></Label>
+							<Label x:Name="nomeProprietario" TextColor="#ee3861" Grid.Column="2" Grid.Row="0"></Label>
+							<BoxView Color="#ee3861" Grid.ColumnSpan="3" Grid.Row="1"/>
 
-						<Label Text="Cognome" Grid.Column="0" Grid.Row="2"></Label>
-						<Label x:Name="Cognomeproprietario" Grid.Column="2" Grid.Row="2"></Label>
-						<BoxView Color="Black" Grid.ColumnSpan="3" Grid.Row="3"/>
+							<Label Text="Cognome" TextColor="#ee3861" Grid.Column="0" Grid.Row="2"></Label>
+							<Label x:Name="Cognomeproprietario" TextColor="#ee3861" Grid.Column="2" Grid.Row="2"></Label>
+							<BoxView Color="#ee3861" Grid.ColumnSpan="3" Grid.Row="3"/>
 
-						<Label Text="iban" Grid.Column="0" Grid.Row="4"></Label>
-						<Label x:Name="iban" Grid.Column="2" Grid.Row="4"></Label>
-						<BoxView Color="Black" Grid.ColumnSpan="3" Grid.Row="5"/>
+							<Label Text="iban" TextColor="#ee3861" Grid.Column="0" Grid.Row="4"></Label>
+							<Label x:Name="iban" TextColor="#ee3861" Grid.Column="2" Grid.Row="4"></Label>
+							<BoxView Color="#ee3861" Grid.ColumnSpan="3" Grid.Row="5"/>
 					</Grid>
 					</ScrollView>
 				</Grid>
@@ -225,9 +227,9 @@
 		<yummy:PancakeView x:Name="reviewContainer"
 			AbsoluteLayout.LayoutBounds="-1,1,0.5,1" AbsoluteLayout.LayoutFlags="All"
 			CornerRadius="0,16,0,16"
-			BackgroundColor="White">
+			BackgroundColor="#1b114a">
 			<yummy:PancakeView.Border>
-				<yummy:Border Color="LightBlue" Thickness="5" />
+				<yummy:Border Color="#ee3861" Thickness="5" />
 			</yummy:PancakeView.Border>
 			<StackLayout Margin="10">
 				<Grid VerticalOptions="CenterAndExpand">
@@ -244,8 +246,8 @@
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-					<Label Text="Posizione" Grid.Column="0" Grid.Row="0" Margin="0,20,0,0"></Label>
-					<Picker x:Name="pickerPosizione" Grid.Column="1" Grid.Row="0" HorizontalOptions="CenterAndExpand">
+					<Label Text="Posizione" TextColor="#ee3861" Grid.Column="0" Grid.Row="0" Margin="0,20,0,0"></Label>
+					<Picker x:Name="pickerPosizione" Grid.Column="1" Grid.Row="0" HorizontalOptions="CenterAndExpand" Title="voto" TextColor="#ee3861" TitleColor="#ee3861">
 						<Picker.Items>
 							<x:String>0</x:String>
 							<x:String>1</x:String>
@@ -260,10 +262,10 @@
 							<x:String>10</x:String>
 						</Picker.Items>
 					</Picker>
-					<BoxView Color="Black" Grid.ColumnSpan="2" Grid.Row="1"/>
+					<BoxView Color="#ee3861" Grid.ColumnSpan="2" Grid.Row="1"/>
 
-					<Label Text="Qualità Prezzo" Grid.Column="0" Grid.Row="2" Margin="0,20,0,0"></Label>
-					<Picker x:Name="pickerQualità_Prezzo" Grid.Column="1" Grid.Row="2" HorizontalOptions="CenterAndExpand">
+					<Label Text="Qualità Prezzo" TextColor="#ee3861" Grid.Column="0" Grid.Row="2" Margin="0,20,0,0" HeightRequest="40"></Label>
+					<Picker x:Name="pickerQualità_Prezzo" Grid.Column="1" Grid.Row="2" HorizontalOptions="CenterAndExpand" Title="voto" TextColor="#ee3861" TitleColor="#ee3861">
 						<Picker.Items>
 							<x:String>0</x:String>
 							<x:String>1</x:String>
@@ -278,10 +280,10 @@
 							<x:String>10</x:String>
 						</Picker.Items>
 					</Picker>
-					<BoxView Color="Black" Grid.ColumnSpan="2" Grid.Row="3"/>
+					<BoxView Color="#ee3861" Grid.ColumnSpan="2" Grid.Row="3"/>
 
-					<Label Text="Servizio" Grid.Column="0" Grid.Row="4" Margin="0,20,0,0"></Label>
-					<Picker x:Name="pickerServizio" Grid.Column="1" Grid.Row="4" HorizontalOptions="CenterAndExpand">
+					<Label Text="Servizio" TextColor="#ee3861" Grid.Column="0" Grid.Row="4" Margin="0,20,0,0"></Label>
+					<Picker x:Name="pickerServizio" Grid.Column="1" Grid.Row="4" HorizontalOptions="CenterAndExpand" Title="voto" TextColor="#ee3861" TitleColor="#ee3861">
 						<Picker.Items>
 							<x:String>0</x:String>
 							<x:String>1</x:String>
@@ -296,7 +298,7 @@
 							<x:String>10</x:String>
 						</Picker.Items>
 					</Picker>
-					<BoxView Color="Black" Grid.ColumnSpan="2" Grid.Row="5"/>
+					<BoxView Color="#ee3861" Grid.ColumnSpan="2" Grid.Row="5"/>
 				</Grid>
 				<Button Text="submit" CornerRadius="10" Scale="0.9" Clicked="ReviewButton_Clicked"></Button>
 			</StackLayout>

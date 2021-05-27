@@ -19,14 +19,15 @@
 					<Entry x:Name="usernameEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="username"></Entry>
 					<Entry x:Name="nomeEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="nome"></Entry>
 					<Entry x:Name="cognomeEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="cognome"></Entry>
-					<Picker x:Name="sessoEntry" TextColor="#ee3861" TitleColor="WhiteSmoke" Title="scegliere il sesso" HorizontalOptions="FillAndExpand">
+					<Picker x:Name="sessoEntry" TextColor="#ee3861" TitleColor="WhiteSmoke" Title="scegliere il sesso" HorizontalOptions="FillAndExpand"
+							Focused="sessoEntry_Focused" Unfocused="sessoEntry_Unfocused">
 						<Picker.Items>
 							<x:String>M</x:String>
 							<x:String>F</x:String>
 						</Picker.Items>
 					</Picker>
 					<DatePicker x:Name="data" TextColor="#ee3861" MinimumDate="01/01/1900" Format="dd-MM-yyyy"/>
-					<Entry x:Name="emailEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="email"></Entry>
+					<Entry x:Name="emailEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="email" Keyboard="Email" ></Entry>
 					<Entry x:Name="pwEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="password" IsPassword="True"></Entry>
 				</StackLayout>
 				<Label Text="Login" VerticalOptions="End" TextColor="#ee3861" Margin="10,0,0,10" >

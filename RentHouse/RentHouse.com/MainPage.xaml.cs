@@ -63,7 +63,7 @@ namespace RentHouse.com
 						Label = item.nomeAppartamento,
 						Icon = BitmapDescriptorFactory.FromBundle("home"),
 						Address = item.via + " " + item.numeroC,
-						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
+						Position = new Position(latWithDot, longWithDot)
 					});
 			}
 
@@ -80,7 +80,7 @@ namespace RentHouse.com
 						Label = item.nome,
 						Icon = BitmapDescriptorFactory.FromBundle("tourist"),
 						//Address = item.via + " " + item.numeroC,
-						Position = new Position(Convert.ToDouble(item.lat), Convert.ToDouble(item.@long))
+						Position = new Position(latWithDot, longWithDot)
 					});
 			}
 
@@ -321,40 +321,41 @@ namespace RentHouse.com
 						{
 							Text = obj.nomeAppartamento,
 							HorizontalOptions = LayoutOptions.CenterAndExpand,
-							TextColor = Color.Black
+							TextColor = Color.FromHex("#ee3861")
 						};
 
 						Label TemplabelDataInizio = new Label
 						{
 							Text = obj.dataInizio,
 							HorizontalOptions = LayoutOptions.CenterAndExpand,
-							TextColor = Color.Black
+							TextColor = Color.FromHex("#ee3861")
 						};
 
 						Label tempConnetti = new Label
 						{
 							Text = "=>",
 							HorizontalOptions = LayoutOptions.CenterAndExpand,
-							TextColor = Color.Black
+							TextColor = Color.FromHex("#ee3861")
 						};
 
 						Label TemplabelDataFine = new Label
 						{
 							Text = obj.dataFine,
 							HorizontalOptions = LayoutOptions.CenterAndExpand,
-							TextColor = Color.Black
+							TextColor = Color.FromHex("#ee3861")
 						};
 
 						Label TemplabelTimestamp = new Label
 						{
 							Text = obj.timestamp,
 							HorizontalOptions = LayoutOptions.CenterAndExpand,
-							TextColor = Color.Black
+							TextColor = Color.FromHex("#ee3861")
 						};
 
 						Button tempButtonRemoveOrdine = new Button
 						{
 							Text = "Remove",
+							FontSize = 10,
 							ClassId = obj.idUtente_Appartamenti,
 							TextColor = Color.White,
 							BackgroundColor = Color.Red,

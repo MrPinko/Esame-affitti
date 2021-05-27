@@ -62,16 +62,16 @@ namespace RentHouse.com
 		string sigla;
 		private void comuneDiNascita_Unfocused(object sender, FocusEventArgs e)
 		{
-			if(comuneDiNascita.Text != null)
-			foreach (Comuni obj in comuniList)
-			{
-				if (comuneDiNascita.Text.ToUpper().Equals(obj.nome.ToUpper()))
+			if (comuneDiNascita.Text != null)
+				foreach (Comuni obj in comuniList)
 				{
-					capEntry.Text = obj.cap[0];
-					sigla = obj.sigla;
-					return;
+					if (comuneDiNascita.Text.ToUpper().Equals(obj.nome.ToUpper()))
+					{
+						capEntry.Text = obj.cap[0];
+						sigla = obj.sigla;
+						return;
+					}
 				}
-			}
 		}
 
 		public void moveContainer(string dir)
@@ -99,7 +99,7 @@ namespace RentHouse.com
 						break;
 					case 2:
 						postRequest();
-							
+
 						Navigation.PushAsync(new MainPage(review_Username.Text));
 						break;
 				}
@@ -153,7 +153,7 @@ namespace RentHouse.com
 							"\", \"dataN\": \"" + data.Date.ToString("yyyy-MM-dd") +
 							"\", \"sesso\": \"" + review_sesso.Text +
 							"\", \"cf_utente\" : \"" + codiceFiscale.Text +
-							"\", \"nome\" : \"" +review_nome.Text +
+							"\", \"nome\" : \"" + review_nome.Text +
 							"\", \"cognome\": \"" + review_cognome.Text +
 							"\", \"m_pagamento\": \" " + review_MPagamento.Text +
 							"\"}";
@@ -230,6 +230,15 @@ namespace RentHouse.com
 			return hashedPwd;
 		}
 
+		private void sessoEntry_Focused(object sender, FocusEventArgs e)
+		{
+			sessoEntry.TitleColor = Color.Black;
+		}
+
+		private void sessoEntry_Unfocused(object sender, FocusEventArgs e)
+		{
+			sessoEntry.TitleColor = Color.WhiteSmoke;
+		}
 
 		private void gotoLogin(object sender, EventArgs e)
 		{
@@ -272,7 +281,5 @@ namespace RentHouse.com
 			public List<string> cap { get; set; }
 			public int popolazione { get; set; }
 		}
-
-
 	}
 }
