@@ -14,7 +14,7 @@
 				<yummy:Border Color="#ee3861" Thickness="10" />
 			</yummy:PancakeView.Border>
 			<StackLayout Padding="5">
-				<Label Text="REGISTTRAZIONE" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
+				<Label Text="REGISTRAZIONE" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
 				<StackLayout VerticalOptions="CenterAndExpand" Margin="40,0">
 					<Entry x:Name="usernameEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="username"></Entry>
 					<Entry x:Name="nomeEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="nome"></Entry>
@@ -47,9 +47,10 @@
 				<yummy:Border Color="#ee3861" Thickness="10" />
 			</yummy:PancakeView.Border>
 					<StackLayout Padding="5">
-				<Label Text="REGISTTRAZIONE" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
+				<Label Text="REGISTRAZIONE" TextColor="#ee3861" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0,10,0,0"></Label>
 				<StackLayout VerticalOptions="CenterAndExpand" Margin="40,0">
-					<Picker x:Name="MPagamentoEntry" TextColor="#ee3861" TitleColor="WhiteSmoke" Title="scegliere il metodo di pagamento " HorizontalOptions="FillAndExpand">
+					<Picker x:Name="MPagamentoEntry" TextColor="#ee3861" TitleColor="WhiteSmoke" Title="scegliere il metodo di pagamento " HorizontalOptions="FillAndExpand"
+							Focused="MPagamentoEntry_Focused" Unfocused="MPagamentoEntry_Unfocused">
 						<Picker.Items>
 							<x:String>carta prepagata</x:String>
 							<x:String>bonifico</x:String>
@@ -58,9 +59,9 @@
 					<Entry x:Name="comuneDiNascita" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="comune di nascita" Unfocused="comuneDiNascita_Unfocused"/>
 						<Entry x:Name="cittaEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="città"/>
 						<Entry x:Name="viaEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="via"></Entry>
-						<Entry x:Name="numeroEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="numero"></Entry>
-					<Entry x:Name="cellEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="numero di telefono"></Entry>
-					<Entry x:Name="capEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="cap"></Entry>
+						<Entry x:Name="numeroEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="numero" Keyboard="Numeric"></Entry>
+					<Entry x:Name="cellEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="numero di telefono" Keyboard="Telephone"></Entry>
+					<Entry x:Name="capEntry" TextColor="#ee3861" PlaceholderColor="WhiteSmoke" Placeholder="cap" ></Entry>
 				</StackLayout>
 						
 				<Label Text="Login" VerticalOptions="End" TextColor="#ee3861" Margin="10,0,0,10" >

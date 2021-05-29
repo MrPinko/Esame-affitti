@@ -39,9 +39,6 @@ namespace RentHouse.com
 			NavigationPage.SetHasNavigationBar(this, false);
 			customMap();
 
-
-			UserNameLabel.Text = "federosa";
-
 			getRequestForAppartamenti();
 
 			getrequestForRecensioni();

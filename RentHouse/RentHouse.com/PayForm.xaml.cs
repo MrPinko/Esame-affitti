@@ -98,5 +98,15 @@ namespace RentHouse.com
 
 			Console.WriteLine(result);
 		}
+
+		private void paySliderLabel_Unfocused(object sender, FocusEventArgs e)
+		{
+			if(paySliderLabel.Text.IndexOf("€") != -1)
+				paySlider.Value = Convert.ToDouble(paySliderLabel.Text.Substring(0,paySliderLabel.Text.Length -1));
+			else
+			{
+				paySlider.Value = Convert.ToDouble(paySliderLabel.Text.Substring(0, paySliderLabel.Text.Length));
+			}
+		}
 	}
 }

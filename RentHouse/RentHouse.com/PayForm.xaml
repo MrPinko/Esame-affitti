@@ -25,7 +25,7 @@
 					<ColumnDefinition Width="10" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label x:Name="paySliderLabel" TextColor="#ee3861" Grid.Row="0" Padding="10,0,0,0"></Label>
+				<Entry x:Name="paySliderLabel" TextColor="#ee3861" Grid.Row="0" Margin="10,0,0,0" Unfocused="paySliderLabel_Unfocused" Keyboard="Numeric"></Entry>
 				<Slider x:Name="paySlider" ValueChanged="paySlider_ValueChanged" Grid.Row="1" Grid.ColumnSpan="3" />
 				<Entry x:Name="cartaNum" TextColor="#ee3861" PlaceholderColor="#ee3861" Placeholder="numero carta" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Keyboard="Numeric"></Entry>
 				<DatePicker x:Name="dataScadenza" TextColor="#ee3861" Grid.Column="0" Grid.Row="3" Format="MM-yyyy"></DatePicker>

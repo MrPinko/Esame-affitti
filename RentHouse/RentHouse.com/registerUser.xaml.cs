@@ -240,6 +240,17 @@ namespace RentHouse.com
 			sessoEntry.TitleColor = Color.WhiteSmoke;
 		}
 
+
+		private void MPagamentoEntry_Focused(object sender, FocusEventArgs e)
+		{
+			MPagamentoEntry.TitleColor = Color.Black;
+		}
+
+		private void MPagamentoEntry_Unfocused(object sender, FocusEventArgs e)
+		{
+			MPagamentoEntry.TitleColor = Color.WhiteSmoke;
+		}
+
 		private void gotoLogin(object sender, EventArgs e)
 		{
 			Navigation.PushAsync(new loginUser());
@@ -281,5 +292,6 @@ namespace RentHouse.com
 			public List<string> cap { get; set; }
 			public int popolazione { get; set; }
 		}
+
 	}
 }
