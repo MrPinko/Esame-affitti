@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mag 26, 2021 alle 16:16
+-- Generation Time: Mag 30, 2021 alle 11:01
 -- Versione del server: 8.0.21
 -- PHP Version: 5.6.40
 
@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `recensioni` (
   `servizio` int DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idrecensioni`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dump dei dati per la tabella `recensioni`
@@ -329,31 +329,54 @@ INSERT INTO `recensioni` (`idrecensioni`, `posizione`, `qualita_prezzo`, `serviz
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `servizi`
+-- Struttura della tabella `servizi_appartamento`
 --
 
-CREATE TABLE IF NOT EXISTS `servizi` (
-  `idservizi` int NOT NULL,
-  `servizio` varchar(45) DEFAULT NULL,
-  `fk_appartamenti` int DEFAULT NULL,
-  PRIMARY KEY (`idservizi`),
-  KEY `fk_appartamento_idx` (`fk_appartamenti`)
+CREATE TABLE IF NOT EXISTS `servizi_appartamento` (
+  `idnew_table` int NOT NULL,
+  `fk_appartamento` int DEFAULT NULL,
+  `fk_servizio` int DEFAULT NULL,
+  PRIMARY KEY (`idnew_table`),
+  KEY `fk_appartamento_idx` (`fk_appartamento`),
+  KEY `fk_servizi_idx` (`fk_servizio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dump dei dati per la tabella `servizi`
+-- Dump dei dati per la tabella `servizi_appartamento`
 --
 
-INSERT INTO `servizi` (`idservizi`, `servizio`, `fk_appartamenti`) VALUES
-(0, 'wifi', 0),
-(1, 'aria condizionata', 0),
-(2, 'parcheggio privato', 1),
-(3, 'wifi', 1),
-(4, 'balcone', 2),
-(5, 'wifi', 3),
-(6, 'balcone', 3),
-(7, 'divano letto', 4),
-(8, 'wifi', 4);
+INSERT INTO `servizi_appartamento` (`idnew_table`, `fk_appartamento`, `fk_servizio`) VALUES
+(0, 0, 0),
+(1, 0, 1),
+(2, 2, 4),
+(3, 4, 2),
+(4, 2, 1),
+(5, 2, 3),
+(6, 3, 4),
+(7, 0, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `servizi_disponibili`
+--
+
+CREATE TABLE IF NOT EXISTS `servizi_disponibili` (
+  `idservizi` int NOT NULL,
+  `servizio` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idservizi`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `servizi_disponibili`
+--
+
+INSERT INTO `servizi_disponibili` (`idservizi`, `servizio`) VALUES
+(0, 'wifi'),
+(1, 'rampa'),
+(2, 'servizio in camera'),
+(3, 'ascensore'),
+(4, 'parcheggio');
 
 -- --------------------------------------------------------
 
@@ -411,7 +434,8 @@ CREATE TABLE IF NOT EXISTS `utente` (
 --
 
 INSERT INTO `utente` (`username`, `pw`, `email`, `cell`, `citta`, `via`, `numero`, `cap`, `dataN`, `sesso`, `cf_utente`, `nome`, `cognome`, `m_pagamento`) VALUES
-('federosa', 'D404559F602EAB6FD602AC7680DACBFAADD13630335E951F097AF3900E9DE176B6DB28512F2E000B9D04FBA5133E8B1C6E8DF59DB3A8AB9D60BE4B97CC9E81DB', 'test@gmail.com', '12341241', 'verceia', 'nazionale', 123, 23022, '2021-05-23', 'm', 'RSOFRC21E23C623Y', 'federico', 'rosa', ' carta prepagata');
+('testAccount', 'D404559F602EAB6FD602AC7680DACBFAADD13630335E951F097AF3900E9DE176B6DB28512F2E000B9D04FBA5133E8B1C6E8DF59DB3A8AB9D60BE4B97CC9E81DB', 'testaccount@gmail.com', '3542569855', 'verceia', 'nazionale', 14, 23022, '2002-01-18', 'm', 'RSOFRC02A18C623Y', 'federico', 'rosa', ' carta prepagata'),
+('federosa', 'D404559F602EAB6FD602AC7680DACBFAADD13630335E951F097AF3900E9DE176B6DB28512F2E000B9D04FBA5133E8B1C6E8DF59DB3A8AB9D60BE4B97CC9E81DB', 'test@gmail.com', '12341241', 'verceia', 'nazionale', 123, 23022, '2021-05-23', 'm', 'RSOFRC21E23C623Y', 'federico', 'rosa', 'bonifico');
 
 -- --------------------------------------------------------
 
@@ -436,15 +460,15 @@ CREATE TABLE IF NOT EXISTS `utente_appartamenti` (
 --
 
 INSERT INTO `utente_appartamenti` (`idUtente_Appartamenti`, `dataInizio`, `dataFine`, `fk_appartamenti`, `fk_utente`, `timestamp`) VALUES
-(0, '2021-05-25', '2021-05-30', 0, NULL, '2021-05-25 08:47:49'),
-(1, '2021-06-07', '2021-06-13', 0, NULL, '2021-05-25 08:45:25'),
-(2, '2021-05-25', '2021-05-30', 1, 'RSOFRC21E23C623Y', '2021-05-21 22:00:00'),
-(3, '2021-06-12', '2021-06-19', 2, NULL, '2021-05-25 11:00:38'),
-(4, '2021-06-05', '2021-06-12', 3, NULL, '2021-05-25 08:47:59'),
-(5, '2021-07-01', '2021-07-08', 3, NULL, '2021-05-25 08:47:34'),
-(6, '2021-07-02', '2021-07-09', 4, NULL, '2021-05-25 08:48:15'),
-(7, '2021-07-14', '2021-07-21', 4, NULL, '2021-05-25 08:48:16'),
-(8, '2021-07-24', '2021-07-31', 4, NULL, '2021-05-25 08:48:17');
+(0, '2021-05-25', '2021-05-30', 0, 'RSOFRC21E23C623Y', '2021-05-29 06:25:41'),
+(1, '2021-06-07', '2021-06-13', 0, NULL, '2021-05-29 20:02:11'),
+(2, '2021-05-25', '2021-05-30', 1, NULL, '2021-05-29 20:02:13'),
+(3, '2021-06-12', '2021-06-19', 2, NULL, '2021-05-29 20:02:15'),
+(4, '2021-06-05', '2021-06-12', 3, 'RSOFRC21E23C623Y', '2021-01-21 07:25:41'),
+(5, '2021-07-01', '2021-07-08', 3, NULL, '2021-05-29 20:02:18'),
+(6, '2021-07-02', '2021-07-09', 4, NULL, '2021-05-29 20:02:22'),
+(7, '2021-07-14', '2021-07-21', 4, NULL, '2021-05-29 20:01:46'),
+(8, '2021-07-24', '2021-07-31', 4, NULL, '2021-05-29 20:01:44');
 
 --
 -- Limiti per le tabelle scaricate
@@ -497,10 +521,11 @@ ALTER TABLE `proprietario_social`
   ADD CONSTRAINT `fk_social` FOREIGN KEY (`fk_social`) REFERENCES `social` (`idsocial`);
 
 --
--- Limiti per la tabella `servizi`
+-- Limiti per la tabella `servizi_appartamento`
 --
-ALTER TABLE `servizi`
-  ADD CONSTRAINT `fk_appartamenti_servizi` FOREIGN KEY (`fk_appartamenti`) REFERENCES `appartamenti` (`idappartamenti`);
+ALTER TABLE `servizi_appartamento`
+  ADD CONSTRAINT `fk_appartamento` FOREIGN KEY (`fk_appartamento`) REFERENCES `appartamenti` (`idappartamenti`),
+  ADD CONSTRAINT `fk_servizi` FOREIGN KEY (`fk_servizio`) REFERENCES `servizi_disponibili` (`idservizi`);
 
 --
 -- Limiti per la tabella `utente_appartamenti`
