@@ -23,15 +23,12 @@ class Controller
 
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = explode('/', $uri);
-
-        //print_r($uri);
-
-        if (isset($uri[6])) {
-            $this->hashedName = $uri[5]; //contiene il nome
-            $this->hashedPw = $uri[6]; //contiene la password
-        } else if (isset($uri[5])) {
-            $this->email = $uri[5];
-        }
+        if(isset($uri[5])){
+            $this->hashedName = $uri[4]; //contiene il nome
+            $this->hashedPw = $uri[5]; //contiene la password
+        }else if (isset($uri[4])){
+            $this->email = $uri[4];
+        } 
     }
 
     public function processRequest()
@@ -57,6 +54,12 @@ class Controller
                 break;
             case 'GET' && $this->queryMenu == 'getCF' && $this->hashedPw == null:
                 $response = $this->getCF($this->email);
+                break;
+            case 'GET' && $this->queryMenu == 'getMPagamento' && $this->hashedPw == null:
+                $response = $this->getMPagamento($this->email);
+                break;
+            case 'GET' && $this->queryMenu == 'getServizi':
+                $response = $this->getServizi();
                 break;
             case 'GET' && $this->queryMenu == 'dateDisponibili':
                 $response = $this->getDateDisponibili();
@@ -139,6 +142,14 @@ class Controller
         $response['body'] = json_encode($result);
         return $response;
     }
+    
+    private function getMPagamento($username)
+    {
+        $result = $this->DBquery->getMPagamento($username);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
 
     private function getDateDisponibili()
     {
@@ -147,7 +158,15 @@ class Controller
         $response['body'] = json_encode($result);
         return $response;
     }
-
+    
+    private function getServizi()
+    {
+        $result = $this->DBquery->getServizi();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+    
     private function checkLoginUser($hashedName, $hashedPw)
     {
         $result = $this->DBquery->find($hashedName, $hashedPw);

@@ -10,6 +10,24 @@ class Database_Query
         $this->db = $db;
     }
 
+    public function getAll()
+    {
+        $statement = "
+            SELECT
+                id, testcol
+            FROM
+                test;
+        ";
+
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function find($hashedName, $hashedPw)
     {
         $statement = "
@@ -56,6 +74,7 @@ class Database_Query
     public function getAppartamenti()
     {
         $statement = "SELECT
+        	appartamenti.idappartamenti,
             appartamenti.nome as nomeAppartamento,
             appartamenti.piano,
             appartamenti.superficie,
@@ -118,7 +137,21 @@ class Database_Query
             exit($e->getMessage());
         }
     }
+    
+ 	public function getMPagamento($username)
+    {
+        $statement = "SELECT m_pagamento FROM utente WHERE email = ?";
 
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($username));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+    
     public function getReview()
     {
         $statement = "SELECT
@@ -180,20 +213,21 @@ class Database_Query
             exit($e->getMessage());
         }
     }
-
-    public function getOrdiniEffettuati($CF)
+    
+   public function getOrdiniEffettuati($CF)
     {
         $statement = "SELECT
+        			utente_appartamenti.idUtente_Appartamenti,
                     utente.username,
                     utente_appartamenti.dataInizio,
                     utente_appartamenti.dataFine,
                     utente_appartamenti.timestamp,
-                    appartamenti.nome AS nomeAppartamento
-                        FROM utente_appartamenti
+                    appartamenti.nome as nomeAppartamento
+                 	FROM utente_appartamenti
                     INNER JOIN appartamenti
-                        ON utente_appartamenti.fk_appartamenti = appartamenti.idappartamenti
+                      ON utente_appartamenti.fk_appartamenti = appartamenti.idappartamenti
                     INNER JOIN utente
-                        ON utente_appartamenti.fk_utente = utente.cf_utente
+                      ON utente_appartamenti.fk_utente = utente.cf_utente
                     WHERE utente_appartamenti.fk_utente = ?";
         try {
             $statement = $this->db->prepare($statement);
@@ -204,7 +238,21 @@ class Database_Query
             exit($e->getMessage());
         }
     }
+    
+        public function getServizi()
+    {
+        $statement = "SELECT idappartamenti, nome, servizio FROM appartamenti,servizi_appartamento,servizi_disponibili
+where fk_appartamento = idappartamenti and fk_servizio = idservizi";
 
+        try {
+            $statement = $this->db->query($statement);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException$e) {
+            exit($e->getMessage());
+        }
+    }
+    
     public function insert(array $input)
     {
 
@@ -251,12 +299,13 @@ class Database_Query
         {"fk_utente" : "RSOFRC21E23C623Y", "idUtente_Appartamenti" : 0}
         TUTTO SU UNA RIGA MANNAGGIA AI JSON
         */
-        $statement = "UPDATE utente_appartamenti SET fk_utente = :fk_utente WHERE idUtente_Appartamenti = :idUtente_Appartamenti ";
+        $statement = "UPDATE utente_appartamenti SET fk_utente = :fk_utente, timestamp = :timestamp WHERE idUtente_Appartamenti = :idUtente_Appartamenti ";
 
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 'fk_utente' => $input['fk_utente'],
+                'timestamp' => $input['timestamp'],
                 'idUtente_Appartamenti' => $input['idUtente_Appartamenti'],
             ));
             return $statement->rowCount();
@@ -264,14 +313,14 @@ class Database_Query
             exit($e->getMessage());
         }
     }
-
-    public function DeleteBindingUserToDate(array $input)
+    
+      public function DeleteBindingUserToDate(array $input)
     {
         /*
         {"idUtente_Appartamenti" : 0}
         TUTTO SU UNA RIGA MANNAGGIA AI JSON
         */
-        $statement = "UPDATE utente_appartamenti SET fk_utente = null, timestamp='0000-00-00 00:00:00' WHERE idUtente_Appartamenti= :idUtente_Appartamenti";
+        $statement = "UPDATE utente_appartamenti SET fk_utente = null WHERE idUtente_Appartamenti= :idUtente_Appartamenti";
 
         try {
             $statement = $this->db->prepare($statement);
@@ -283,8 +332,8 @@ class Database_Query
             exit($e->getMessage());
         }
     }
-
-    public function CreateReview(array $input)
+    
+	public function CreateReview(array $input)
     {
         /*
         {"idrecensioni" : 0, "posizione" : 0, "qualita_prezzo" : 0, "servizio" : 0, "timestamp" : 2021-12-12, "idappartamenti_recensioni" : 0, "fk_recensioni" : 0, "fk_appartamenti" : 0 }
@@ -334,7 +383,7 @@ class Database_Query
             exit($e->getMessage());
         }
     }
-
+    
     public function update($id, array $input)
     {
         $statement = "
