@@ -100,7 +100,7 @@ namespace RentHouse.com
 					case 2:
 						postRequest();
 
-						Navigation.PushAsync(new MainPage(review_Username.Text));
+						Navigation.PushAsync(new MainPage(review_Username.Text, MPagamentoEntry.Items.ToString()));
 						break;
 				}
 			}

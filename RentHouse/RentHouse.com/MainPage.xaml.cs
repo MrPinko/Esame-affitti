@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Plugin.Clipboard;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
@@ -25,17 +26,27 @@ namespace RentHouse.com
 		ObservableCollection<DateDisponibili> dateDisponibiliJson;
 		ObservableCollection<CodiceFiscaleUtente> codiceFiscaleUtenteJson;
 		ObservableCollection<OrdiniEffettuati> ordiniEffettuatiJson;
+		ObservableCollection<Servizi> serviziJson;
+
 
 		private bool bottomBarUp = false, isExpanded = false, isReviewContainer = false;
 		private double prezzoAppartamentoSelezionato;
 
+		private string username, MPagamento;
+
 		private Label tempProvvider, tempNome;
 		private BoxView boxView;
 
-		public MainPage(string username)
+		public MainPage(string username, string MPagamento)
 		{
 			InitializeComponent();
 			BindingContext = this;
+
+			this.username = username;
+			this.MPagamento = MPagamento;
+
+			UserNameLabel.Text = username;
+
 			NavigationPage.SetHasNavigationBar(this, false);
 			customMap();
 
@@ -50,6 +61,9 @@ namespace RentHouse.com
 			getDateDisponibili();
 
 			getRequestForCodiceFiscale();
+
+			getRequestForServiziDisponibili();
+
 
 			foreach (AppartamentiPosizione item in appartamentiJson)
 			{
@@ -440,7 +454,18 @@ namespace RentHouse.com
 		{
 			if (datePicker.SelectedItem != null)
 			{
-				Navigation.PushAsync(new PayForm(prezzoAppartamentoSelezionato, dateDisponibiliJson, codiceFiscaleUtenteJson[0].cf_utente, datePicker.SelectedItem));
+				if (MPagamento.Equals("carta prepagata"))
+				{
+					Navigation.PushAsync(new PayForm(prezzoAppartamentoSelezionato, dateDisponibiliJson, codiceFiscaleUtenteJson[0].cf_utente, datePicker.SelectedItem));
+				}
+				else
+				{
+					DisplayAlert("bonifico bancario", "si prega di fare un bonifico di almeno " + prezzoAppartamentoSelezionato * 0.6 + 
+						" euro al conto IBAN " + iban.Text, "copia");
+					CrossClipboard.Current.SetText(iban.Text);
+					DependencyService.Get<IMessage>().ShortAlert("iban copiato correttamente");
+
+				}
 			}
 			else
 			{
@@ -488,6 +513,76 @@ namespace RentHouse.com
 		private void ReviewButton_Clicked(object sender, EventArgs e)
 		{
 			CreateReview();
+		}
+
+		private void SearchByService(object sender, EventArgs e)
+		{
+			appartamentiList.Clear();
+			map.Pins.Clear();
+
+			if (searchServices.Text.Length > 0)
+			{
+				foreach (AppartamentiPosizione item in appartamentiJson)
+				{
+					foreach (Servizi servizio in serviziJson)
+					{
+						if (item.idappartamenti.Equals(servizio.idappartamenti) && servizio.servizio.Equals(searchServices.Text))
+						{
+							double latWithDot = toDouble(item.lat);
+							double longWithDot = toDouble(item.@long);
+
+							appartamentiList.Add(
+								new Pin
+								{
+									Type = PinType.Place,
+									Label = item.nomeAppartamento,
+									Icon = BitmapDescriptorFactory.FromBundle("home"),
+									Address = item.via + " " + item.numeroC,
+									Position = new Position(latWithDot, longWithDot)
+								});
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (AppartamentiPosizione item in appartamentiJson)
+				{
+					double latWithDot = toDouble(item.lat);
+					double longWithDot = toDouble(item.@long);
+
+					appartamentiList.Add(
+						new Pin
+						{
+							Type = PinType.Place,
+							Label = item.nomeAppartamento,
+							Icon = BitmapDescriptorFactory.FromBundle("home"),
+							Address = item.via + " " + item.numeroC,
+							Position = new Position(latWithDot, longWithDot)
+						});
+				}
+			}
+
+			foreach (AttrazioniCordEImmagini item in attrazioniCordEImmaginiJson)
+			{
+				double latWithDot = toDouble(item.lat);
+				double longWithDot = toDouble(item.@long);
+
+				appartamentiList.Add(
+					new Pin
+					{
+						Type = PinType.SearchResult,
+						Label = item.nome,
+						Icon = BitmapDescriptorFactory.FromBundle("tourist"),
+						//Address = item.via + " " + item.numeroC,
+						Position = new Position(latWithDot, longWithDot)
+					});
+			}
+
+			foreach (Pin pin in appartamentiList)
+			{
+				map.Pins.Add(pin);
+			}
 		}
 
 
@@ -619,6 +714,32 @@ namespace RentHouse.com
 			var tr = JsonConvert.DeserializeObject<List<OrdiniEffettuati>>(myXMLstring);
 			//After deserializing , we store our data in the List called ObservableCollection
 			ordiniEffettuatiJson = new ObservableCollection<OrdiniEffettuati>(tr);
+		}
+
+		private void getRequestForServiziDisponibili()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/getServizi";
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			try
+			{
+				task.Wait();
+			}
+			catch (Exception)
+			{
+				if (ordiniEffettuatiJson != null)
+					ordiniEffettuatiJson.Clear();
+				return;
+			}
+
+			Console.WriteLine(myXMLstring);
+			var tr = JsonConvert.DeserializeObject<List<Servizi>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			serviziJson = new ObservableCollection<Servizi>(tr);
 		}
 
 		private async void deleteBindingUserToDate(int idTabella)
@@ -833,6 +954,15 @@ public class OrdiniEffettuati
 	public string timestamp { get; set; }
 	public string nomeAppartamento { get; set; }
 }
+
+public class Servizi
+{
+	public string idappartamenti { get; set; }
+	public string nome { get; set; }
+	public string servizio { get; set; }
+}
+
+
 #endregion
 
 #region classi per xaml

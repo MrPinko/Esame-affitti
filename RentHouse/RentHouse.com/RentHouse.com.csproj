@@ -41,6 +41,7 @@
     <PackageReference Include="Xamarin.Forms.AnimationNavigation" Version="2.0.0" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="Xamarin.Plugins.Clipboard" Version="2.3.0" />
 	  
   </ItemGroup>
 

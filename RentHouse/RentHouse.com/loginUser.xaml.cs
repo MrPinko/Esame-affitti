@@ -14,9 +14,10 @@ namespace RentHouse.com
 	public partial class loginUser : ContentPage
 	{
 		ObservableCollection<UsernameLogin> usernameLoginJson;
+		ObservableCollection<MPagamento> mPagamentoJson;
+
 		private HttpClient _client;
 		private static string responseString = "";
-
 		public loginUser()
 		{
 			InitializeComponent();
@@ -35,7 +36,8 @@ namespace RentHouse.com
 				if (!responseString.Equals("NotFound"))
 				{
 					getRequestForUsername();
-					Navigation.PushAsync(new MainPage(usernameLoginJson[0].username));
+					getRequestForMPagamento();
+					Navigation.PushAsync(new MainPage(usernameLoginJson[0].username, mPagamentoJson[0].m_pagamento));
 				}
 				else
 				{
@@ -98,6 +100,23 @@ namespace RentHouse.com
 			usernameLoginJson = new ObservableCollection<UsernameLogin>(tr);
 		}
 
+		private void getRequestForMPagamento()
+		{
+			var url = "http://rosafedericoesame.altervista.org/index.php/user/getMPagamento/" + LoginEmailEntry.Text.ToLower();
+			var myXMLstring = "";
+			Task task = new Task(() =>
+			{
+				myXMLstring = AccessTheWebAsync(url).Result;
+			});
+			task.Start();
+			task.Wait();
+			Console.WriteLine(myXMLstring);
+
+			var tr = JsonConvert.DeserializeObject<List<MPagamento>>(myXMLstring);
+			//After deserializing , we store our data in the List called ObservableCollection
+			mPagamentoJson = new ObservableCollection<MPagamento>(tr);
+		}
+
 		async Task<String> AccessTheWebAsync(String url)
 		{
 			HttpClient client = new HttpClient();
@@ -145,3 +164,7 @@ public class UsernameLogin
 	public string username { get; set; }
 }
 
+public class MPagamento
+{
+	public string m_pagamento { get; set; }
+}

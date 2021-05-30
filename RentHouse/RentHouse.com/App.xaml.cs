@@ -12,7 +12,7 @@ namespace RentHouse.com
 			InitializeComponent();
 
 			MainPage = new NavigationPage(new loginUser());
-			//MainPage = new AnimationNavigationPage(new MainPage("test"));
+			//MainPage = new AnimationNavigationPage(new MainPage("federosa", "carta di credito"));
 			//MainPage = new NavigationPage(new registerUser());     //vera main page
 		}
 
