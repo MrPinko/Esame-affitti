@@ -44,7 +44,7 @@
 				<yummy:Border Color="#ee3861" Thickness="5" />
 			</yummy:PancakeView.Border>
 			<StackLayout Margin="10">
-				<Image Source="userImage.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="EndAndExpand"></Image>
+				<Image Source="userImagePink.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="EndAndExpand"></Image>
 				<Grid Margin="0,30,0,0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />

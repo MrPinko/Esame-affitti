@@ -138,10 +138,13 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\userImagePink.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionRentHousecomAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionRentHousecomAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionRentHousecomAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionRentHousecomAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
