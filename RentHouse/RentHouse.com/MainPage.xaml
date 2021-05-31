@@ -317,7 +317,7 @@
 					</Picker>
 					<BoxView Color="#ee3861" Grid.ColumnSpan="2" Grid.Row="5"/>
 				</Grid>
-				<Button Text="submit" CornerRadius="10" Scale="0.9" Clicked="ReviewButton_Clicked"></Button>
+				<Button Text="INVIA" TextColor="#ee3861" BackgroundColor="#1b114a" BorderColor="#ee3861" BorderWidth="2" CornerRadius="10" Scale="0.9" Clicked="ReviewButton_Clicked"></Button>
 			</StackLayout>
 		</yummy:PancakeView>
 	</AbsoluteLayout>

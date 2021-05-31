@@ -6,7 +6,12 @@ using Plugin.CurrentActivity;
 
 [Application(Debuggable = true)]
 #else
-	[Application(Debuggable = false)]
+using System;
+using Android.App;
+using Android.Runtime;
+using Plugin.CurrentActivity;
+
+[Application(Debuggable = false)]
 #endif
 public class MainApplication : Application
 {

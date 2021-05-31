@@ -18,6 +18,8 @@ namespace RentHouse.com
 
 		private List<Pin> appartamentiList = new List<Pin>();
 		private List<string> appartamenti_ImmaginiList = new List<string>();
+		private List<Label> gridChildrenArrayLabel = new List<Label>();
+		private List<BoxView> gridChildrenArrayBoxView = new List<BoxView>();
 
 		ObservableCollection<AppartamentiPosizione> appartamentiJson;
 		ObservableCollection<Review> reviewJson;
@@ -142,11 +144,24 @@ namespace RentHouse.com
 		private void map_PinClicked(object sender, PinClickedEventArgs e)
 		{
 			int gridAutoInc = 6;
-			if (tempProvvider != null)
+			if (gridChildrenArrayLabel.Count > 0)         //buggato ci sono doppi dati
 			{
-				gridSocial.Children.Remove(tempProvvider);
-				gridSocial.Children.Remove(tempNome);
-				gridSocial.Children.Remove(boxView);
+				gridSocial.RowDefinitions.Clear();
+				gridSocial.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+				gridSocial.RowDefinitions.Add(new RowDefinition { Height = 1 });
+				gridSocial.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+				gridSocial.RowDefinitions.Add(new RowDefinition { Height = 1 });
+				gridSocial.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+				gridSocial.RowDefinitions.Add(new RowDefinition { Height = 1 });
+
+				foreach (Label label in gridChildrenArrayLabel)
+				{
+					gridSocial.Children.Remove(label);
+				}
+				foreach (BoxView boxview in gridChildrenArrayBoxView)
+				{
+					gridSocial.Children.Remove(boxview);
+				}
 			}
 			if (e.Pin.Type == PinType.Place)        //popup degli apartamenti
 			{
@@ -245,6 +260,10 @@ namespace RentHouse.com
 								Color = Color.FromHex("#ee3861"),
 							};
 
+							gridChildrenArrayLabel.Add(tempNome);
+							gridChildrenArrayLabel.Add(tempProvvider);
+							gridChildrenArrayBoxView.Add(boxView);
+
 							gridSocial.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
 							gridSocial.RowDefinitions.Add(new RowDefinition { Height = 1 });
 
@@ -273,7 +292,14 @@ namespace RentHouse.com
 				{
 					if (e.Pin.Label.ToLower().Equals(item.nome.ToLower()))
 					{        //trovo il posto selezionato
-						descrizioneposto.Text = item.descrizione.ToLower();
+						if (item.numero.Equals("0"))
+						{
+							descrizioneposto.Text = item.descrizione.ToLower() + "\n\n" + "in via " + item.via + ", " + item.provincia;
+						}
+						else
+						{
+							descrizioneposto.Text = item.descrizione.ToLower() + "\n\n" + item.via + " numero " + item.numero + ", " + item.provincia;
+						}
 						AttrazioniImmaginiFromUrl attrazioniImmagini = new AttrazioniImmaginiFromUrl(item.url);
 						carousel.BindingContext = attrazioniImmagini;
 						break;
@@ -460,7 +486,7 @@ namespace RentHouse.com
 				}
 				else
 				{
-					DisplayAlert("bonifico bancario", "si prega di fare un bonifico di almeno " + prezzoAppartamentoSelezionato * 0.6 + 
+					DisplayAlert("bonifico bancario", "si prega di fare un bonifico di almeno " + prezzoAppartamentoSelezionato * 0.6 +
 						" euro al conto IBAN " + iban.Text, "copia");
 					CrossClipboard.Current.SetText(iban.Text);
 					DependencyService.Get<IMessage>().ShortAlert("iban copiato correttamente");
@@ -921,10 +947,14 @@ public class AttrazioniCordEImmagini
 {
 	public string nome { get; set; }
 	public string descrizione { get; set; }
+	public string via { get; set; }
+	public string numero { get; set; }
+	public string provincia { get; set; }
 	public string lat { get; set; }
 	public string @long { get; set; }
 	public string url { get; set; }
 }
+
 
 public class AppartamentiImmagini
 {
